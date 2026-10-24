@@ -1,0 +1,37 @@
+{
+  "model_name": "microsoft/graphcodebert-base",
+  "epochs": 3,
+  "batch_size": 8,
+  "grad_accum_steps": 2,
+  "max_len": 512,
+  "lr": 2e-05,
+  "seed": 42,
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "train_rows": 12411,
+  "validation_rows": 940,
+  "smoke_test": false,
+  "gradient_checkpointing": true,
+  "status": "completed",
+  "processed_sha256": {
+    "cvefixes_functions.parquet": "682fbe7944963b46ba8416b0edfa1b8eafcf9b01816e5b407f0bcc0f71ff470a",
+    "reef_test.parquet": "85625ccee3a2bca71cc1d86c815bec38904e264857152523c086d349ada059b1",
+    "reef_train.parquet": "1153912df10ec46bbbaa7da986f0974c935b849335dfdf81dbb1ece5240504e8",
+    "reef_val.parquet": "c9fe9e9973a02ea671630ab6ccd9c0955fb796f13fd6cb24ee8ff679ca26df44"
+  },
+  "package_versions": {
+    "torch": "2.6.0+cu124",
+    "transformers": "5.20.2",
+    "pandas": "3.1.0",
+    "pyarrow": "26.0.0",
+    "scikit-learn": "1.9.1",
+    "tree-sitter": "0.21.3",
+    "tree-sitter-languages": "1.10.2"
+  },
+  "started_at": "2026-10-24T00:28:42+0530",
+  "duration_seconds": 1391.625,
+  "best_val_f1": 0.6685755189692196,
+  "best_epoch": 3,
+  "threshold": 0.4734289348125458,
+  "peak_vram_mb": 2425.71630859375
+}

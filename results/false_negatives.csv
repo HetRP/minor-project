@@ -1,0 +1,45 @@
+id,language,cwe,prob,code_snippet
+reef_ead5268c5aec11d8c73dc453,csharp,CWE-119,0.46332281827926636,"[Theory]
+        [InlineData(6, ""012345"", ""012345"", 6)]
+        [InlineData(11, ""01234567abc"", ""01234567abc"", 11)]
+
+        // Hit s1_limit in 64-bit loop, find a non-match in single-character loop.
+        [InlineData(9, ""01234567abc"", ""01234567axc"", 9)]
+
+        // Same, but edge cases.
+        [I"
+reef_ca0351c36019cbd7a4d8f510,csharp,CWE-119,0.4712080657482147,"internal void DecompressAllTags(ReadOnlySpan<byte> inputSpan)
+        {
+            // Put Constants.CharTable on the stack to simplify lookups within the loops below.
+            // Slicing with length 256 here allows the JIT compiler to recognize the size is greater than
+            // the size of"
+reef_6fe4230be63d20f8ed74730f,cpp,CWE-290,0.45786386728286743,"void CheckServiceControl(std::shared_ptr<context::RequestContext> context,
+                         std::function<void(Status status)> continuation) {
+  std::shared_ptr<cloud_trace::CloudTraceSpan> trace_span(
+      CreateSpan(context->cloud_trace(), ""CheckServiceControl""));
+  // If the method is no"
+reef_31015d8c142f6cdf5e5c39bb,c,CWE-190,0.4673621356487274,"StreamBufferHandle_t xStreamBufferGenericCreate( size_t xBufferSizeBytes,
+                                                     size_t xTriggerLevelBytes,
+                                                     BaseType_t xIsMessageBuffer )
+    {
+        uint8_t * pucAllocatedMemory;
+        uint8_t ucF"
+reef_a6cdff4da96db6d4e020b720,c,CWE-190,0.46821311116218567,"QueueHandle_t xQueueGenericCreate( const UBaseType_t uxQueueLength,
+                                       const UBaseType_t uxItemSize,
+                                       const uint8_t ucQueueType )
+    {
+        Queue_t * pxNewQueue;
+        size_t xQueueSizeInBytes;
+        uint8_t * pucQueue"
+reef_ccf44692623c223bb69f5833,java,CWE-89,0.47309422492980957,"private String getUserName(ISessionManager sessionManager,
+      String userLoginName, String userDomain)
+      throws RepositoryLoginException, RepositoryException {
+    Preconditions.checkArgument(!Strings.isNullOrEmpty(userLoginName),
+        ""Username must not be null or empty."");
+
+    // Constr"
+reef_9739b651ab14dbafd3186276,python,CWE-862,0.45048025250434875,"def publish_grade_on_score_update(sender, instance, **kwargs):  # pylint: disable=unused-argument
+    """"""
+    Publish grade to xblock whenever score saved/updated and its grading_progress is set to FullyGraded.
+
+    This method DOES NOT WORK on Studio, since it relies on APIs only available and conf"

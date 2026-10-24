@@ -1,0 +1,19 @@
+{
+  "reef_train": {
+    "rows": 12411,
+    "distinct_token_inputs": 11397,
+    "conflicting_input_groups": 987,
+    "rows_in_conflicting_input_groups": 1998,
+    "full_context_rows": 5533,
+    "unavoidable_training_errors_for_deterministic_classifier": 997
+  },
+  "reef_val": {
+    "rows": 940,
+    "distinct_token_inputs": 874,
+    "conflicting_input_groups": 63,
+    "rows_in_conflicting_input_groups": 129,
+    "full_context_rows": 424,
+    "unavoidable_training_errors_for_deterministic_classifier": 64
+  },
+  "scope": "Training and validation only; no test or CVEfixes performance used. Full code records remain unchanged."
+}

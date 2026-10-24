@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "home_submit_progress_dashboard": true,
+    "displayed_probabilities_cwes_and_counts_match_api": true,
+    "language_filter": true,
+    "source_summary_and_mermaid_svg": true,
+    "progressive_block_explanation": true,
+    "unavailable_llm_patch_shown_honestly": true,
+    "code_explorer": true,
+    "chat_intent_and_citation_display": true,
+    "all_six_real_function_flowcharts_render": true
+  },
+  "page_errors": [],
+  "console_errors": [],
+  "failed_requests": [],
+  "scan_id": "scan_6b93edc13a1e",
+  "browser": "156.0.8078.4",
+  "status": "passed"
+}

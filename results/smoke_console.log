@@ -1,0 +1,46 @@
+Using computing device: cuda
+CUDA Device: NVIDIA GeForce RTX 4050 Laptop GPU (6.00 GB VRAM)
+Detected NVIDIA RTX 4050: Applying Ada Lovelace FP16 Tensor Core acceleration.
+Running on sample subset: Train=64, Val=20
+Class distribution: Safe=38, Vuln=26 (pos_weight: 1.46)
+Loading tokenizer for: microsoft/graphcodebert-base...
+Initializing VulnGraphCodeBERT (21 CWE categories)...
+Loading pretrained backbone from: microsoft/graphcodebert-base
+
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 197/197 [00:00<00:00, 13283.36it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: microsoft/graphcodebert-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.decoder.weight    | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.decoder.bias      | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+pooler.dense.bias         | MISSING    | 
+pooler.dense.weight       | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+
+>>> Starting Training Loop:
+    Epochs: 1 | Batch Size: 8 (Grad Accum: 2 -> Effective: 16)
+    Encoder LR: 2.00e-05 | Heads LR: 5.00e-05 | Max Token Length: 512
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+Epoch 1/1 | Step 1/8 | Loss: 1.7275
+Epoch 1/1 | Step 2/8 | Loss: 1.7290
+Epoch 1/1 | Step 3/8 | Loss: 1.9159
+Epoch 1/1 | Step 4/8 | Loss: 1.7586
+Epoch 1/1 | Step 5/8 | Loss: 1.8389
+Epoch 1/1 | Step 6/8 | Loss: 1.6714
+Epoch 1/1 | Step 7/8 | Loss: 1.5532
+Epoch 1/1 | Step 8/8 | Loss: 1.7178
+
+[Validation Epoch 1] Loss: 1.7390 | F1: 0.7097 | Acc: 0.5500 | Prec: 0.5500 | Rec: 1.0000 | Opt Threshold: 0.4882223904132843
+*** New best checkpoint at Epoch 1 (F1: 0.7097). Saving to model\checkpoints\smoke...
+
+Training log saved to: model\checkpoints\smoke\run_results\training_log.csv
+Best Model preserved at: model\checkpoints\smoke with decision threshold: 0.4882223904132843

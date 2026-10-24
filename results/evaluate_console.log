@@ -1,0 +1,77 @@
+Loaded decision threshold: 0.4734289348125458
+Loading best checkpoint from C:\Users\Het Patel\Desktop\Minor_Project\minor-main\vulnexplain\model\checkpoints\best...
+Loading pretrained backbone from: microsoft/graphcodebert-base
+
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 197/197 [00:00<00:00, 15427.43it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: microsoft/graphcodebert-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.decoder.bias      | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.decoder.weight    | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+pooler.dense.bias         | MISSING    | 
+pooler.dense.weight       | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Evaluating on REEF Test Set...
+Evaluating on CVEfixes External Set...
+External evaluation: 1000 functions
+External evaluation: 2000 functions
+External evaluation: 3000 functions
+External evaluation: 4000 functions
+External evaluation: 5000 functions
+External evaluation: 6000 functions
+External evaluation: 7000 functions
+External evaluation: 8000 functions
+External evaluation: 9000 functions
+External evaluation: 10000 functions
+External evaluation: 11000 functions
+External evaluation: 12000 functions
+External evaluation: 13000 functions
+External evaluation: 14000 functions
+External evaluation: 15000 functions
+External evaluation: 16000 functions
+External evaluation: 17000 functions
+External evaluation: 18000 functions
+External evaluation: 19000 functions
+External evaluation: 20000 functions
+External evaluation: 21000 functions
+External evaluation: 22000 functions
+
+============================================================
+# VulnExplain Evaluation Summary
+
+## Overall Performance Table
+| Benchmark Dataset | Accuracy | Precision | Recall | F1-Score | MCC | ROC-AUC | PR-AUC |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **REEF Test (In-Dist)** | 0.5104 | 0.5053 | 0.9915 | **0.6694** | 0.0762 | 0.5241 | 0.5083 |
+| **CVEfixes (External)** | 0.3408 | 0.3336 | 0.9795 | **0.4978** | 0.0028 | 0.5018 | 0.3322 |
+
+*Tuned Decision Threshold:* `0.47`
+
+## Breakdown by Programming Language (REEF Test)
+| language   |   samples |   accuracy |   precision |   recall |     f1 |    mcc |
+|:-----------|----------:|-----------:|------------:|---------:|-------:|-------:|
+| c          |       244 |     0.5164 |      0.5085 |   0.9836 | 0.6704 | 0.0921 |
+| cpp        |        88 |     0.5    |      0.5    |   0.9773 | 0.6615 | 0      |
+| csharp     |        22 |     0.5    |      0.5    |   0.8182 | 0.6207 | 0      |
+| go         |       206 |     0.5049 |      0.5024 |   1      | 0.6688 | 0.0698 |
+| java       |       384 |     0.5052 |      0.5026 |   0.9948 | 0.6678 | 0.0513 |
+| javascript |        82 |     0.5    |      0.5    |   1      | 0.6667 | 0      |
+| python     |       612 |     0.5163 |      0.5083 |   0.9967 | 0.6733 | 0.1179 |
+
+## Analysis of Generalization Gap
+- REEF Test is project-disjoint (GroupShuffleSplit on projects), measuring generalization to unseen codebases within the same distribution.
+- CVEfixes evaluates cross-dataset generalization under distribution shift (differing vulnerability discovery mechanisms and commit practices).
+- MCC and PR-AUC serve as primary indicators under class imbalance.
+
+============================================================
+
+All evaluation artifacts successfully written to: C:\Users\Het Patel\Desktop\Minor_Project\minor-main\vulnexplain\results

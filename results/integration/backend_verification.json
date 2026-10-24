@@ -1,0 +1,769 @@
+{
+  "checkpoint_sha256_before": {
+    "config.json": "e123664fbfc5d850e4f1c899c944d0e03334191c18efb7791ca83d240cf529e8",
+    "cwe_map.json": "245b5443e5be6d62455e19c2cde8d9fe31a5b94a5255f16b666d89996e0b1c67",
+    "data_validation.json": "d2be7504f6dbdf1374868356a5ef1c0fa6761fea154c7e385428cc4126ed521a",
+    "pytorch_model.bin": "f095a3627e7c05619bdde57136271523062e390422bdee4436e7e99810c9f68d",
+    "threshold.json": "358ea81e4c06e434fd2432918f0616e04adaf849a880d3abad0369861f3628b6",
+    "tokenizer.json": "54525cdbad51719f3f4eb53bee96066c6e6de317183dc45a9ee63d12b999587b",
+    "tokenizer_config.json": "2f2141028bec1009d3cbce417eb92e8a9019a2e568e309db3991cae3d20a3d22",
+    "training_config.json": "766fba14d1d8e883e137aed7f45e40155f5836474588a3a8080d46b5c635bc77"
+  },
+  "health": {
+    "status": "healthy",
+    "detector_loaded": true,
+    "prediction_source": "graphcodebert",
+    "threshold": 0.4734289348125458,
+    "device": "cuda",
+    "groq_configured": false
+  },
+  "checks": {
+    "trained_model_loaded": true,
+    "probabilities_threshold_and_cwe_match_direct_forward": true,
+    "backend_matches_saved_held_out_predictions": true,
+    "real_patched_function_syntax_and_neural_rescoring": true,
+    "inference_errors_do_not_fall_back": true,
+    "unicode_source_extraction": true,
+    "ingest_parse_detect_localize_flow_explain_api": true,
+    "language_and_prediction_source_persisted": true,
+    "fix_endpoint_and_real_model_rescoring": true,
+    "chat_retrieval_and_citations": true,
+    "best_checkpoint_unchanged": true
+  },
+  "unseen_predictions": [
+    {
+      "file": "sample_0_vulnerable.py",
+      "id": "reef_678c78e7d5759da3dfdbb20b",
+      "project": "github.com/apache/airflow",
+      "label": 1,
+      "cwe": "CWE-20",
+      "prob": 0.512113094329834,
+      "is_vulnerable": true,
+      "predicted_cwe": "OTHER",
+      "cwe_confidence": 0.8204,
+      "prediction_source": "graphcodebert"
+    },
+    {
+      "file": "sample_1_patched.py",
+      "id": "reef_62dc715c1c11ba50dfb99ca2",
+      "project": "github.com/apache/airflow",
+      "label": 0,
+      "cwe": "CWE-20",
+      "prob": 0.5102219581604004,
+      "is_vulnerable": true,
+      "predicted_cwe": "OTHER",
+      "cwe_confidence": 0.7128,
+      "prediction_source": "graphcodebert"
+    },
+    {
+      "file": "sample_2_vulnerable.py",
+      "id": "reef_776873264c47356baca509a2",
+      "project": "github.com/bbengfort/confire",
+      "label": 1,
+      "cwe": "CWE-77",
+      "prob": 0.5527811646461487,
+      "is_vulnerable": true,
+      "predicted_cwe": "OTHER",
+      "cwe_confidence": 0.2283,
+      "prediction_source": "graphcodebert"
+    },
+    {
+      "file": "sample_3_patched.py",
+      "id": "reef_037c78a8a4094b89a11667c5",
+      "project": "github.com/bbengfort/confire",
+      "label": 0,
+      "cwe": "CWE-77",
+      "prob": 0.5506376028060913,
+      "is_vulnerable": true,
+      "predicted_cwe": "OTHER",
+      "cwe_confidence": 0.2145,
+      "prediction_source": "graphcodebert"
+    },
+    {
+      "file": "sample_4_vulnerable.py",
+      "id": "reef_72c1df734ec62556540cc451",
+      "project": "github.com/cloudfoundry/php-buildpack",
+      "label": 1,
+      "cwe": "CWE-254",
+      "prob": 0.5085669755935669,
+      "is_vulnerable": true,
+      "predicted_cwe": "OTHER",
+      "cwe_confidence": 0.4245,
+      "prediction_source": "graphcodebert"
+    },
+    {
+      "file": "sample_5_patched.py",
+      "id": "reef_8efb432eddaf350d11265dfe",
+      "project": "github.com/cloudfoundry/php-buildpack",
+      "label": 0,
+      "cwe": "CWE-254",
+      "prob": 0.5085669755935669,
+      "is_vulnerable": true,
+      "predicted_cwe": "OTHER",
+      "cwe_confidence": 0.4245,
+      "prediction_source": "graphcodebert"
+    }
+  ],
+  "max_probability_difference_from_saved_evaluation": 6.103515625e-05,
+  "real_patched_function_validation": [
+    {
+      "prob_before": 0.5121,
+      "prob_after": 0.5102,
+      "delta": -0.0019,
+      "syntax_ok": true,
+      "syntax_message": "AST syntax check passed cleanly",
+      "cwe_after": "OTHER",
+      "verdict": "unchanged",
+      "disclaimer": "Probabilistic AI validation based on GraphCodeBERT neural embeddings and AST syntax checks. This provides empirical risk reduction scoring rather than mathematical formal proof."
+    },
+    {
+      "prob_before": 0.5528,
+      "prob_after": 0.5506,
+      "delta": -0.0021,
+      "syntax_ok": true,
+      "syntax_message": "AST syntax check passed cleanly",
+      "cwe_after": "OTHER",
+      "verdict": "unchanged",
+      "disclaimer": "Probabilistic AI validation based on GraphCodeBERT neural embeddings and AST syntax checks. This provides empirical risk reduction scoring rather than mathematical formal proof."
+    },
+    {
+      "prob_before": 0.5086,
+      "prob_after": 0.5085,
+      "delta": -0.0001,
+      "syntax_ok": true,
+      "syntax_message": "AST syntax check passed cleanly",
+      "cwe_after": "OTHER",
+      "verdict": "unchanged",
+      "disclaimer": "Probabilistic AI validation based on GraphCodeBERT neural embeddings and AST syntax checks. This provides empirical risk reduction scoring rather than mathematical formal proof."
+    }
+  ],
+  "scan": {
+    "id": "scan_acbc08e48ad5",
+    "repo_url": "C:\\Users\\Het Patel\\Desktop\\Minor_Project\\minor-main\\vulnexplain\\results\\integration\\unseen_repository_samples",
+    "status": "done",
+    "progress": 100,
+    "summary_json": "{\"total_files\": 6, \"total_functions\": 6, \"flagged_functions\": 6, \"by_severity\": {\"Critical\": 0, \"High\": 0, \"Medium\": 6, \"Low\": 0}, \"by_language\": {\"python\": 6}, \"threshold\": 0.4734289348125458, \"prediction_source\": \"graphcodebert\"}",
+    "error_message": null,
+    "created_at": "2026-10-23 19:49:44",
+    "summary": {
+      "total_files": 6,
+      "total_functions": 6,
+      "flagged_functions": 6,
+      "by_severity": {
+        "Critical": 0,
+        "High": 0,
+        "Medium": 6,
+        "Low": 0
+      },
+      "by_language": {
+        "python": 6
+      },
+      "threshold": 0.4734289348125458,
+      "prediction_source": "graphcodebert"
+    }
+  },
+  "fix_response": {
+    "finding_id": "find_ed73bbea07",
+    "original_code": "def _download_sql_proxy_if_needed(self) -> None:\n        if os.path.isfile(self.sql_proxy_path):\n            self.log.info(\"cloud-sql-proxy is already present\")\n            return\n        system = platform.system().lower()\n        processor = os.uname().machine\n        if processor == \"x86_64\":\n            processor = \"amd64\"\n        if not self.sql_proxy_version:\n            download_url = CLOUD_SQL_PROXY_DOWNLOAD_URL.format(system, processor)\n        else:\n            download_url = CLOUD_SQL_PROXY_VERSION_DOWNLOAD_URL.format(\n                self.sql_proxy_version, system, processor\n            )\n        proxy_path_tmp = self.sql_proxy_path + \".tmp\"\n        self.log.info(\"Downloading cloud_sql_proxy from %s to %s\", download_url, proxy_path_tmp)\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\n        # and this should work with both versions (cf. issue #20088)\n        if \"follow_redirects\" in signature(httpx.get).parameters.keys():\n            response = httpx.get(download_url, follow_redirects=True)\n        else:\n            response = httpx.get(download_url, allow_redirects=True)  # type: ignore[call-arg]\n        # Downloading to .tmp file first to avoid case where partially downloaded\n        # binary is used by parallel operator which uses the same fixed binary path\n        with open(proxy_path_tmp, \"wb\") as file:\n            file.write(response.content)\n        if response.status_code != 200:\n            raise AirflowException(\n                \"The cloud-sql-proxy could not be downloaded. \"\n                f\"Status code = {response.status_code}. Reason = {response.reason_phrase}\"\n            )\n\n        self.log.info(\"Moving sql_proxy binary from %s to %s\", proxy_path_tmp, self.sql_proxy_path)\n        shutil.move(proxy_path_tmp, self.sql_proxy_path)\n        os.chmod(self.sql_proxy_path, 0o744)  # Set executable bit\n        self.sql_proxy_was_downloaded = True",
+    "patched_code": "def _download_sql_proxy_if_needed(self) -> None:\n        if os.path.isfile(self.sql_proxy_path):\n            self.log.info(\"cloud-sql-proxy is already present\")\n            return\n        system = platform.system().lower()\n        processor = os.uname().machine\n        if processor == \"x86_64\":\n            processor = \"amd64\"\n        if not self.sql_proxy_version:\n            download_url = CLOUD_SQL_PROXY_DOWNLOAD_URL.format(system, processor)\n        else:\n            download_url = CLOUD_SQL_PROXY_VERSION_DOWNLOAD_URL.format(\n                self.sql_proxy_version, system, processor\n            )\n        proxy_path_tmp = self.sql_proxy_path + \".tmp\"\n        self.log.info(\"Downloading cloud_sql_proxy from %s to %s\", download_url, proxy_path_tmp)\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\n        # and this should work with both versions (cf. issue #20088)\n        if \"follow_redirects\" in signature(httpx.get).parameters.keys():\n            response = httpx.get(download_url, follow_redirects=True)\n        else:\n            response = httpx.get(download_url, allow_redirects=True)  # type: ignore[call-arg]\n        # Downloading to .tmp file first to avoid case where partially downloaded\n        # binary is used by parallel operator which uses the same fixed binary path\n        with open(proxy_path_tmp, \"wb\") as file:\n            file.write(response.content)\n        if response.status_code != 200:\n            raise AirflowException(\n                \"The cloud-sql-proxy could not be downloaded. \"\n                f\"Status code = {response.status_code}. Reason = {response.reason_phrase}\"\n            )\n\n        self.log.info(\"Moving sql_proxy binary from %s to %s\", proxy_path_tmp, self.sql_proxy_path)\n        shutil.move(proxy_path_tmp, self.sql_proxy_path)\n        os.chmod(self.sql_proxy_path, 0o744)  # Set executable bit\n        self.sql_proxy_was_downloaded = True",
+    "diff": "",
+    "validation": {
+      "prob_before": 0.5121,
+      "prob_after": 0.5121,
+      "delta": -0.0,
+      "syntax_ok": true,
+      "syntax_message": "AST syntax check passed cleanly",
+      "cwe_after": "OTHER",
+      "verdict": "unchanged",
+      "disclaimer": "Probabilistic AI validation based on GraphCodeBERT neural embeddings and AST syntax checks. This provides empirical risk reduction scoring rather than mathematical formal proof.",
+      "fix_available": false,
+      "fix_message": "No executable patch was generated. Configure a working LLM provider and review changes manually."
+    },
+    "available": false,
+    "message": "No executable patch was generated. Configure a working LLM provider and review changes manually."
+  },
+  "chat": {
+    "answer": "Summary: Vulnerability detected based on GraphCodeBERT embeddings and AST sink analysis.\nMechanism: Unsanitized data flows from external callers into an unconstrained execution boundary.\nRemediation Recommendation: Employ parameterized APIs, input bounds checking, and safe context wrappers.",
+    "intent": "vulnerability_query",
+    "sources": [
+      "sample_0_vulnerable.py:1-36",
+      "sample_2_vulnerable.py:1-12",
+      "sample_3_patched.py:1-12",
+      "sample_4_vulnerable.py:1-20"
+    ]
+  },
+  "rag_dense_faiss_available": true,
+  "llm_calls": [
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_groq",
+      "returned_text": false
+    },
+    {
+      "provider": "_call_hf_inference",
+      "returned_text": false
+    },
+    {
+      "provider": "_deterministic_template_fallback",
+      "returned_text": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "find_ed73bbea07",
+      "scan_id": "scan_acbc08e48ad5",
+      "file": "sample_0_vulnerable.py",
+      "func_name": "_download_sql_proxy_if_needed",
+      "start_line": 1,
+      "end_line": 36,
+      "prob": 0.512113094329834,
+      "cwe": "OTHER",
+      "severity": "Medium",
+      "code": "def _download_sql_proxy_if_needed(self) -> None:\n        if os.path.isfile(self.sql_proxy_path):\n            self.log.info(\"cloud-sql-proxy is already present\")\n            return\n        system = platform.system().lower()\n        processor = os.uname().machine\n        if processor == \"x86_64\":\n            processor = \"amd64\"\n        if not self.sql_proxy_version:\n            download_url = CLOUD_SQL_PROXY_DOWNLOAD_URL.format(system, processor)\n        else:\n            download_url = CLOUD_SQL_PROXY_VERSION_DOWNLOAD_URL.format(\n                self.sql_proxy_version, system, processor\n            )\n        proxy_path_tmp = self.sql_proxy_path + \".tmp\"\n        self.log.info(\"Downloading cloud_sql_proxy from %s to %s\", download_url, proxy_path_tmp)\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\n        # and this should work with both versions (cf. issue #20088)\n        if \"follow_redirects\" in signature(httpx.get).parameters.keys():\n            response = httpx.get(download_url, follow_redirects=True)\n        else:\n            response = httpx.get(download_url, allow_redirects=True)  # type: ignore[call-arg]\n        # Downloading to .tmp file first to avoid case where partially downloaded\n        # binary is used by parallel operator which uses the same fixed binary path\n        with open(proxy_path_tmp, \"wb\") as file:\n            file.write(response.content)\n        if response.status_code != 200:\n            raise AirflowException(\n                \"The cloud-sql-proxy could not be downloaded. \"\n                f\"Status code = {response.status_code}. Reason = {response.reason_phrase}\"\n            )\n\n        self.log.info(\"Moving sql_proxy binary from %s to %s\", proxy_path_tmp, self.sql_proxy_path)\n        shutil.move(proxy_path_tmp, self.sql_proxy_path)\n        os.chmod(self.sql_proxy_path, 0o744)  # Set executable bit\n        self.sql_proxy_was_downloaded = True",
+      "suspicious_lines_json": "[]",
+      "flow_mermaid": "flowchart TD\n    N1[\"Function: _download_sql_proxy_if_needed (sample_0_vulnerable.py:1\"]\n    N2[\"No callers resolved - entry point unknown\"] --> N1\n    N3[\"Def: 'system' (line 5)\"]\n    N1 --> N3\n    N4[\"Use: 'system' referenced (line 10)\"]\n    N3 --> N4\n    N5[\"Def: 'processor' (line 6)\"]\n    N4 --> N5\n    N6[\"Use: 'processor' referenced (line 7)\"]\n    N5 --> N6\n    N7[\"Def: 'processor' (line 8)\"]\n    N6 --> N7\n    N8[\"Use: 'processor' referenced (line 10)\"]\n    N7 --> N8\n    N9[\"No matching dangerous sink localized\"]\n    N8 --> N9\n    classDef sinkStyle fill:#ffe6e6,stroke:#cc0000,stroke-width:2px,color:#990000;\n    classDef entryStyle fill:#e6f3ff,stroke:#0066cc,stroke-width:2px,color:#003366;\n    class N1 entryStyle;",
+      "explanation_json": "{\"summary\": {\"what_it_does\": \"Source-specific explanation unavailable for '_download_sql_proxy_if_needed'; review the displayed code and static flow.\", \"why_vulnerable\": \"The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.\", \"impact\": \"Assigned severity: Medium. Actual security impact has not been verified.\"}, \"blocks\": [{\"index\": 0, \"start_line\": 1, \"end_line\": 3, \"code\": \"def _download_sql_proxy_if_needed(self) -> None:\\n        if os.path.isfile(self.sql_proxy_path):\\n            self.log.info(\\\"cloud-sql-proxy is already present\\\")\", \"explanation\": \"Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations.\"}, {\"index\": 1, \"start_line\": 4, \"end_line\": 6, \"code\": \"            return\\n        system = platform.system().lower()\\n        processor = os.uname().machine\", \"explanation\": null}, {\"index\": 2, \"start_line\": 7, \"end_line\": 18, \"code\": \"        if processor == \\\"x86_64\\\":\\n            processor = \\\"amd64\\\"\\n        if not self.sql_proxy_version:\\n            download_url = CLOUD_SQL_PROXY_DOWNLOAD_URL.format(system, processor)\\n        else:\\n            download_url = CLOUD_SQL_PROXY_VERSION_DOWNLOAD_URL.format(\\n                self.sql_proxy_version, system, processor\\n            )\\n        proxy_path_tmp = self.sql_proxy_path + \\\".tmp\\\"\\n        self.log.info(\\\"Downloading cloud_sql_proxy from %s to %s\\\", download_url, proxy_path_tmp)\\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\\n        # and this should work with both versions (cf. issue #20088)\", \"explanation\": null}, {\"index\": 3, \"start_line\": 19, \"end_line\": 26, \"code\": \"        if \\\"follow_redirects\\\" in signature(httpx.get).parameters.keys():\\n            response = httpx.get(download_url, follow_redirects=True)\\n        else:\\n            response = httpx.get(download_url, allow_redirects=True)  # type: ignore[call-arg]\\n        # Downloading to .tmp file first to avoid case where partially downloaded\\n        # binary is used by parallel operator which uses the same fixed binary path\\n        with open(proxy_path_tmp, \\\"wb\\\") as file:\\n            file.write(response.content)\", \"explanation\": null}, {\"index\": 4, \"start_line\": 27, \"end_line\": 31, \"code\": \"        if response.status_code != 200:\\n            raise AirflowException(\\n                \\\"The cloud-sql-proxy could not be downloaded. \\\"\\n                f\\\"Status code = {response.status_code}. Reason = {response.reason_phrase}\\\"\\n            )\", \"explanation\": null}, {\"index\": 5, \"start_line\": 32, \"end_line\": 36, \"code\": \"\\n        self.log.info(\\\"Moving sql_proxy binary from %s to %s\\\", proxy_path_tmp, self.sql_proxy_path)\\n        shutil.move(proxy_path_tmp, self.sql_proxy_path)\\n        os.chmod(self.sql_proxy_path, 0o744)  # Set executable bit\\n        self.sql_proxy_was_downloaded = True\", \"explanation\": null}], \"total_blocks\": 6}",
+      "fix_diff": "",
+      "validation_json": "{}",
+      "language": "python",
+      "prediction_source": "graphcodebert",
+      "suspicious_lines": [],
+      "explanation": {
+        "summary": {
+          "what_it_does": "Source-specific explanation unavailable for '_download_sql_proxy_if_needed'; review the displayed code and static flow.",
+          "why_vulnerable": "The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.",
+          "impact": "Assigned severity: Medium. Actual security impact has not been verified."
+        },
+        "blocks": [
+          {
+            "index": 0,
+            "start_line": 1,
+            "end_line": 3,
+            "code": "def _download_sql_proxy_if_needed(self) -> None:\n        if os.path.isfile(self.sql_proxy_path):\n            self.log.info(\"cloud-sql-proxy is already present\")",
+            "explanation": "Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations."
+          },
+          {
+            "index": 1,
+            "start_line": 4,
+            "end_line": 6,
+            "code": "            return\n        system = platform.system().lower()\n        processor = os.uname().machine",
+            "explanation": null
+          },
+          {
+            "index": 2,
+            "start_line": 7,
+            "end_line": 18,
+            "code": "        if processor == \"x86_64\":\n            processor = \"amd64\"\n        if not self.sql_proxy_version:\n            download_url = CLOUD_SQL_PROXY_DOWNLOAD_URL.format(system, processor)\n        else:\n            download_url = CLOUD_SQL_PROXY_VERSION_DOWNLOAD_URL.format(\n                self.sql_proxy_version, system, processor\n            )\n        proxy_path_tmp = self.sql_proxy_path + \".tmp\"\n        self.log.info(\"Downloading cloud_sql_proxy from %s to %s\", download_url, proxy_path_tmp)\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\n        # and this should work with both versions (cf. issue #20088)",
+            "explanation": null
+          },
+          {
+            "index": 3,
+            "start_line": 19,
+            "end_line": 26,
+            "code": "        if \"follow_redirects\" in signature(httpx.get).parameters.keys():\n            response = httpx.get(download_url, follow_redirects=True)\n        else:\n            response = httpx.get(download_url, allow_redirects=True)  # type: ignore[call-arg]\n        # Downloading to .tmp file first to avoid case where partially downloaded\n        # binary is used by parallel operator which uses the same fixed binary path\n        with open(proxy_path_tmp, \"wb\") as file:\n            file.write(response.content)",
+            "explanation": null
+          },
+          {
+            "index": 4,
+            "start_line": 27,
+            "end_line": 31,
+            "code": "        if response.status_code != 200:\n            raise AirflowException(\n                \"The cloud-sql-proxy could not be downloaded. \"\n                f\"Status code = {response.status_code}. Reason = {response.reason_phrase}\"\n            )",
+            "explanation": null
+          },
+          {
+            "index": 5,
+            "start_line": 32,
+            "end_line": 36,
+            "code": "\n        self.log.info(\"Moving sql_proxy binary from %s to %s\", proxy_path_tmp, self.sql_proxy_path)\n        shutil.move(proxy_path_tmp, self.sql_proxy_path)\n        os.chmod(self.sql_proxy_path, 0o744)  # Set executable bit\n        self.sql_proxy_was_downloaded = True",
+            "explanation": null
+          }
+        ],
+        "total_blocks": 6
+      },
+      "validation": {}
+    },
+    {
+      "id": "find_85b65085fe",
+      "scan_id": "scan_acbc08e48ad5",
+      "file": "sample_1_patched.py",
+      "func_name": "_download_sql_proxy_if_needed",
+      "start_line": 1,
+      "end_line": 27,
+      "prob": 0.5102219581604004,
+      "cwe": "OTHER",
+      "severity": "Medium",
+      "code": "def _download_sql_proxy_if_needed(self) -> None:\n        if os.path.isfile(self.sql_proxy_path):\n            self.log.info(\"cloud-sql-proxy is already present\")\n            return\n        download_url = self._get_sql_proxy_download_url()\n        proxy_path_tmp = self.sql_proxy_path + \".tmp\"\n        self.log.info(\"Downloading cloud_sql_proxy from %s to %s\", download_url, proxy_path_tmp)\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\n        # and this should work with both versions (cf. issue #20088)\n        if \"follow_redirects\" in signature(httpx.get).parameters.keys():\n            response = httpx.get(download_url, follow_redirects=True)\n        else:\n            response = httpx.get(download_url, allow_redirects=True)  # type: ignore[call-arg]\n        # Downloading to .tmp file first to avoid case where partially downloaded\n        # binary is used by parallel operator which uses the same fixed binary path\n        with open(proxy_path_tmp, \"wb\") as file:\n            file.write(response.content)\n        if response.status_code != 200:\n            raise AirflowException(\n                \"The cloud-sql-proxy could not be downloaded. \"\n                f\"Status code = {response.status_code}. Reason = {response.reason_phrase}\"\n            )\n\n        self.log.info(\"Moving sql_proxy binary from %s to %s\", proxy_path_tmp, self.sql_proxy_path)\n        shutil.move(proxy_path_tmp, self.sql_proxy_path)\n        os.chmod(self.sql_proxy_path, 0o744)  # Set executable bit\n        self.sql_proxy_was_downloaded = True",
+      "suspicious_lines_json": "[]",
+      "flow_mermaid": "flowchart TD\n    N1[\"Function: _download_sql_proxy_if_needed (sample_1_patched.py:1)\"]\n    N2[\"No callers resolved - entry point unknown\"] --> N1\n    N3[\"Def: 'download_url' (line 5)\"]\n    N1 --> N3\n    N4[\"Use: 'download_url' referenced (line 7)\"]\n    N3 --> N4\n    N5[\"Def: 'proxy_path_tmp' (line 6)\"]\n    N4 --> N5\n    N6[\"Use: 'proxy_path_tmp' referenced (line 7)\"]\n    N5 --> N6\n    N7[\"Def: 'response' (line 11)\"]\n    N6 --> N7\n    N8[\"Use: 'response' referenced (line 13)\"]\n    N7 --> N8\n    N9[\"No matching dangerous sink localized\"]\n    N8 --> N9\n    classDef sinkStyle fill:#ffe6e6,stroke:#cc0000,stroke-width:2px,color:#990000;\n    classDef entryStyle fill:#e6f3ff,stroke:#0066cc,stroke-width:2px,color:#003366;\n    class N1 entryStyle;",
+      "explanation_json": "{\"summary\": {\"what_it_does\": \"Source-specific explanation unavailable for '_download_sql_proxy_if_needed'; review the displayed code and static flow.\", \"why_vulnerable\": \"The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.\", \"impact\": \"Assigned severity: Medium. Actual security impact has not been verified.\"}, \"blocks\": [{\"index\": 0, \"start_line\": 1, \"end_line\": 3, \"code\": \"def _download_sql_proxy_if_needed(self) -> None:\\n        if os.path.isfile(self.sql_proxy_path):\\n            self.log.info(\\\"cloud-sql-proxy is already present\\\")\", \"explanation\": \"Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations.\"}, {\"index\": 1, \"start_line\": 4, \"end_line\": 9, \"code\": \"            return\\n        download_url = self._get_sql_proxy_download_url()\\n        proxy_path_tmp = self.sql_proxy_path + \\\".tmp\\\"\\n        self.log.info(\\\"Downloading cloud_sql_proxy from %s to %s\\\", download_url, proxy_path_tmp)\\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\\n        # and this should work with both versions (cf. issue #20088)\", \"explanation\": null}, {\"index\": 2, \"start_line\": 10, \"end_line\": 17, \"code\": \"        if \\\"follow_redirects\\\" in signature(httpx.get).parameters.keys():\\n            response = httpx.get(download_url, follow_redirects=True)\\n        else:\\n            response = httpx.get(download_url, allow_redirects=True)  # type: ignore[call-arg]\\n        # Downloading to .tmp file first to avoid case where partially downloaded\\n        # binary is used by parallel operator which uses the same fixed binary path\\n        with open(proxy_path_tmp, \\\"wb\\\") as file:\\n            file.write(response.content)\", \"explanation\": null}, {\"index\": 3, \"start_line\": 18, \"end_line\": 22, \"code\": \"        if response.status_code != 200:\\n            raise AirflowException(\\n                \\\"The cloud-sql-proxy could not be downloaded. \\\"\\n                f\\\"Status code = {response.status_code}. Reason = {response.reason_phrase}\\\"\\n            )\", \"explanation\": null}, {\"index\": 4, \"start_line\": 23, \"end_line\": 27, \"code\": \"\\n        self.log.info(\\\"Moving sql_proxy binary from %s to %s\\\", proxy_path_tmp, self.sql_proxy_path)\\n        shutil.move(proxy_path_tmp, self.sql_proxy_path)\\n        os.chmod(self.sql_proxy_path, 0o744)  # Set executable bit\\n        self.sql_proxy_was_downloaded = True\", \"explanation\": null}], \"total_blocks\": 5}",
+      "fix_diff": "",
+      "validation_json": "{}",
+      "language": "python",
+      "prediction_source": "graphcodebert",
+      "suspicious_lines": [],
+      "explanation": {
+        "summary": {
+          "what_it_does": "Source-specific explanation unavailable for '_download_sql_proxy_if_needed'; review the displayed code and static flow.",
+          "why_vulnerable": "The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.",
+          "impact": "Assigned severity: Medium. Actual security impact has not been verified."
+        },
+        "blocks": [
+          {
+            "index": 0,
+            "start_line": 1,
+            "end_line": 3,
+            "code": "def _download_sql_proxy_if_needed(self) -> None:\n        if os.path.isfile(self.sql_proxy_path):\n            self.log.info(\"cloud-sql-proxy is already present\")",
+            "explanation": "Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations."
+          },
+          {
+            "index": 1,
+            "start_line": 4,
+            "end_line": 9,
+            "code": "            return\n        download_url = self._get_sql_proxy_download_url()\n        proxy_path_tmp = self.sql_proxy_path + \".tmp\"\n        self.log.info(\"Downloading cloud_sql_proxy from %s to %s\", download_url, proxy_path_tmp)\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\n        # and this should work with both versions (cf. issue #20088)",
+            "explanation": null
+          },
+          {
+            "index": 2,
+            "start_line": 10,
+            "end_line": 17,
+            "code": "        if \"follow_redirects\" in signature(httpx.get).parameters.keys():\n            response = httpx.get(download_url, follow_redirects=True)\n        else:\n            response = httpx.get(download_url, allow_redirects=True)  # type: ignore[call-arg]\n        # Downloading to .tmp file first to avoid case where partially downloaded\n        # binary is used by parallel operator which uses the same fixed binary path\n        with open(proxy_path_tmp, \"wb\") as file:\n            file.write(response.content)",
+            "explanation": null
+          },
+          {
+            "index": 3,
+            "start_line": 18,
+            "end_line": 22,
+            "code": "        if response.status_code != 200:\n            raise AirflowException(\n                \"The cloud-sql-proxy could not be downloaded. \"\n                f\"Status code = {response.status_code}. Reason = {response.reason_phrase}\"\n            )",
+            "explanation": null
+          },
+          {
+            "index": 4,
+            "start_line": 23,
+            "end_line": 27,
+            "code": "\n        self.log.info(\"Moving sql_proxy binary from %s to %s\", proxy_path_tmp, self.sql_proxy_path)\n        shutil.move(proxy_path_tmp, self.sql_proxy_path)\n        os.chmod(self.sql_proxy_path, 0o744)  # Set executable bit\n        self.sql_proxy_was_downloaded = True",
+            "explanation": null
+          }
+        ],
+        "total_blocks": 5
+      },
+      "validation": {}
+    },
+    {
+      "id": "find_d7a9cee11c",
+      "scan_id": "scan_acbc08e48ad5",
+      "file": "sample_2_vulnerable.py",
+      "func_name": "load",
+      "start_line": 1,
+      "end_line": 12,
+      "prob": 0.5527811646461487,
+      "cwe": "OTHER",
+      "severity": "Medium",
+      "code": "def load(klass):\n        \"\"\"\n        Insantiates the configuration by attempting to load the\n        configuration from YAML files specified by the CONF_PATH module\n        variable. This should be the main entry point for configuration.\n        \"\"\"\n        config = klass()\n        for path in klass.CONF_PATHS:\n            if os.path.exists(path):\n                with open(path, 'r') as conf:\n                    config.configure(yaml.load(conf))\n        return config",
+      "suspicious_lines_json": "[]",
+      "flow_mermaid": "flowchart TD\n    N1[\"Function: load (sample_2_vulnerable.py:1)\"]\n    N2[\"No callers resolved - entry point unknown\"] --> N1\n    N3[\"Def: 'config' (line 7)\"]\n    N1 --> N3\n    N4[\"Use: 'config' referenced (line 11)\"]\n    N3 --> N4\n    N5[\"No matching dangerous sink localized\"]\n    N4 --> N5\n    classDef sinkStyle fill:#ffe6e6,stroke:#cc0000,stroke-width:2px,color:#990000;\n    classDef entryStyle fill:#e6f3ff,stroke:#0066cc,stroke-width:2px,color:#003366;\n    class N1 entryStyle;",
+      "explanation_json": "{\"summary\": {\"what_it_does\": \"Source-specific explanation unavailable for 'load'; review the displayed code and static flow.\", \"why_vulnerable\": \"The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.\", \"impact\": \"Assigned severity: Medium. Actual security impact has not been verified.\"}, \"blocks\": [{\"index\": 0, \"start_line\": 1, \"end_line\": 7, \"code\": \"def load(klass):\\n        \\\"\\\"\\\"\\n        Insantiates the configuration by attempting to load the\\n        configuration from YAML files specified by the CONF_PATH module\\n        variable. This should be the main entry point for configuration.\\n        \\\"\\\"\\\"\\n        config = klass()\", \"explanation\": \"Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations.\"}, {\"index\": 1, \"start_line\": 8, \"end_line\": 11, \"code\": \"        for path in klass.CONF_PATHS:\\n            if os.path.exists(path):\\n                with open(path, 'r') as conf:\\n                    config.configure(yaml.load(conf))\", \"explanation\": null}, {\"index\": 2, \"start_line\": 12, \"end_line\": 12, \"code\": \"        return config\", \"explanation\": null}], \"total_blocks\": 3}",
+      "fix_diff": "",
+      "validation_json": "{}",
+      "language": "python",
+      "prediction_source": "graphcodebert",
+      "suspicious_lines": [],
+      "explanation": {
+        "summary": {
+          "what_it_does": "Source-specific explanation unavailable for 'load'; review the displayed code and static flow.",
+          "why_vulnerable": "The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.",
+          "impact": "Assigned severity: Medium. Actual security impact has not been verified."
+        },
+        "blocks": [
+          {
+            "index": 0,
+            "start_line": 1,
+            "end_line": 7,
+            "code": "def load(klass):\n        \"\"\"\n        Insantiates the configuration by attempting to load the\n        configuration from YAML files specified by the CONF_PATH module\n        variable. This should be the main entry point for configuration.\n        \"\"\"\n        config = klass()",
+            "explanation": "Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations."
+          },
+          {
+            "index": 1,
+            "start_line": 8,
+            "end_line": 11,
+            "code": "        for path in klass.CONF_PATHS:\n            if os.path.exists(path):\n                with open(path, 'r') as conf:\n                    config.configure(yaml.load(conf))",
+            "explanation": null
+          },
+          {
+            "index": 2,
+            "start_line": 12,
+            "end_line": 12,
+            "code": "        return config",
+            "explanation": null
+          }
+        ],
+        "total_blocks": 3
+      },
+      "validation": {}
+    },
+    {
+      "id": "find_31f2e267b5",
+      "scan_id": "scan_acbc08e48ad5",
+      "file": "sample_3_patched.py",
+      "func_name": "load",
+      "start_line": 1,
+      "end_line": 12,
+      "prob": 0.5506376028060913,
+      "cwe": "OTHER",
+      "severity": "Medium",
+      "code": "def load(klass):\n        \"\"\"\n        Insantiates the configuration by attempting to load the\n        configuration from YAML files specified by the CONF_PATH module\n        variable. This should be the main entry point for configuration.\n        \"\"\"\n        config = klass()\n        for path in klass.CONF_PATHS:\n            if os.path.exists(path):\n                with open(path, 'r') as conf:\n                    config.configure(yaml.safe_load(conf))\n        return config",
+      "suspicious_lines_json": "[]",
+      "flow_mermaid": "flowchart TD\n    N1[\"Function: load (sample_3_patched.py:1)\"]\n    N2[\"No callers resolved - entry point unknown\"] --> N1\n    N3[\"Def: 'config' (line 7)\"]\n    N1 --> N3\n    N4[\"Use: 'config' referenced (line 11)\"]\n    N3 --> N4\n    N5[\"No matching dangerous sink localized\"]\n    N4 --> N5\n    classDef sinkStyle fill:#ffe6e6,stroke:#cc0000,stroke-width:2px,color:#990000;\n    classDef entryStyle fill:#e6f3ff,stroke:#0066cc,stroke-width:2px,color:#003366;\n    class N1 entryStyle;",
+      "explanation_json": "{\"summary\": {\"what_it_does\": \"Source-specific explanation unavailable for 'load'; review the displayed code and static flow.\", \"why_vulnerable\": \"The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.\", \"impact\": \"Assigned severity: Medium. Actual security impact has not been verified.\"}, \"blocks\": [{\"index\": 0, \"start_line\": 1, \"end_line\": 7, \"code\": \"def load(klass):\\n        \\\"\\\"\\\"\\n        Insantiates the configuration by attempting to load the\\n        configuration from YAML files specified by the CONF_PATH module\\n        variable. This should be the main entry point for configuration.\\n        \\\"\\\"\\\"\\n        config = klass()\", \"explanation\": \"Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations.\"}, {\"index\": 1, \"start_line\": 8, \"end_line\": 11, \"code\": \"        for path in klass.CONF_PATHS:\\n            if os.path.exists(path):\\n                with open(path, 'r') as conf:\\n                    config.configure(yaml.safe_load(conf))\", \"explanation\": null}, {\"index\": 2, \"start_line\": 12, \"end_line\": 12, \"code\": \"        return config\", \"explanation\": null}], \"total_blocks\": 3}",
+      "fix_diff": "",
+      "validation_json": "{}",
+      "language": "python",
+      "prediction_source": "graphcodebert",
+      "suspicious_lines": [],
+      "explanation": {
+        "summary": {
+          "what_it_does": "Source-specific explanation unavailable for 'load'; review the displayed code and static flow.",
+          "why_vulnerable": "The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.",
+          "impact": "Assigned severity: Medium. Actual security impact has not been verified."
+        },
+        "blocks": [
+          {
+            "index": 0,
+            "start_line": 1,
+            "end_line": 7,
+            "code": "def load(klass):\n        \"\"\"\n        Insantiates the configuration by attempting to load the\n        configuration from YAML files specified by the CONF_PATH module\n        variable. This should be the main entry point for configuration.\n        \"\"\"\n        config = klass()",
+            "explanation": "Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations."
+          },
+          {
+            "index": 1,
+            "start_line": 8,
+            "end_line": 11,
+            "code": "        for path in klass.CONF_PATHS:\n            if os.path.exists(path):\n                with open(path, 'r') as conf:\n                    config.configure(yaml.safe_load(conf))",
+            "explanation": null
+          },
+          {
+            "index": 2,
+            "start_line": 12,
+            "end_line": 12,
+            "code": "        return config",
+            "explanation": null
+          }
+        ],
+        "total_blocks": 3
+      },
+      "validation": {}
+    },
+    {
+      "id": "find_868ed5e82e",
+      "scan_id": "scan_acbc08e48ad5",
+      "file": "sample_4_vulnerable.py",
+      "func_name": "setup_webdir_if_it_doesnt_exist",
+      "start_line": 1,
+      "end_line": 20,
+      "prob": 0.5085669755935669,
+      "cwe": "OTHER",
+      "severity": "Medium",
+      "code": "def setup_webdir_if_it_doesnt_exist(ctx):\n    if is_web_app(ctx):\n        webdirPath = os.path.join(ctx['BUILD_DIR'], ctx['WEBDIR'])\n        if not os.path.exists(webdirPath):\n            fu = FileUtil(FakeBuilder(ctx), move=True)\n            fu.under('BUILD_DIR')\n            fu.into('WEBDIR')\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.extensions'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp-config'))\n            fu.where_name_does_not_match(\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], 'manifest.yml'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], ctx['LIBDIR']))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.profile.d'))\n            fu.done()",
+      "suspicious_lines_json": "[]",
+      "flow_mermaid": "flowchart TD\n    N1[\"Function: setup_webdir_if_it_doesnt_exist (sample_4_vulnerable.py\"]\n    N2[\"No callers resolved - entry point unknown\"] --> N1\n    N3[\"Def: 'webdirPath' (line 3)\"]\n    N1 --> N3\n    N4[\"Use: 'webdirPath' referenced (line 4)\"]\n    N3 --> N4\n    N5[\"Def: 'fu' (line 5)\"]\n    N4 --> N5\n    N6[\"Use: 'fu' referenced (line 6)\"]\n    N5 --> N6\n    N7[\"No matching dangerous sink localized\"]\n    N6 --> N7\n    classDef sinkStyle fill:#ffe6e6,stroke:#cc0000,stroke-width:2px,color:#990000;\n    classDef entryStyle fill:#e6f3ff,stroke:#0066cc,stroke-width:2px,color:#003366;\n    class N1 entryStyle;",
+      "explanation_json": "{\"summary\": {\"what_it_does\": \"Source-specific explanation unavailable for 'setup_webdir_if_it_doesnt_exist'; review the displayed code and static flow.\", \"why_vulnerable\": \"The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.\", \"impact\": \"Assigned severity: Medium. Actual security impact has not been verified.\"}, \"blocks\": [{\"index\": 0, \"start_line\": 1, \"end_line\": 3, \"code\": \"def setup_webdir_if_it_doesnt_exist(ctx):\\n    if is_web_app(ctx):\\n        webdirPath = os.path.join(ctx['BUILD_DIR'], ctx['WEBDIR'])\", \"explanation\": \"Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations.\"}, {\"index\": 1, \"start_line\": 4, \"end_line\": 20, \"code\": \"        if not os.path.exists(webdirPath):\\n            fu = FileUtil(FakeBuilder(ctx), move=True)\\n            fu.under('BUILD_DIR')\\n            fu.into('WEBDIR')\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp'))\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.extensions'))\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp-config'))\\n            fu.where_name_does_not_match(\\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], 'manifest.yml'))\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], ctx['LIBDIR']))\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.profile.d'))\\n            fu.done()\", \"explanation\": null}], \"total_blocks\": 2}",
+      "fix_diff": "",
+      "validation_json": "{}",
+      "language": "python",
+      "prediction_source": "graphcodebert",
+      "suspicious_lines": [],
+      "explanation": {
+        "summary": {
+          "what_it_does": "Source-specific explanation unavailable for 'setup_webdir_if_it_doesnt_exist'; review the displayed code and static flow.",
+          "why_vulnerable": "The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.",
+          "impact": "Assigned severity: Medium. Actual security impact has not been verified."
+        },
+        "blocks": [
+          {
+            "index": 0,
+            "start_line": 1,
+            "end_line": 3,
+            "code": "def setup_webdir_if_it_doesnt_exist(ctx):\n    if is_web_app(ctx):\n        webdirPath = os.path.join(ctx['BUILD_DIR'], ctx['WEBDIR'])",
+            "explanation": "Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations."
+          },
+          {
+            "index": 1,
+            "start_line": 4,
+            "end_line": 20,
+            "code": "        if not os.path.exists(webdirPath):\n            fu = FileUtil(FakeBuilder(ctx), move=True)\n            fu.under('BUILD_DIR')\n            fu.into('WEBDIR')\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.extensions'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp-config'))\n            fu.where_name_does_not_match(\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], 'manifest.yml'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], ctx['LIBDIR']))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.profile.d'))\n            fu.done()",
+            "explanation": null
+          }
+        ],
+        "total_blocks": 2
+      },
+      "validation": {}
+    },
+    {
+      "id": "find_eba68152ce",
+      "scan_id": "scan_acbc08e48ad5",
+      "file": "sample_5_patched.py",
+      "func_name": "setup_webdir_if_it_doesnt_exist",
+      "start_line": 1,
+      "end_line": 22,
+      "prob": 0.5085669755935669,
+      "cwe": "OTHER",
+      "severity": "Medium",
+      "code": "def setup_webdir_if_it_doesnt_exist(ctx):\n    if is_web_app(ctx):\n        webdirPath = os.path.join(ctx['BUILD_DIR'], ctx['WEBDIR'])\n        if not os.path.exists(webdirPath):\n            fu = FileUtil(FakeBuilder(ctx), move=True)\n            fu.under('BUILD_DIR')\n            fu.into('WEBDIR')\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.extensions'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp-config'))\n            fu.where_name_does_not_match(\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], 'manifest.yml'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], ctx['LIBDIR']))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.profile.d'))\n            fu.where_name_does_not_match(\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], '.profile'))\n            fu.done()",
+      "suspicious_lines_json": "[]",
+      "flow_mermaid": "flowchart TD\n    N1[\"Function: setup_webdir_if_it_doesnt_exist (sample_5_patched.py:1)\"]\n    N2[\"No callers resolved - entry point unknown\"] --> N1\n    N3[\"Def: 'webdirPath' (line 3)\"]\n    N1 --> N3\n    N4[\"Use: 'webdirPath' referenced (line 4)\"]\n    N3 --> N4\n    N5[\"Def: 'fu' (line 5)\"]\n    N4 --> N5\n    N6[\"Use: 'fu' referenced (line 6)\"]\n    N5 --> N6\n    N7[\"No matching dangerous sink localized\"]\n    N6 --> N7\n    classDef sinkStyle fill:#ffe6e6,stroke:#cc0000,stroke-width:2px,color:#990000;\n    classDef entryStyle fill:#e6f3ff,stroke:#0066cc,stroke-width:2px,color:#003366;\n    class N1 entryStyle;",
+      "explanation_json": "{\"summary\": {\"what_it_does\": \"Source-specific explanation unavailable for 'setup_webdir_if_it_doesnt_exist'; review the displayed code and static flow.\", \"why_vulnerable\": \"The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.\", \"impact\": \"Assigned severity: Medium. Actual security impact has not been verified.\"}, \"blocks\": [{\"index\": 0, \"start_line\": 1, \"end_line\": 3, \"code\": \"def setup_webdir_if_it_doesnt_exist(ctx):\\n    if is_web_app(ctx):\\n        webdirPath = os.path.join(ctx['BUILD_DIR'], ctx['WEBDIR'])\", \"explanation\": \"Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations.\"}, {\"index\": 1, \"start_line\": 4, \"end_line\": 22, \"code\": \"        if not os.path.exists(webdirPath):\\n            fu = FileUtil(FakeBuilder(ctx), move=True)\\n            fu.under('BUILD_DIR')\\n            fu.into('WEBDIR')\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp'))\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.extensions'))\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp-config'))\\n            fu.where_name_does_not_match(\\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], 'manifest.yml'))\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], ctx['LIBDIR']))\\n            fu.where_name_does_not_match(\\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.profile.d'))\\n            fu.where_name_does_not_match(\\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], '.profile'))\\n            fu.done()\", \"explanation\": null}], \"total_blocks\": 2}",
+      "fix_diff": "",
+      "validation_json": "{}",
+      "language": "python",
+      "prediction_source": "graphcodebert",
+      "suspicious_lines": [],
+      "explanation": {
+        "summary": {
+          "what_it_does": "Source-specific explanation unavailable for 'setup_webdir_if_it_doesnt_exist'; review the displayed code and static flow.",
+          "why_vulnerable": "The detector predicted OTHER. This prediction does not establish an exploitable vulnerability.",
+          "impact": "Assigned severity: Medium. Actual security impact has not been verified."
+        },
+        "blocks": [
+          {
+            "index": 0,
+            "start_line": 1,
+            "end_line": 3,
+            "code": "def setup_webdir_if_it_doesnt_exist(ctx):\n    if is_web_app(ctx):\n        webdirPath = os.path.join(ctx['BUILD_DIR'], ctx['WEBDIR'])",
+            "explanation": "Offline explanation: a source-specific analysis of this block is unavailable. Review its code and static flow manually; configure a working LLM provider for generated explanations."
+          },
+          {
+            "index": 1,
+            "start_line": 4,
+            "end_line": 22,
+            "code": "        if not os.path.exists(webdirPath):\n            fu = FileUtil(FakeBuilder(ctx), move=True)\n            fu.under('BUILD_DIR')\n            fu.into('WEBDIR')\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.extensions'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp-config'))\n            fu.where_name_does_not_match(\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], 'manifest.yml'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], ctx['LIBDIR']))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.profile.d'))\n            fu.where_name_does_not_match(\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], '.profile'))\n            fu.done()",
+            "explanation": null
+          }
+        ],
+        "total_blocks": 2
+      },
+      "validation": {}
+    }
+  ],
+  "fixture_directory": "C:\\Users\\Het Patel\\Desktop\\Minor_Project\\minor-main\\vulnexplain\\results\\integration\\unseen_repository_samples",
+  "checkpoint_sha256_after": {
+    "config.json": "e123664fbfc5d850e4f1c899c944d0e03334191c18efb7791ca83d240cf529e8",
+    "cwe_map.json": "245b5443e5be6d62455e19c2cde8d9fe31a5b94a5255f16b666d89996e0b1c67",
+    "data_validation.json": "d2be7504f6dbdf1374868356a5ef1c0fa6761fea154c7e385428cc4126ed521a",
+    "pytorch_model.bin": "f095a3627e7c05619bdde57136271523062e390422bdee4436e7e99810c9f68d",
+    "threshold.json": "358ea81e4c06e434fd2432918f0616e04adaf849a880d3abad0369861f3628b6",
+    "tokenizer.json": "54525cdbad51719f3f4eb53bee96066c6e6de317183dc45a9ee63d12b999587b",
+    "tokenizer_config.json": "2f2141028bec1009d3cbce417eb92e8a9019a2e568e309db3991cae3d20a3d22",
+    "training_config.json": "766fba14d1d8e883e137aed7f45e40155f5836474588a3a8080d46b5c635bc77"
+  },
+  "status": "completed"
+}

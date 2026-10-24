@@ -1,0 +1,414 @@
+id,language,cwe,prob,code_snippet
+reef_178c61f22b9d6c0d6c6eaa84,csharp,CWE-119,0.49724578857421875,"[Benchmark(Baseline = true)]
+        public (long, bool) Regular()
+        {
+            ulong data = 0;
+
+            ref byte s1 = ref _array[0];
+            ref byte s2 = ref Unsafe.Add(ref s1, 12);
+            ref byte s2Limit = ref Unsafe.Add(ref s1, _array.Length);
+
+            return SnappyCom"
+reef_444b6f99742d2491f2108101,csharp,CWE-119,0.4793970286846161,"[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static (int matchLength, bool matchLengthLessThan8) FindMatchLength(
+            ref byte s1, ref byte s2, ref byte s2Limit, ref ulong data)
+        {
+            Debug.Assert(!Unsafe.IsAddressLessThan(ref s2Limit, ref s2));
+
+      "
+reef_6d566d1ff3fe362d7fccd3db,csharp,CWE-119,0.48620954155921936,"[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static (int matchLength, bool matchLengthLessThan8) FindMatchLengthX64(
+            ref byte s1, ref byte s2, ref byte s2Limit, ref ulong data)
+        {
+            nint matched = 0;
+
+            // This block isn't necessary for co"
+reef_77b653a7e0f8e6731f7a7ac6,csharp,CWE-119,0.49162372946739197,"internal void DecompressAllTags(ReadOnlySpan<byte> inputSpan)
+        {
+            // Put Constants.CharTable on the stack to simplify lookups within the loops below.
+            // Slicing with length 256 here allows the JIT compiler to recognize the size is greater than
+            // the size of"
+reef_a6daebee44b3de42d3337af9,csharp,CWE-119,0.5017080307006836,"private (uint inputUsed, uint bytesWritten) DecompressTagFromScratch(ref byte input, ref byte inputEnd, ref byte op,
+            ref byte buffer, ref byte bufferEnd, ref byte scratch)
+        {
+            // scratch will be the scratch buffer with only the tag if true is returned
+            uint i"
+reef_f28cbca126588b5ab0d3cc45,csharp,CWE-119,0.4937785267829895,"private uint RefillTagFromScratch(ref byte input, ref byte inputEnd, ref byte scratch)
+        {
+            Debug.Assert(_scratchLength > 0);
+
+            if (!Unsafe.IsAddressLessThan(ref input, ref inputEnd))
+            {
+                return 0;
+            }
+
+            // Read the tag chara"
+reef_04a3ea51195b97e21b77c24d,csharp,CWE-119,0.4799911677837372,"private uint RefillTag(ref byte input, ref byte inputEnd, ref byte scratch)
+        {
+            if (!Unsafe.IsAddressLessThan(ref input, ref inputEnd))
+            {
+                return uint.MaxValue;
+            }
+
+            // Read the tag character
+            uint entry = Constants.CharTa"
+reef_4a88cb1a7fba969680effc02,csharp,CWE-119,0.487917423248291,"[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool TryFastAppend(ref byte op, ref byte bufferEnd, in byte input, nint available, nint length)
+        {
+            if (length <= 16 && available >= 16 + Constants.MaximumTagLength &&
+                Unsafe.ByteOffset(ref op"
+reef_7c36a6f0f367cac56b37476d,csharp,CWE-74,0.5045737028121948,"public static HtmlString SearchForm(this HtmlHelper helper, string action, string query)
+        {
+            return new HtmlString(string.Format(
+                @""<form method=""""get"""" action=""""{0}"""" id=""""searchform"""">
+<fieldset>
+	<p>
+		<input type=""""search"""" name=""""q"""" id=""""query"""" value=""""{1}"""" "
+reef_34f2af077f8a87740a3e4c9b,cpp,CWE-22,0.571049153804779,"void FileBody::Dump(std::ostream& os, const std::string& prefix) const {
+  os << prefix << ""<file: "" << path_.u8string() << "">"" << std::endl;
+}"
+reef_7b2edfc89df20a0b024fc7a2,cpp,CWE-22,0.5270883440971375,"bool RequestParser::OnHeadersEnd() {
+  // Decode the URL path before match.
+  std::string url_path = Url::DecodeUnsafe(request_->url().path());
+  bool matched = view_matcher_(request_->method(), url_path, &stream_);
+  if (!matched) {
+    LOG_WARN(""No view matches the request: %s %s"", request_->metho"
+reef_90aa3307dfe2555a62e95fc8,cpp,CWE-22,0.5310725569725037,"bool Router::MatchView(const std::string& method, const std::string& url_path,
+                       bool* stream) {
+  assert(stream != nullptr);
+  *stream = false;
+
+  for (auto& route : routes_) {
+    if (std::find(route.methods.begin(), route.methods.end(), method) ==
+        route.methods.end())"
+reef_8ea3847f255b66037bcab99b,cpp,CWE-22,0.5186985731124878,"Server::Server(boost::asio::ip::tcp protocol, std::uint16_t port,
+               const fs::path& doc_root)
+    : protocol_(protocol),
+      port_(port),
+      doc_root_(doc_root),
+      acceptor_(io_context_),
+      signals_(io_context_) {
+  CheckDocRoot();
+  AddSignals();
+}"
+reef_899f08c46250cc12eb552267,cpp,CWE-22,0.5117089748382568,"bool Server::MatchViewOrStatic(const std::string& method,
+                               const std::string& url_path, bool* stream) {
+  if (Router::MatchView(method, url_path, stream)) {
+    return true;
+  }
+
+  // Try to match a static file.
+  if (method == methods::kGet && !doc_root_.empty()) {
+   "
+reef_023368864e07f87515d6d72c,cpp,CWE-22,0.524820864200592,"ResponsePtr Server::ServeStatic(RequestPtr request) {
+  assert(request->method() == methods::kGet);
+
+  if (doc_root_.empty()) {
+    LOG_INFO(""The doc root was not specified"");
+    return {};
+  }
+
+  std::string url_path = Url::DecodeUnsafe(request->url().path());
+  fs::path sub_path = utility::Transl"
+reef_aff76d3b516663b0d75e100a,cpp,CWE-22,0.4838770031929016,"UrlQuery::UrlQuery(const std::string& encoded_str) {
+  if (!encoded_str.empty()) {
+    // Split into key value pairs separated by '&'.
+    for (std::size_t i = 0; i != std::string::npos;) {
+      std::size_t j = encoded_str.find_first_of('&', i);
+
+      std::string kv;
+      if (j == std::string::np"
+reef_70c70aa546e28592f1ce6235,cpp,CWE-190,0.526251494884491,"RawTile KakaduImage::getRegion( int seq, int ang, unsigned int res, int layers, int x, int y, unsigned int w, unsigned int h )
+{
+  // Scale up our output bit depth to the nearest factor of 8
+  unsigned int obpc = bpc;
+  if( bpc <= 16 && bpc > 8 ) obpc = 16;
+  else if( bpc <= 8 ) obpc = 8;
+
+#ifdef DE"
+reef_5ab76411ad00de1afe56c3d7,cpp,CWE-190,0.5394078493118286,"RawTile OpenJPEGImage::getRegion( int ha, int va, unsigned int res, int layers, int x, int y, unsigned int w, unsigned int h ){
+
+  // Scale up our output bit depth to the nearest factor of 8
+  unsigned int obpc = bpc;
+  if( bpc <= 16 && bpc > 8 ) obpc = 16;
+  else if( bpc <= 8 ) obpc = 8;
+  
+#ifdef "
+reef_667838716705fece617dc1a5,cpp,CWE-190,0.532759428024292,"void TileManager::crop( RawTile *ttt ){
+
+  int tw = image->getTileWidth();
+  int th = image->getTileHeight();
+
+  if( loglevel >= 5 ){
+    *logfile << ""TileManager :: Edge tile: Base size: "" << tw << ""x"" << th
+	     << "": This tile: "" << ttt->width << ""x"" << ttt->height
+	     << endl;
+  }
+
+  // Creat"
+reef_4329e0be2a9b728bd0f0a2d6,cpp,CWE-190,0.5265101194381714,"RawTile TileManager::getRegion( unsigned int res, int seq, int ang, int layers, unsigned int x, unsigned int y, unsigned int width, unsigned int height ){
+
+  // If our image type can directly handle region compositing, simply return that
+  if( image->regionDecoding() ){
+    if( loglevel >= 3 ){
+    "
+reef_e8d1270ccd74ca90ad9128e7,cpp,CWE-190,0.5384068489074707,"void SPECTRA::run( Session* session, const std::string& argument ){
+
+  /* The argument should consist of 2 comma separated values:
+     1) resolution
+     2) tile number
+     3) pixel index in x direction
+     4) pixel index in y direction
+  */
+
+  if( session->loglevel >= 3 ) (*session->logfile) << "
+reef_e4f54cffec18b1427e146626,cpp,CWE-617,0.5260080099105835,"bool SampleInterleavedLSScan::ParseMCU(void)
+{
+#if ACCUSOFT_CODE
+  int lines             = m_ulRemaining[0]; // total number of MCU lines processed.
+  UBYTE preshift        = m_ucLowBit + FractionalColorBitsOf();
+  struct Line *line[4];
+  UBYTE cx;
+
+  //
+  // If a DNL marker is present, the number o"
+reef_5893ec1d5dd0c2312ad27486,cpp,CWE-617,0.5317565202713013,"bool SingleComponentLSScan::ParseMCU(void)
+{ 
+#if ACCUSOFT_CODE
+  int lines             = m_ulRemaining[0]; // total number of MCU lines processed.
+  UBYTE preshift        = m_ucLowBit + FractionalColorBitsOf();
+  struct Line *line     = CurrentLine(0);
+  
+  //
+  // If a DNL marker is present, the n"
+reef_6bb647a21c275f9dd6a2ecb5,cpp,CWE-476,0.5344606637954712,"void Scan::CreateParser(void)
+{
+  ScanType type = m_pFrame->ScanTypeOf();
+  //
+  assert(m_pParser == NULL);
+  //
+  // Check whether all components are there.
+  for(UBYTE i = 0;i < m_ucCount && i < 4;i++) {
+    if (ComponentOf(i) == NULL) {
+      JPG_THROW(MALFORMED_STREAM,""Scan::CreateParser"",
+     "
+reef_ab781ba25948a1ca904554c0,cpp,CWE-125,0.5140496492385864,"void HierarchicalBitmapRequester::PrepareForDecoding(void)
+{
+#if ACCUSOFT_CODE
+
+  UBYTE i;
+
+  BuildCommon();
+
+  if (m_ppDecodingMCU == NULL) {
+    m_ppDecodingMCU = (struct Line **)m_pEnviron->AllocMem(sizeof(struct Line *) * m_ucCount*8);
+    memset(m_ppDecodingMCU,0,sizeof(struct Line *) * m_ucCou"
+reef_f66efe56f9a70615ee6f9a6b,cpp,CWE-908,0.5044440031051636,"future<fragmented_temporary_buffer> cql_server::connection::read_and_decompress_frame(size_t length, uint8_t flags)
+{
+    using namespace compression_buffers;
+    if (flags & cql_frame_flags::compression) {
+        if (_compression == cql_compression::lz4) {
+            if (length < 4) {
+           "
+reef_86b725f005199074fecf9318,cpp,CWE-119,0.4913567900657654,"static void validate_dex_header(const dex_header* dh,
+                                size_t dexsize,
+                                int support_dex_version) {
+  always_assert_log(sizeof(dex_header) <= dexsize,
+                    ""Header size (%lu) is larger than file size (%zu)\n"",
+              "
+reef_e21d6aeafda835f0be67ca49,cpp,CWE-290,0.5069385170936584,"void AuthChecker::PassUserInfoOnSuccess() {
+  char *json_buf = auth::WriteUserInfoToJson(user_info_);
+  if (json_buf == nullptr) {
+    return;
+  }
+  char *base64_json_buf = auth::esp_base64_encode(
+      json_buf, strlen(json_buf), true, false, true /*padding*/);
+  context_->request()->AddHeaderToBa"
+reef_f1f7c12e3f893726793c1da2,cpp,CWE-290,0.4739919900894165,"void CheckAuthTest::TestValidToken(const std::string &auth_token,
+                                   const std::string &user_info) {
+  EXPECT_CALL(*raw_request_, FindHeader(""x-goog-iap-jwt-assertion"", _))
+      .WillOnce(Invoke([](const std::string &, std::string *token) {
+        *token = """";
+     "
+reef_a629a988ac0be1b7643f1c4e,cpp,CWE-290,0.5540482401847839,"void RequestContext::SetApiKeyHeader() {
+  request_->AddHeaderToBackend(kDefaultApiKeyHeaderName, api_key_, false);
+}"
+reef_684cb099abb33f536f37839d,cpp,CWE-290,0.474235475063324,"void RequestContext::StartBackendSpanAndSetTraceContext() {
+  backend_span_.reset(CreateSpan(cloud_trace_.get(), ""Backend""));
+
+  // TODO: A better logic would be to send for GRPC backends the grpc-trace-bin
+  // header, and for http/https backends the X-Cloud-Trace-Context header.
+
+  std::string tra"
+reef_4e17fa79931e5885b4755266,cpp,CWE-290,0.483617901802063,"void RequestContext::AddInstanceIdentityToken() {
+  if (!method()) {
+    return;
+  }
+
+  const auto &audience = method()->backend_jwt_audience();
+  if (!audience.empty()) {
+    auto &token = service_context()
+                      ->global_context()
+                      ->GetInstanceIdentityToken(au"
+reef_f82cd01dd32b53d8a8d62804,cpp,CWE-290,0.49203556776046753,"RequestHandler::RequestHandler(
+    std::shared_ptr<CheckWorkflow> check_workflow,
+    std::shared_ptr<context::ServiceContext> service_context,
+    std::unique_ptr<Request> request_data)
+    : context_(new context::RequestContext(service_context,
+                                           std::move"
+reef_5d9a1a3c7355e931672b3073,cpp,CWE-290,0.5176166296005249,"utils::Status NgxEspRequest::AddHeaderToBackend(const std::string &key,
+                                                const std::string &value,
+                                                bool changeAllOccurrence) {
+  std::vector<ngx_table_elt_t *> headers;
+  for (auto &h_in : r_->headers_in) "
+reef_40470712e8e1e83accf22d47,cpp,CWE-787,0.5134931206703186,"void CPCIDSKBinarySegment::Load()
+{
+    // Check if we've already loaded the segment into memory
+    if (loaded_) {
+        return;
+    }
+    if( data_size - 1024 > static_cast<uint64_t>(std::numeric_limits<int>::max()) )
+    {
+        return ThrowPCIDSKException(""too large data_size"");
+    }
+
+    s"
+reef_1844ffd2ec79451082de0999,cpp,CWE-295,0.5053861141204834,"int Socket::startSslClient(const std::string &certificate_path, String hostname)
+{
+    if (isssl) {
+        stopSsl();
+    }
+
+    ERR_clear_error();
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    ctx = SSL_CTX_new(SSLv23_client_method());
+#else
+    ctx = SSL_CTX_new(TLS_client_method());
+#endif
+
+    i"
+reef_8ef0cc5f18b44e20f21e683b,cpp,CWE-476,0.5560982823371887,"bool CClient::OnTextMessage(CTextMessage& Message) {
+    CString sTargets = Message.GetTarget();
+
+    VCString vTargets;
+    sTargets.Split("","", vTargets, false);
+
+    for (CString& sTarget : vTargets) {
+        Message.SetTarget(sTarget);
+        if (m_pNetwork) {
+            // May be nullptr.
+   "
+reef_b60bc5b96286372142c9dea8,cpp,CWE-19,0.5185766816139221,"void AcceptRoutingHandler<Pipeline, R>::onRoutingData(
+    uint64_t connId,
+    typename RoutingDataHandler<R>::RoutingData& routingData) {
+  // Get the routing pipeline corresponding to this connection
+  auto routingPipelineIter = routingPipelines_.find(connId);
+  if (routingPipelineIter == routing"
+reef_86722c99c08d9bbdbdb9f1c5,cpp,CWE-20,0.5418331623077393,"void CIRCNetwork::SetEncoding(const CString& s) {
+    m_sEncoding = CZNC::Get().FixupEncoding(s);
+    if (GetIRCSock()) {
+        GetIRCSock()->SetEncoding(m_sEncoding);
+    }
+}"
+reef_70754046760fc811253453ba,cpp,CWE-20,0.5404084920883179,"void CUser::SetClientEncoding(const CString& s) {
+    m_sClientEncoding = CZNC::Get().FixupEncoding(s);
+    for (CClient* pClient : GetAllClients()) {
+        pClient->SetEncoding(m_sClientEncoding);
+    }
+}"
+reef_c70d2537f55a17bb70e4ba1d,cpp,CWE-20,0.5411967039108276,"void CZNC::ForceEncoding() {
+    m_uiForceEncoding++;
+#ifdef HAVE_ICU
+    for (Csock* pSock : GetManager()) {
+        pSock->SetEncoding(FixupEncoding(pSock->GetEncoding()));
+    }
+#endif
+}"
+reef_955293c3289c488dc8c30c25,cpp,CWE-20,0.5343999266624451,"CString CZNC::FixupEncoding(const CString& sEncoding) const {
+    if (!m_uiForceEncoding) {
+        return sEncoding;
+    }
+    if (sEncoding.empty()) {
+        return ""UTF-8"";
+    }
+    const char* sRealEncoding = sEncoding.c_str();
+    if (sEncoding[0] == '*' || sEncoding[0] == '^') {
+        sRea"
+reef_f723e952d19dd36b4cbca66d,cpp,CWE-119,0.5301148891448975,"int64_t LineBasedFrameDecoder::findEndOfLine(IOBufQueue& buf) {
+  Cursor c(buf.front());
+  for (uint32_t i = 0; i < maxLength_ && i < buf.chainLength(); i++) {
+    auto b = c.read<char>();
+    if (b == '\n' && terminatorType_ != TerminatorType::CARRIAGENEWLINE) {
+      return i;
+    } else if (
+    "
+reef_df34bde48698400417e0546f,cpp,CWE-20,0.5440142154693604,"void CClient::ReadLine(const CString& sData) {
+    CLanguageScope user_lang(GetUser() ? GetUser()->GetLanguage() : """");
+    CString sLine = sData;
+
+    sLine.Replace(""\n"", """");
+    sLine.Replace(""\r"", """");
+
+    DEBUG(""("" << GetFullName() << "") CLI -> ZNC [""
+        << CDebug::Filter(sLine) << ""]"");
+"
+reef_09cacca61d5b9044379db316,cpp,CWE-20,0.5491570830345154,"void CIRCSock::ReadLine(const CString& sData) {
+    CString sLine = sData;
+
+    sLine.Replace(""\n"", """");
+    sLine.Replace(""\r"", """");
+
+    DEBUG(""("" << m_pNetwork->GetUser()->GetUserName() << ""/""
+              << m_pNetwork->GetName() << "") IRC -> ZNC ["" << sLine << ""]"");
+
+    bool bReturn = false;
+"
+reef_b6e66c41adc2c2fa4fba7891,c,CWE-190,0.48579028248786926,"void sortCommandGeneric(client *c, int readonly) {
+    list *operations;
+    unsigned int outputlen = 0;
+    int desc = 0, alpha = 0;
+    long limit_start = 0, limit_count = -1, start, end;
+    int j, dontsort = 0, vectorlen;
+    int getop = 0; /* GET operation counter */
+    int int_conversion_erro"
+reef_7d5d35d05b46ab02fada653d,c,CWE-190,0.5140420198440552,"static int checkStringLength(client *c, long long size, long long append) {
+    if (mustObeyClient(c))
+        return C_OK;
+    /* 'uint64_t' cast is there just to prevent undefined behavior on overflow */
+    long long total = (uint64_t)size + append;
+    /* Test configured max-bulk-len represendin"
+reef_864654488cdb76e40ee53597,c,CWE-190,0.5139886140823364,"void setrangeCommand(client *c) {
+    robj *o;
+    long offset;
+    sds value = c->argv[3]->ptr;
+
+    if (getLongFromObjectOrReply(c,c->argv[2],&offset,NULL) != C_OK)
+        return;
+
+    if (offset < 0) {
+        addReplyError(c,""offset is out of range"");
+        return;
+    }
+
+    o = lookupKeyWri"
+reef_6570c2e78df7a4c8e41176b1,c,CWE-190,0.5221869349479675,"void appendCommand(client *c) {
+    size_t totlen;
+    robj *o, *append;
+
+    o = lookupKeyWrite(c->db,c->argv[1]);
+    if (o == NULL) {
+        /* Create the key */
+        c->argv[2] = tryObjectEncoding(c->argv[2]);
+        dbAdd(c->db,c->argv[1],c->argv[2]);
+        incrRefCount(c->argv[2]);
+    "
+reef_26fc810099fe4883cc1aae08,c,CWE-73,0.5362218022346497,"void blog_post(char post_path[]) {
+	if(strlen(post_path) != 0 || post_path[0] == '.'
+			|| strchr(post_path, '/') == NULL) {
+		send_header(""Content-type"", ""text/plain"");
+		terminate_headers();
+		printf(""No, my dear h4xxx0r :)\nYou won\'t do that :p\n"");
+		return;
+	}
+
+	if(file_exists(post_path) > 0) "

@@ -1,0 +1,66 @@
+{
+  "reef_train": {
+    "rows": 12411,
+    "classes": {
+      "1": 6208,
+      "0": 6203
+    },
+    "projects": 988,
+    "languages": {
+      "c": 3187,
+      "java": 2319,
+      "python": 2193,
+      "go": 1878,
+      "cpp": 1648,
+      "javascript": 800,
+      "csharp": 386
+    }
+  },
+  "reef_val": {
+    "rows": 940,
+    "classes": {
+      "0": 471,
+      "1": 469
+    },
+    "projects": 123,
+    "languages": {
+      "c": 274,
+      "go": 194,
+      "java": 175,
+      "python": 108,
+      "javascript": 106,
+      "cpp": 59,
+      "csharp": 24
+    }
+  },
+  "reef_test": {
+    "rows": 1638,
+    "classes": {
+      "1": 819,
+      "0": 819
+    },
+    "projects": 124,
+    "languages": {
+      "python": 612,
+      "java": 384,
+      "c": 244,
+      "go": 206,
+      "cpp": 88,
+      "javascript": 82,
+      "csharp": 22
+    }
+  },
+  "reef_train__reef_val": {
+    "project_overlap": 0,
+    "code_overlap": 0
+  },
+  "reef_train__reef_test": {
+    "project_overlap": 0,
+    "code_overlap": 0
+  },
+  "reef_val__reef_test": {
+    "project_overlap": 0,
+    "code_overlap": 0
+  },
+  "status": "reef_ready_external_pending"
+}

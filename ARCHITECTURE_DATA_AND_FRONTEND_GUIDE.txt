@@ -1,0 +1,399 @@
+================================================================================
+           VULNEXPLAIN: SYSTEM ARCHITECTURE, DATASETS & FRONTEND GUIDE
+================================================================================
+
+This document provides a complete, in-depth explanation of the VulnExplain project:
+  1. System Architecture & The 9-Stage Pipeline
+  2. Datasets Used, Why They Were Chosen, and Data Engineering Choices
+  3. Frontend Architecture, Feature Breakdown, User Flow, and Implementation Details
+  4. End-to-End Interaction Between Frontend and Backend
+
+--------------------------------------------------------------------------------
+PART 1: SYSTEM ARCHITECTURE & THE 9-STAGE ANALYSIS PIPELINE
+--------------------------------------------------------------------------------
+
+VulnExplain is a repository-level, multilingual vulnerability detection and 
+code intelligence platform. Unlike traditional static analysis (SAST) tools that 
+rely purely on rigid regex heuristics, or pure LLM-based solutions that suffer 
+from hallucinations, VulnExplain combines three complementary layers:
+  1. Deep Neural Detection (Fine-tuned GraphCodeBERT)
+  2. Deterministic Program Analysis (Tree-Sitter Multilingual AST & Def-Use Analysis)
+  3. Grounded LLM Intelligence (Progressive Explanation, Patch Generation & RAG)
+
+The core analysis engine executes in a sequential 9-stage pipeline:
+
+  STAGE 1: REPOSITORY INGESTION (backend/ingest.py)
+  - Accepts a public GitHub repository URL or local folder path.
+  - Performs a shallow clone (`--depth 1`) using Git to minimize bandwidth and time.
+  - Automatically filters supported source code files based on extensions:
+      * C / C++       (.c, .cpp, .cc, .h, .hpp)
+      * C#            (.cs)
+      * Go            (.go)
+      * Java          (.java)
+      * JavaScript    (.js, .jsx)
+      * Python        (.py)
+  - Ignores binary files, vendor directories (`node_modules`, `vendor/`, `target/`,
+    `bin/`, `obj/`, `.git/`), minified files (`*.min.js`), and test fixtures.
+  - Enforces a safety limit (e.g., maximum 500 files or 50MB) to prevent resource
+    exhaustion.
+
+  STAGE 2: MULTILINGUAL AST & PROGRAM ANALYSIS (backend/parser.py)
+  - Uses Tree-Sitter parsers for all 7 supported programming languages.
+  - Identifies and extracts all function/method definitions along with their:
+      * File path, start line, end line
+      * Function name and exact raw code text
+      * Parameter list and return types
+  - Intra-Function Def-Use Chains:
+      * Tracks variable assignments (definitions) and where those variables are
+        subsequently read or modified (uses).
+  - Inter-Function Call Graph Construction:
+      * Builds a project-wide caller-callee directed graph mapping which function
+        invokes which other functions across the repository.
+
+  STAGE 3: DEEP NEURAL DETECTION (backend/detector.py & model/train.py)
+  - Employs a fine-tuned GraphCodeBERT model (`microsoft/graphcodebert-base`).
+  - Evaluates every extracted function independently.
+  - Produces:
+      * A vulnerability probability score `p` between 0.0 and 1.0.
+      * A binary classification: flag as vulnerable if `p >= threshold`.
+        The decision threshold is empirically determined from precision-recall
+        curves (stored in `threshold.json`, e.g., 0.50).
+      * A predicted Common Weakness Enumeration (CWE) category (e.g., CWE-89
+        for SQL Injection, CWE-78 for Command Injection, CWE-79 for XSS, etc.).
+  - Fallback: If trained weights are not yet present, the system runs a heuristic
+    pattern-based detector so the pipeline remains functional without crashing.
+
+  STAGE 4: DANGEROUS SINK LOCALIZATION (backend/localizer.py)
+  - Pinpoints the exact suspicious lines of code inside the flagged function.
+  - Matches language-specific dangerous API calls and untrusted sinks:
+      * SQL Injection: `execute()`, `raw()`, `cursor.execute()`, `query()`
+      * Command Injection: `os.system()`, `subprocess.Popen()`, `exec()`, `Runtime.getRuntime().exec()`
+      * Path Traversal: `open()`, `File()`, `readFile()`, `FileInputStream`
+      * Buffer Overflows (C/C++): `strcpy()`, `gets()`, `sprintf()`, `strcat()`
+  - Maps findings to an industry-standard Severity Tier:
+      * CRITICAL: Remote Code Execution, Command Injection, SQL Injection, Auth Bypass
+      * HIGH: Path Traversal, Memory Corruption, Unsafe Deserialization
+      * MEDIUM: Cross-Site Scripting (XSS), Sensitive Data Exposure, CSRF
+      * LOW: Information Leakage, Weak Hashing, Insecure Logging
+
+  STAGE 5: DETERMINISTIC AST PROGRAM FLOWCHART (backend/flow.py)
+  - Translates the static program structure into a deterministic Mermaid flowchart
+    (`flowchart TD`).
+  - Key Design Principle: NO LLM HALLUCINATION. The flowchart is built purely from
+    AST parsing, def-use chains, and repository call graphs.
+  - Visualizes:
+      * Incoming callers (how external data reaches this function)
+      * Step-by-step statement execution sequence
+      * Red-highlighted dangerous sinks (where vulnerabilities are triggered)
+      * Downstream callees (what functions are called next)
+
+  STAGE 6: GROUNDED PROGRESSIVE EXPLANATION (backend/explain.py)
+  - High-Level Summary:
+      * Generates 3 core explanations:
+        1. "What it does": High-level functionality of the code.
+        2. "Why it is vulnerable": The mechanical flaw (e.g., untrusted user input
+           concatenated directly into an SQL query).
+        3. "Security Impact": Real-world exploitation consequences.
+  - Progressive Block Segmentation:
+      * Segments the function into 3 to 6 logical blocks of code.
+      * Explanations for individual blocks are generated on-demand (lazy evaluation)
+        as the user clicks through the step-by-step stepper in the UI.
+
+  STAGE 7: AUTOMATED DIFF-BASED REMEDIATION (backend/fix.py)
+  - Prompts an LLM (Groq LLaMA-3.3-70B / HuggingFace Inference API) with strict
+    system constraints to produce ONLY the secure, corrected code.
+  - Applies input sanitization, query parameterization, boundary checks, or safe API replacements.
+  - Computes a clean unified diff (`---` / `+++`) using Python's standard `difflib`.
+
+  STAGE 8: PROBABILISTIC VALIDATION (backend/validate.py)
+  - Re-evaluates the remediated code through the fine-tuned GraphCodeBERT detector.
+  - Performs an AST syntax check using Tree-Sitter (or Python `ast` module) to
+    guarantee that the proposed patch parses without syntax errors.
+  - Issues an Empirical Verdict:
+      * "IMPROVED": Detection probability dropped significantly (e.g., 0.92 -> 0.08).
+      * "UNCHANGED": Model still considers the code suspicious.
+      * "WORSE": Probability increased or syntax errors were introduced.
+  - Displays a transparent disclaimer: AI fixes are probabilistic and require human review.
+
+  STAGE 9: REPOSITORY INTELLIGENCE RAG & ASSISTANT (backend/rag.py & chat.py)
+  - Indexes all function chunks using sentence embeddings (`sentence-transformers/all-MiniLM-L6-v2`).
+  - Stores vectors in a persistent FAISS index (`vulnexplain/backend/store/<scan_id>.index`).
+  - Supports conversational Q&A with 5 detected user intents:
+      1. `vulnerability_query`: Questions about security findings.
+      2. `flow_query`: Questions about control flow, call graphs, or data movement.
+      3. `fix_query`: Questions asking how to repair a security flaw.
+      4. `architecture_query`: Questions regarding the repository structure.
+      5. `code_explanation`: Step-by-step logic breakdown.
+  - Retrieves top-k relevant code chunks and generates answers with exact `file:line` citations.
+
+
+--------------------------------------------------------------------------------
+PART 2: DATASETS USED, WHY THEY WERE CHOSEN, AND DATA ENGINEERING
+--------------------------------------------------------------------------------
+
+VulnExplain relies on high-quality real-world datasets for model training,
+validation, and external generalization testing.
+
+1. THE DATASETS
+--------------------------------------------------------------------------------
+A. REEF (Primary Training, Validation & In-Distribution Benchmark)
+   - Source: Wang et al., "REEF: A Framework for Collecting Real-World Vulnerabilities
+     and Fixes" (arXiv:2309.08115).
+   - Content: Real-world vulnerability-fixing commits across C, C++, Java, Python, Go,
+     JavaScript, and C#. Contains paired pre-patch (label=1, vulnerable) and
+     post-patch (label=0, non-vulnerable/fixed) function records.
+   - Stored in: `vulnexplain/data/processed/reef_train.parquet`, `reef_val.parquet`,
+     `reef_test.parquet`.
+
+B. CVEfixes (External Out-of-Distribution Validation Benchmark)
+   - Source: Bhandari et al., "CVEfixes: A Comprehensive Dataset of Vulnerability
+     Fixing Commits", Zenodo record 13118970.
+   - Content: Multi-language vulnerability fixes extracted from real-world open-source
+     repositories linked to official National Vulnerability Database (NVD) CVE entries.
+   - Stored in: `vulnexplain/data/processed/cvefixes_functions.parquet`.
+
+2. WHY THESE DATASETS WERE CHOSEN (AND WHY OTHERS WERE REJECTED)
+--------------------------------------------------------------------------------
+- Real-World Ground Truth: Both REEF and CVEfixes are sourced directly from actual
+  CVE patches committed by open-source maintainers, not artificially generated or
+  synthetic test suites.
+- Paired Pre/Post-Patch Contrast: By training on both the vulnerable version of a function
+  and its exact repaired version, GraphCodeBERT learns the subtle syntactic and semantic
+  markers that cause the vulnerability rather than memorizing function names.
+- Multilingual Diversity: Supports C, C++, C#, Go, Java, JS, and Python under a
+  single consistent schema.
+- Rejection of Flawed Academic Benchmarks (e.g., Big-Vul, Devign):
+  * Academic literature has shown that Big-Vul and Devign contain significant label
+    noise (up to 30% mislabeled samples), duplicate functions, and non-security commits
+    mixed in as vulnerabilities. VulnExplain avoids them in favor of REEF and CVEfixes.
+
+3. STRICT LEAKAGE PREVENTION & DEDUPLICATION
+--------------------------------------------------------------------------------
+- CVEfixes is NEVER used during training. It is reserved exclusively as an external
+  out-of-distribution (OOD) test set to measure how well the model generalizes to
+  unseen repositories.
+- `prepare_data.py` performs automated hash and text deduplication: any function in
+  CVEfixes whose raw code text duplicates a sample in the REEF training set is
+  automatically purged.
+- Project-Based Splitting: REEF is split into Train/Val/Test by *project/repository*
+  rather than random row shuffling. This guarantees that functions from the same project
+  do not leak from the training set into the test set.
+
+4. WHY APACHE PARQUET (.parquet) INSTEAD OF CSV
+--------------------------------------------------------------------------------
+All processed datasets are saved in Apache Parquet format for three critical reasons:
+1. Columnar Compression: Parquet achieves 75% to 85% disk space compression compared to
+   raw CSV, reducing multi-gigabyte datasets to manageable file sizes.
+2. Zero Syntax/Delimiter Collisions: Source code contains quotes, commas, newlines,
+   brackets, and escaped characters that frequently break CSV parsers. Parquet stores
+   binary columnar arrays, completely eliminating CSV escaping corruption.
+3. 10x Faster I/O Throughput: PyTorch DataLoaders load Parquet files up to 10 times faster
+   than text files, ensuring the GPU is never starved during training.
+
+5. UNIFIED DATA SCHEMA (7 COLUMNS)
+--------------------------------------------------------------------------------
+Every processed dataset adheres to the exact same 7-column schema:
+  1. `id`          (string) : Unique identifier (e.g. "reef_a8f9c1" or "cvefixes_49102")
+  2. `code`        (string) : Full function source code (trimmed, UTF-8, > 15 chars)
+  3. `label`       (int64)  : Binary: 1 = Vulnerable (pre-fix), 0 = Patched (post-fix)
+  4. `language`    (string) : Normalized: 'c','cpp','csharp','go','java','javascript','python'
+  5. `cwe`         (string) : Canonical CWE ID (e.g. 'CWE-89', 'CWE-78', or 'UNKNOWN')
+  6. `project`     (string) : Upstream repository name (used for leak-free splitting)
+  7. `commit_date` (string) : ISO date string ('YYYY-MM-DD')
+
+
+--------------------------------------------------------------------------------
+PART 3: FRONTEND ARCHITECTURE, FEATURES, AND IMPLEMENTATION
+--------------------------------------------------------------------------------
+
+The frontend of VulnExplain is designed to provide an interactive, visual, and
+comprehensive security workstation for developers and security analysts.
+
+1. TECH STACK
+--------------------------------------------------------------------------------
+- Core Framework: React 18 (Functional components, hooks)
+- Build Tool: Vite 5 (Ultra-fast HMR and bundle compilation)
+- Styling: Custom Vanilla CSS (`index.css`) with a sleek modern dark-mode aesthetic
+  using design tokens (CSS variables: `--bg-primary`, `--bg-secondary`, `--accent-blue`,
+  `--severity-critical`, `--font-mono`, etc.)
+- Diagramming: Mermaid.js (`mermaid` package) for rendering dynamic, interactive
+  AST-grounded execution and data-flow diagrams.
+
+2. APPLICATION VIEWS & USER PROCEEDING (WORKFLOW)
+--------------------------------------------------------------------------------
+The user navigates smoothly across 6 dedicated views managed via React state:
+
+  [HOME VIEW]
+      | (Enter repo URL & click "Scan Repo")
+      v
+  [PROGRESS VIEW]
+      | (Background pipeline completes)
+      v
+  [DASHBOARD VIEW] <--------------------+
+      |                                  |
+      +---> [FINDING DETAIL VIEW] -------+ (Click "Back to Findings")
+      |
+      +---> [CODE EXPLORER VIEW]
+      |
+      +---> [AI CHAT ASSISTANT VIEW]
+
+3. DETAILED BREAKDOWN OF FRONTEND FEATURES & FUNCTIONALITIES
+--------------------------------------------------------------------------------
+
+FEATURE 1: HOME & REPOSITORY INGESTION VIEW
+- Purpose: Starting point where users launch scans or review past audit history.
+- Functionality:
+  * URL Input Bar: Accepts any public GitHub repository URL.
+  * Recent Scans Table: Displays historical scans retrieved from SQLite via
+    `GET /api/scans`. Shows Scan ID, Repository URL, Status (done/running/failed),
+    Number of Flagged Vulnerabilities, and Scan Date.
+  * Clickable History: Clicking any past scan instantly loads its findings and opens
+    the dashboard without re-running the scan.
+- How It Is Made:
+  * Uses React `useState` for `repoUrl` and `recentScans`.
+  * `fetchRecentScans()` runs in a `useEffect` on component mount.
+  * Submitting the form issues a `POST /api/scan` request with `{ repo_url }`.
+  * On success, captures the returned `scan_id` and transitions the view to "progress".
+
+FEATURE 2: REAL-TIME PROGRESS TRACKER
+- Purpose: Keeps the user informed as the 9-stage analysis pipeline runs asynchronously.
+- Functionality:
+  * Progress Bar: Smoothly fills from 10% to 100% based on the current stage:
+      - 10%: Ingestion & Shallow Git Clone
+      - 30%: Tree-Sitter AST Parsing & Call Graph Generation
+      - 50%: GraphCodeBERT Neural Inference
+      - 70%: Localization, Mermaid Flow Generation & Explanation Bundling
+      - 90%: FAISS Vector Indexing for RAG
+      - 100%: Scan Complete
+  * Error Alert: If the scan fails (e.g., invalid repo URL or no supported code),
+    it displays the error message and offers a "Return to Home" button.
+- How It Is Made:
+  * Uses a polling `useEffect` that fires every 1500ms (`GET /api/scan/:id`).
+  * When `status === "done"`, it calls `loadScanResults(scan_id)` to fetch findings
+    and file trees in parallel via `Promise.all()`, then switches view to "dashboard".
+
+FEATURE 3: VULNERABILITY DASHBOARD
+- Purpose: High-level executive overview of repository security health.
+- Functionality:
+  * Summary Metric Cards:
+      1. Scanned Functions (total functions parsed by Tree-Sitter)
+      2. Flagged Vulnerabilities (total detected by GraphCodeBERT)
+      3. Critical Severity Count (RCE, SQLi, Command Injection)
+      4. High / Medium Severity Count (XSS, Path Traversal, Memory Corruption)
+  * Multi-Attribute Filter Bar:
+      - Filter by Severity: All, Critical, High, Medium, Low.
+      - Filter by Language: All, Python, JavaScript, C, C++, Java, Go, C#.
+  * Interactive Findings Table:
+      - Columns: File & Start Line, Function Name, CWE Identifier, Severity Badge,
+        Confidence Percentage (e.g., 94.2%), and "Inspect" button.
+      - Color-coded badges for severity (Critical=Red, High=Orange, Medium=Yellow, Low=Blue).
+- How It Is Made:
+  * Filter state managed by `filterSeverity` and `filterLang`.
+  * Uses client-side `.filter()` on the `findings` array for instantaneous, zero-latency
+    filtering.
+  * Clicking any row invokes `handleOpenFinding(finding.id)`, which fetches complete
+    finding details (`GET /api/finding/:id`) and switches view to "finding".
+
+FEATURE 4: DEEP FINDING INSPECTION & REMEDIATION WORKSTATION
+- Purpose: The core analytical workspace. Combines source code, suspicious sink detection,
+  progressive explanations, deterministic flowcharts, and automated fixes.
+- Layout: Dual-panel split layout:
+  * LEFT PANEL:
+    1. Code Viewer:
+       - Displays the full function code with absolute line numbers.
+       - Lines identified by Stage 4 (Dangerous Sinks) are highlighted in red
+         with a glowing border.
+       - "Suspicious Sink Detected" callout box specifies the exact line and reason
+         (e.g., "Line 42: Untrusted argument passed to cursor.execute()").
+    2. Automated Fix & Diff Viewer:
+       - "Suggest Automated Fix" button triggers `POST /api/finding/:id/fix`.
+       - Displays an inline unified diff showing removed lines (red background `-`)
+         and added lines (green background `+`).
+    3. Probabilistic Validation Card:
+       - Displays the post-patch verdict badge: IMPROVED, UNCHANGED, or WORSE.
+       - Shows before vs. after model probability (e.g., 0.94 -> 0.04).
+       - Reports AST syntax integrity (e.g., "Valid AST: Python AST syntax verified").
+       - Includes a cautionary disclaimer reminding developers that AI patches require
+         manual testing.
+  * RIGHT PANEL:
+    1. Overall Vulnerability Summary:
+       - Structured breakdown answering:
+         * Functionality: What the function normally does.
+         * Vulnerability Mechanism: How the security weakness manifests.
+         * Security Impact: Potential exploit scenarios.
+    2. Progressive Block Stepper:
+       - Breaks down complex functions into sequential logical blocks.
+       - Displays: "Block X of Y (Lines start-end)".
+       - "Previous" and "Next Part →" navigation buttons.
+       - Lazy Explanation: If a block has not been explained yet, the user clicks
+         "Explain this block", which calls `GET /api/finding/:id/explain?block=i`
+         and updates the UI smoothly without reloading the entire page.
+    3. Deterministic AST Program Flowchart:
+       - Renders an interactive Mermaid.js diagram illustrating:
+         [Callers] -> [Function Entry] -> [Statements] -> [SUSPICIOUS SINK] -> [Return/Callee].
+- How It Is Made:
+  * Mermaid rendering is handled via a dedicated `useEffect` hook:
+    Whenever `selectedFinding` or `selectedFinding.flow_mermaid` changes, it calls
+    `mermaid.render(containerId, flow_mermaid)` and injects the resulting SVG into
+    a `useRef` container.
+  * Fix generation updates local state `selectedFinding.fix_diff` and
+    `selectedFinding.validation` dynamically.
+
+FEATURE 5: CODE EXPLORER VIEW
+- Purpose: Allows security auditors to browse all source files in the repository
+  and spot which files contain vulnerabilities.
+- Functionality:
+  * Two-column explorer layout (similar to VS Code / GitHub file browser):
+  * Left Column (File Tree):
+      - Lists every supported file ingested during the scan.
+      - Shows an orange badge indicating the number of vulnerabilities detected in
+        that specific file.
+      - Highlights the currently active/selected file.
+  * Right Column (Source Code Viewer):
+      - Header showing file path, total line count, and language.
+      - Full syntax/line viewer with 1-indexed line numbers.
+- How It Is Made:
+  * Backend caches ingested file contents in memory during Stage 1 (`SCAN_FILE_CACHE`).
+  * Frontend calls `GET /api/scan/:id/files`, which aggregates per-file finding counts.
+  * Clicking any file in the list updates `selectedFile` state, instantly rendering
+    its contents on the right.
+
+FEATURE 6: INTENT-AWARE AI REPOSITORY CHAT ASSISTANT
+- Purpose: Allows developers to ask natural language questions about the repository,
+  its security posture, vulnerabilities, and remediation options.
+- Functionality:
+  * Interactive Chat Thread: Displays conversation history with user bubbles and
+    assistant response bubbles.
+  * Intent Tag Badge: Automatically tags each assistant answer with its detected
+    intent (e.g., "vulnerability_query", "flow_query", "fix_query", "code_explanation",
+    "architecture_query").
+  * Grounded Citations: When answering questions about code, the assistant includes
+    source tags pointing directly to exact `file:line` locations (e.g., `app/db.py:45`).
+- How It Is Made:
+  * Form input captures user prompt and posts to `POST /api/scan/:id/chat`.
+  * Backend detects intent using regex rules with MiniLM semantic embedding fallback.
+  * Performs vector retrieval using FAISS over function embeddings, queries SQLite for
+    known findings, and prompts the LLM to format the response with grounded source tags.
+  * React appends messages to `chatMessages` array state with loading spinners.
+
+
+--------------------------------------------------------------------------------
+PART 4: SUMMARY OF BACKEND REST API ENDPOINTS
+--------------------------------------------------------------------------------
+
+| Method | Endpoint                          | Description                                             |
+| :---   | :---                              | :---                                                    |
+| GET    | `/api/health`                     | Health check, device status (CUDA/MPS/CPU), LLM status. |
+| POST   | `/api/scan`                       | Initiates asynchronous 9-stage scan for a repo URL.     |
+| GET    | `/api/scan/{scan_id}`             | Returns scan status, progress percentage, and summary.  |
+| GET    | `/api/scans`                      | Lists recent repository scans.                          |
+| GET    | `/api/scan/{scan_id}/findings`    | Returns all vulnerability findings for a scan.          |
+| GET    | `/api/scan/{scan_id}/files`       | Returns repository files with per-file vuln counts.     |
+| GET    | `/api/finding/{finding_id}`        | Returns full details, sinks, Mermaid flow, and summary. |
+| GET    | `/api/finding/{finding_id}/explain`| Progressive disclosure: returns explanation for block i.|
+| POST   | `/api/finding/{finding_id}/fix`    | Generates LLM remediation diff and runs validation.    |
+| POST   | `/api/scan/{scan_id}/chat`        | Conversational RAG Q&A with intent detection & citations|
+
+================================================================================
+END OF GUIDE
+================================================================================

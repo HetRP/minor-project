@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "datasets": {
+    "reef_train": {
+      "rows": 12411,
+      "columns": [
+        "id",
+        "code",
+        "label",
+        "language",
+        "cwe",
+        "project",
+        "commit_date"
+      ],
+      "label_type": "int64",
+      "sha256": "1153912df10ec46bbbaa7da986f0974c935b849335dfdf81dbb1ece5240504e8"
+    },
+    "reef_val": {
+      "rows": 940,
+      "columns": [
+        "id",
+        "code",
+        "label",
+        "language",
+        "cwe",
+        "project",
+        "commit_date"
+      ],
+      "label_type": "int64",
+      "sha256": "c9fe9e9973a02ea671630ab6ccd9c0955fb796f13fd6cb24ee8ff679ca26df44"
+    },
+    "reef_test": {
+      "rows": 1638,
+      "columns": [
+        "id",
+        "code",
+        "label",
+        "language",
+        "cwe",
+        "project",
+        "commit_date"
+      ],
+      "label_type": "int64",
+      "sha256": "85625ccee3a2bca71cc1d86c815bec38904e264857152523c086d349ada059b1"
+    },
+    "cvefixes_functions": {
+      "rows": 22873,
+      "columns": [
+        "id",
+        "code",
+        "label",
+        "language",
+        "cwe",
+        "project",
+        "commit_date"
+      ],
+      "label_type": "int64",
+      "sha256": "682fbe7944963b46ba8416b0edfa1b8eafcf9b01816e5b407f0bcc0f71ff470a"
+    }
+  },
+  "checkpoint_files": [
+    "pytorch_model.bin",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "config.json",
+    "cwe_map.json",
+    "threshold.json",
+    "training_config.json",
+    "data_validation.json"
+  ],
+  "epochs_completed": 3,
+  "pipeline_exit_codes": [
+    0,
+    0,
+    0,
+    0
+  ]
+}

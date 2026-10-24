@@ -1,0 +1,42 @@
+# Virtual Environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Data
+data/raw/
+data/processed/*.parquet
+data/processed/*.sqlite*
+data/processed/*cache*.json
+data/processed/*.complete.json
+data/processed/*.source.json
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Checkpoints & Stores
+model/checkpoints/*.pt
+model/checkpoints/best/*.pt
+model/checkpoints/**/pytorch_model.bin
+backend/store/
+vulnexplain.db
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Environment Secrets
+.env
+
+# System & IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Local caches and databases
+.pytest_cache/
+*.db
+*.db-shm
+*.db-wal
+.env.*
+!.env.example

@@ -1,0 +1,24 @@
+{
+  "reef_test": {
+    "records": 1638,
+    "true_negative": 24,
+    "false_positive": 795,
+    "false_negative": 7,
+    "true_positive": 812,
+    "flagged_fraction": 0.981074481074481,
+    "false_positive_rate": 0.9706959706959707,
+    "probability_min": 0.10194652527570724,
+    "probability_max": 0.6188956499099731
+  },
+  "cvefixes_external": {
+    "records": 22873,
+    "true_negative": 325,
+    "false_positive": 14921,
+    "false_negative": 156,
+    "true_positive": 7471,
+    "flagged_fraction": 0.9789708389804573,
+    "false_positive_rate": 0.9786829332283877,
+    "probability_min": 0.10105590522289276,
+    "probability_max": 0.6253237724304199
+  }
+}

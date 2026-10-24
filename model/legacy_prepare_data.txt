@@ -1,0 +1,424 @@
+"""Archived original preparation pipeline; not executable.
+
+Converts REEF into data/processed/reef_functions.parquet and CVEfixes into
+data/processed/cvefixes_functions.parquet with unified schema:
+  id, code, label (1=vulnerable, 0=patched), language, cwe, project, commit_date
+
+Features:
+- Leakage-resistant GroupShuffleSplit by `project`: 80% train, 10% val, 10% test.
+- Strict deduplication and exclusion of REEF train samples from CVEfixes.
+- Top-20 CWE frequency mapping (+ "OTHER") saved to model/checkpoints/cwe_map.json.
+- Statistics saved to results/data_stats.csv.
+- Supports --sample N and --generate-synthetic for testing without external datasets.
+"""
+
+import argparse
+import json
+import os
+import re
+import sys
+import uuid
+from pathlib import Path
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import GroupShuffleSplit
+
+from config import (
+    REEF_RAW_DIR,
+    CVEFIXES_RAW_DIR,
+    PROCESSED_DATA_DIR,
+    CHECKPOINTS_DIR,
+    RESULTS_DIR,
+    SUPPORTED_LANGUAGES,
+    LANGUAGE_EXTENSIONS,
+    RANDOM_SEED,
+)
+
+# Standard schema definition
+UNIFIED_COLUMNS = ["id", "code", "label", "language", "cwe", "project", "commit_date"]
+
+
+def normalize_language(lang_val: str | None, filename: str | None = None) -> str | None:
+    """Normalize language names to the 7 supported languages."""
+    if filename:
+        ext = Path(filename).suffix.lower()
+        if ext in LANGUAGE_EXTENSIONS:
+            return LANGUAGE_EXTENSIONS[ext]
+
+    if not lang_val or pd.isna(lang_val):
+        return None
+
+    raw = str(lang_val).strip().lower()
+    mapping = {
+        "c": "c",
+        "cpp": "cpp",
+        "c++": "cpp",
+        "cxx": "cpp",
+        "cc": "cpp",
+        "c#": "csharp",
+        "csharp": "csharp",
+        "cs": "csharp",
+        "go": "go",
+        "golang": "go",
+        "java": "java",
+        "js": "javascript",
+        "javascript": "javascript",
+        "typescript": "javascript",
+        "ts": "javascript",
+        "py": "python",
+        "python": "python",
+    }
+    return mapping.get(raw, None)
+
+
+def normalize_cwe(cwe_val: str | None) -> str:
+    """Format CWE strings into canonical CWE-XXX or UNKNOWN."""
+    if not cwe_val or pd.isna(cwe_val):
+        return "UNKNOWN"
+    s = str(cwe_val).strip().upper()
+    match = re.search(r"CWE[-_]?(\d+)", s)
+    if match:
+        return f"CWE-{match.group(1)}"
+    return "UNKNOWN"
+
+
+def generate_synthetic_samples(num_samples: int = 200) -> pd.DataFrame:
+    """Generates synthetic multilingual function pairs for testing the pipeline."""
+    sample_templates = [
+        # C / CPP Buffer Overflow
+        {
+            "lang": "c",
+            "cwe": "CWE-120",
+            "vuln": "void process_input(char *src) {\n    char buf[64];\n    strcpy(buf, src);\n    printf(\"%s\\n\", buf);\n}",
+            "patch": "void process_input(char *src) {\n    char buf[64];\n    strncpy(buf, src, sizeof(buf) - 1);\n    buf[sizeof(buf) - 1] = '\\0';\n    printf(\"%s\\n\", buf);\n}",
+            "proj": "coreutils",
+        },
+        # Python Command Injection
+        {
+            "lang": "python",
+            "cwe": "CWE-78",
+            "vuln": "def ping_host(host):\n    cmd = 'ping -c 1 ' + host\n    os.system(cmd)",
+            "patch": "def ping_host(host):\n    subprocess.run(['ping', '-c', '1', host], check=True)",
+            "proj": "net-tools",
+        },
+        # Python SQL Injection
+        {
+            "lang": "python",
+            "cwe": "CWE-89",
+            "vuln": "def get_user(cursor, username):\n    query = f\"SELECT * FROM users WHERE name = '{username}'\"\n    return cursor.execute(query).fetchall()",
+            "patch": "def get_user(cursor, username):\n    query = \"SELECT * FROM users WHERE name = ?\"\n    return cursor.execute(query, (username,)).fetchall()",
+            "proj": "py-auth",
+        },
+        # JavaScript XSS / eval
+        {
+            "lang": "javascript",
+            "cwe": "CWE-79",
+            "vuln": "function renderUser(input) {\n    document.getElementById('profile').innerHTML = '<div>' + input + '</div>';\n}",
+            "patch": "function renderUser(input) {\n    const el = document.getElementById('profile');\n    el.textContent = input;\n}",
+            "proj": "web-portal",
+        },
+        # Java Command Injection
+        {
+            "lang": "java",
+            "cwe": "CWE-78",
+            "vuln": "public void executeTask(String param) throws Exception {\n    Runtime.getRuntime().exec(\"sh -c \" + param);\n}",
+            "patch": "public void executeTask(String param) throws Exception {\n    ProcessBuilder pb = new ProcessBuilder(\"safe_task\", param);\n    pb.start();\n}",
+            "proj": "java-runner",
+        },
+        # Go Path Traversal
+        {
+            "lang": "go",
+            "cwe": "CWE-22",
+            "vuln": "func readFile(userPath string) ([]byte, error) {\n    return ioutil.ReadFile(\"/var/data/\" + userPath)\n}",
+            "patch": "func readFile(userPath string) ([]byte, error) {\n    clean := filepath.Clean(userPath)\n    if strings.Contains(clean, \"..\") { return nil, errors.New(\"invalid path\") }\n    return ioutil.ReadFile(filepath.Join(\"/var/data/\", clean))\n}",
+            "proj": "go-server",
+        },
+        # C# SQL Injection
+        {
+            "lang": "csharp",
+            "cwe": "CWE-89",
+            "vuln": "public void FindAccount(string id) {\n    var cmd = new SqlCommand(\"SELECT * FROM Accounts WHERE Id = '\" + id + \"'\");\n    cmd.ExecuteReader();\n}",
+            "patch": "public void FindAccount(string id) {\n    var cmd = new SqlCommand(\"SELECT * FROM Accounts WHERE Id = @id\");\n    cmd.Parameters.AddWithValue(\"@id\", id);\n    cmd.ExecuteReader();\n}",
+            "proj": "enterprise-crm",
+        },
+    ]
+
+    records = []
+    projects = [f"project_{i}" for i in range(1, 25)]
+    np.random.seed(RANDOM_SEED)
+
+    for i in range(num_samples // 2):
+        tpl = sample_templates[i % len(sample_templates)]
+        proj = projects[i % len(projects)]
+        date_str = f"2023-{(i % 12) + 1:02d}-{(i % 28) + 1:02d}"
+
+        # Vulnerable version (label=1)
+        records.append({
+            "id": f"syn_vuln_{i}_{uuid.uuid4().hex[:6]}",
+            "code": tpl["vuln"],
+            "label": 1,
+            "language": tpl["lang"],
+            "cwe": tpl["cwe"],
+            "project": proj,
+            "commit_date": date_str,
+        })
+        # Patched version (label=0)
+        records.append({
+            "id": f"syn_patch_{i}_{uuid.uuid4().hex[:6]}",
+            "code": tpl["patch"],
+            "label": 0,
+            "language": tpl["lang"],
+            "cwe": tpl["cwe"],
+            "project": proj,
+            "commit_date": date_str,
+        })
+
+    return pd.DataFrame(records)[UNIFIED_COLUMNS]
+
+
+def load_raw_dataset(raw_dir: Path, name: str) -> pd.DataFrame:
+    """Attempts to discover and load tabular files in raw_dir into unified DataFrame."""
+    if not raw_dir.exists():
+        return pd.DataFrame(columns=UNIFIED_COLUMNS)
+
+    files = list(raw_dir.rglob("*.parquet")) + list(raw_dir.rglob("*.csv")) + list(raw_dir.rglob("*.jsonl"))
+    if not files:
+        return pd.DataFrame(columns=UNIFIED_COLUMNS)
+
+    dfs = []
+    for f in files:
+        try:
+            if f.suffix == ".parquet":
+                df = pd.read_parquet(f)
+            elif f.suffix == ".csv":
+                df = pd.read_csv(f, low_memory=False)
+            elif f.suffix == ".jsonl":
+                df = pd.read_json(f, lines=True)
+            else:
+                continue
+
+            # Column mapping heuristic
+            cols_lower = {str(c).lower(): c for c in df.columns}
+
+            def get_col(candidates):
+                for cand in candidates:
+                    for cl, orig in cols_lower.items():
+                        if cand in cl:
+                            return orig
+                return None
+
+            col_code = get_col(["func_before", "code", "function", "func_src", "func"])
+            col_patch = get_col(["func_after", "patched_code", "fix"])
+            col_label = get_col(["is_vulnerable", "vul", "target", "label"])
+            col_cwe = get_col(["cwe", "cwe_id", "vulnerability_type"])
+            col_lang = get_col(["lang", "language", "file_ext"])
+            col_proj = get_col(["repo", "project", "repository"])
+            col_date = get_col(["date", "commit_date", "author_date", "time"])
+
+            if not col_code:
+                continue
+
+            extracted = []
+            for _, r in df.iterrows():
+                lang = normalize_language(r.get(col_lang, None) if col_lang else None)
+                if not lang:
+                    continue
+                cwe = normalize_cwe(r.get(col_cwe, None) if col_cwe else None)
+                proj = str(r.get(col_proj, "unknown_project")) if col_proj else "unknown_project"
+                dt = str(r.get(col_date, "2023-01-01")) if col_date else "2023-01-01"
+
+                # Check if pre-fix & post-fix are separate columns
+                if col_patch and pd.notna(r.get(col_patch)):
+                    # Pre-fix (vulnerable, label=1)
+                    if pd.notna(r[col_code]):
+                        extracted.append({
+                            "id": f"{name}_{uuid.uuid4().hex[:8]}",
+                            "code": str(r[col_code]),
+                            "label": 1,
+                            "language": lang,
+                            "cwe": cwe,
+                            "project": proj,
+                            "commit_date": dt,
+                        })
+                    # Post-fix (patched, label=0)
+                    extracted.append({
+                        "id": f"{name}_{uuid.uuid4().hex[:8]}",
+                        "code": str(r[col_patch]),
+                        "label": 0,
+                        "language": lang,
+                        "cwe": cwe,
+                        "project": proj,
+                        "commit_date": dt,
+                    })
+                elif col_label is not None and pd.notna(r.get(col_label)):
+                    lbl = 1 if int(r[col_label]) > 0 else 0
+                    extracted.append({
+                        "id": f"{name}_{uuid.uuid4().hex[:8]}",
+                        "code": str(r[col_code]),
+                        "label": lbl,
+                        "language": lang,
+                        "cwe": cwe,
+                        "project": proj,
+                        "commit_date": dt,
+                    })
+
+            if extracted:
+                dfs.append(pd.DataFrame(extracted))
+        except Exception as e:
+            print(f"Warning: Failed to process file {f.name}: {e}")
+
+    if dfs:
+        return pd.concat(dfs, ignore_index=True)
+    return pd.DataFrame(columns=UNIFIED_COLUMNS)
+
+
+def clean_and_deduplicate(df: pd.DataFrame) -> pd.DataFrame:
+    """Cleans empty, duplicate, or extreme token length entries."""
+    if df.empty:
+        return df
+
+    # Drop null codes
+    df = df.dropna(subset=["code"]).copy()
+    df["code"] = df["code"].astype(str).str.strip()
+
+    # Drop empty or extremely short (< 15 chars) code
+    df = df[df["code"].str.len() > 15]
+
+    # Filter language to supported set
+    df = df[df["language"].isin(SUPPORTED_LANGUAGES)]
+
+    # Drop duplicate codes within the same dataset
+    df = df.drop_duplicates(subset=["code", "label"])
+
+    return df.reset_index(drop=True)
+
+
+def build_cwe_map(train_df: pd.DataFrame, top_k: int = 20) -> dict[str, int]:
+    """Builds top-K CWE map from training set + 'OTHER'."""
+    # Filter for vulnerable samples with valid CWE
+    vuln_cwes = train_df[train_df["label"] == 1]["cwe"].value_counts()
+    valid_cwes = [c for c in vuln_cwes.index if c != "UNKNOWN" and c != "OTHER"]
+
+    top_cwes = valid_cwes[:top_k]
+    cwe_to_idx = {cwe: i for i, cwe in enumerate(top_cwes)}
+    cwe_to_idx["OTHER"] = len(top_cwes)
+    return cwe_to_idx
+
+
+def split_by_project(df: pd.DataFrame, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1):
+    """Performs Leakage-Resistant GroupSplit by project: 80 / 10 / 10."""
+    splitter_1 = GroupShuffleSplit(n_splits=1, train_size=train_ratio, random_state=RANDOM_SEED)
+    train_idx, temp_idx = next(splitter_1.split(df, groups=df["project"]))
+
+    train_df = df.iloc[train_idx].copy()
+    temp_df = df.iloc[temp_idx].copy()
+
+    # Split remaining into val (50% of 20% = 10%) and test (50% of 20% = 10%)
+    relative_val_ratio = val_ratio / (val_ratio + test_ratio)
+    splitter_2 = GroupShuffleSplit(n_splits=1, train_size=relative_val_ratio, random_state=RANDOM_SEED)
+    val_rel_idx, test_rel_idx = next(splitter_2.split(temp_df, groups=temp_df["project"]))
+
+    val_df = temp_df.iloc[val_rel_idx].copy()
+    test_df = temp_df.iloc[test_rel_idx].copy()
+
+    return train_df, val_df, test_df
+
+
+def run_pipeline(sample_n: int | None = None, generate_synthetic: bool = False):
+    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    CHECKPOINTS_DIR.mkdir(parents=True, exist_ok=True)
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
+    print(">>> [1/5] Discovering and Loading Datasets...")
+    reef_df = load_raw_dataset(REEF_RAW_DIR, "reef")
+    cvefixes_df = load_raw_dataset(CVEFIXES_RAW_DIR, "cvefixes")
+
+    # If raw data is absent or synthetic flag is given, fallback to synthetic samples
+    if (reef_df.empty and cvefixes_df.empty) or generate_synthetic:
+        n = sample_n if sample_n else 300
+        print(f"NOTICE: Raw datasets missing or synthetic requested. Generating {n} synthetic samples...")
+        reef_df = generate_synthetic_samples(n)
+        cvefixes_df = generate_synthetic_samples(max(60, n // 3))
+
+    if sample_n and not generate_synthetic:
+        if not reef_df.empty:
+            reef_df = reef_df.head(sample_n)
+        if not cvefixes_df.empty:
+            cvefixes_df = cvefixes_df.head(sample_n // 2)
+
+    print(">>> [2/5] Cleaning, Normalizing, and Deduplicating...")
+    reef_df = clean_and_deduplicate(reef_df)
+    cvefixes_df = clean_and_deduplicate(cvefixes_df)
+
+    # Save complete unified functions tables
+    reef_functions_path = PROCESSED_DATA_DIR / "reef_functions.parquet"
+    cvefixes_functions_path = PROCESSED_DATA_DIR / "cvefixes_functions.parquet"
+    reef_df.to_parquet(reef_functions_path, index=False)
+    cvefixes_df.to_parquet(cvefixes_functions_path, index=False)
+    print(f"Saved: {reef_functions_path} ({len(reef_df)} records)")
+    print(f"Saved: {cvefixes_functions_path} ({len(cvefixes_df)} records)")
+
+    print(">>> [3/5] GroupShuffleSplit (Leakage-Resistant by Project)...")
+    train_df, val_df, test_df = split_by_project(reef_df, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1)
+
+    # Remove any function from CVEfixes whose exact code text appears in REEF train
+    reef_train_codes = set(train_df["code"].tolist())
+    cvefixes_df = cvefixes_df[~cvefixes_df["code"].isin(reef_train_codes)].copy()
+    cvefixes_df.to_parquet(cvefixes_functions_path, index=False)
+
+    # Save splits
+    train_df.to_parquet(PROCESSED_DATA_DIR / "reef_train.parquet", index=False)
+    val_df.to_parquet(PROCESSED_DATA_DIR / "reef_val.parquet", index=False)
+    test_df.to_parquet(PROCESSED_DATA_DIR / "reef_test.parquet", index=False)
+    print(f"Splits: Train={len(train_df)}, Val={len(val_df)}, Test={len(test_df)}")
+
+    print(">>> [4/5] Building Top-20 CWE Mapping...")
+    cwe_map = build_cwe_map(train_df, top_k=20)
+    cwe_map_path = CHECKPOINTS_DIR / "cwe_map.json"
+    with open(cwe_map_path, "w", encoding="utf-8") as f:
+        json.dump(cwe_map, f, indent=2)
+    # Also copy to best checkpoint directory if existing
+    best_cwe_path = CHECKPOINTS_DIR / "best" / "cwe_map.json"
+    best_cwe_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(best_cwe_path, "w", encoding="utf-8") as f:
+        json.dump(cwe_map, f, indent=2)
+    print(f"CWE Map saved ({len(cwe_map)} categories) to: {cwe_map_path}")
+
+    print(">>> [5/5] Computing Class Balance & Dataset Statistics...")
+    stats = []
+    for split_name, s_df in [("Train", train_df), ("Val", val_df), ("Test", test_df), ("CVEfixes_External", cvefixes_df)]:
+        total = len(s_df)
+        if total == 0:
+            continue
+        vuln_count = int((s_df["label"] == 1).sum())
+        patch_count = int((s_df["label"] == 0).sum())
+        vuln_ratio = vuln_count / total if total > 0 else 0
+        lang_dist = s_df["language"].value_counts().to_dict()
+        top_cwes_dist = s_df[s_df["label"] == 1]["cwe"].value_counts().head(5).to_dict()
+
+        stats.append({
+            "split": split_name,
+            "total_samples": total,
+            "vulnerable": vuln_count,
+            "patched": patch_count,
+            "vuln_ratio": round(vuln_ratio, 4),
+            "unique_projects": s_df["project"].nunique(),
+            "languages": str(lang_dist),
+            "top_cwes": str(top_cwes_dist),
+        })
+
+    stats_df = pd.DataFrame(stats)
+    stats_csv_path = RESULTS_DIR / "data_stats.csv"
+    stats_df.to_csv(stats_csv_path, index=False)
+    print("\nDataset Statistics Summary:")
+    print(stats_df[["split", "total_samples", "vulnerable", "patched", "vuln_ratio", "unique_projects"]].to_string())
+    print(f"\nStats successfully exported to: {stats_csv_path}")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="VulnExplain Data Preparation Pipeline")
+    parser.add_argument("--sample", type=int, default=None, help="Sample N records for fast debugging")
+    parser.add_argument("--generate-synthetic", action="store_true", help="Force synthetic sample generation")
+    args = parser.parse_args()
+
+    run_pipeline(sample_n=args.sample, generate_synthetic=args.generate_synthetic)

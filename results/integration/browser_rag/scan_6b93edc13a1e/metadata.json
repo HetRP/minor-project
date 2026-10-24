@@ -1,0 +1,56 @@
+[
+  {
+    "id": "sample_0_vulnerable.py:_download_sql_proxy_if_needed:1",
+    "file": "sample_0_vulnerable.py",
+    "name": "_download_sql_proxy_if_needed",
+    "start_line": 1,
+    "end_line": 36,
+    "language": "python",
+    "text": "File: sample_0_vulnerable.py | Function: _download_sql_proxy_if_needed\ndef _download_sql_proxy_if_needed(self) -> None:\n        if os.path.isfile(self.sql_proxy_path):\n            self.log.info(\"cloud-sql-proxy is already present\")\n            return\n        system = platform.system().lower()\n        processor = os.uname().machine\n        if processor == \"x86_64\":\n            processor = \"amd64\"\n        if not self.sql_proxy_version:\n            download_url = CLOUD_SQL_PROXY_DOWNLOAD_URL.format(system, processor)\n        else:\n            download_url = CLOUD_SQL_PROXY_VERSION_DOWNLOAD_URL.format(\n                self.sql_proxy_version, system, processor\n            )\n        proxy_path_tmp = self.sql_proxy_path + \".tmp\"\n        self.log.info(\"Downloading cloud_sql_proxy from %s to %s\", download_url, proxy_path_tmp)\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\n        # and this should work with both versions (cf. issue #20088)\n        if \"follow_redirects\" in signature(httpx.get).parameters.keys():\n            response"
+  },
+  {
+    "id": "sample_1_patched.py:_download_sql_proxy_if_needed:1",
+    "file": "sample_1_patched.py",
+    "name": "_download_sql_proxy_if_needed",
+    "start_line": 1,
+    "end_line": 27,
+    "language": "python",
+    "text": "File: sample_1_patched.py | Function: _download_sql_proxy_if_needed\ndef _download_sql_proxy_if_needed(self) -> None:\n        if os.path.isfile(self.sql_proxy_path):\n            self.log.info(\"cloud-sql-proxy is already present\")\n            return\n        download_url = self._get_sql_proxy_download_url()\n        proxy_path_tmp = self.sql_proxy_path + \".tmp\"\n        self.log.info(\"Downloading cloud_sql_proxy from %s to %s\", download_url, proxy_path_tmp)\n        # httpx has a breaking API change (follow_redirects vs allow_redirects)\n        # and this should work with both versions (cf. issue #20088)\n        if \"follow_redirects\" in signature(httpx.get).parameters.keys():\n            response = httpx.get(download_url, follow_redirects=True)\n        else:\n            response = httpx.get(download_url, allow_redirects=True)  # type: ignore[call-arg]\n        # Downloading to .tmp file first to avoid case where partially downloaded\n        # binary is used by parallel operator which uses the same fixed binary path\n        with open(proxy_path_tmp, \"wb\") as f"
+  },
+  {
+    "id": "sample_2_vulnerable.py:load:1",
+    "file": "sample_2_vulnerable.py",
+    "name": "load",
+    "start_line": 1,
+    "end_line": 12,
+    "language": "python",
+    "text": "File: sample_2_vulnerable.py | Function: load\ndef load(klass):\n        \"\"\"\n        Insantiates the configuration by attempting to load the\n        configuration from YAML files specified by the CONF_PATH module\n        variable. This should be the main entry point for configuration.\n        \"\"\"\n        config = klass()\n        for path in klass.CONF_PATHS:\n            if os.path.exists(path):\n                with open(path, 'r') as conf:\n                    config.configure(yaml.load(conf))\n        return config"
+  },
+  {
+    "id": "sample_3_patched.py:load:1",
+    "file": "sample_3_patched.py",
+    "name": "load",
+    "start_line": 1,
+    "end_line": 12,
+    "language": "python",
+    "text": "File: sample_3_patched.py | Function: load\ndef load(klass):\n        \"\"\"\n        Insantiates the configuration by attempting to load the\n        configuration from YAML files specified by the CONF_PATH module\n        variable. This should be the main entry point for configuration.\n        \"\"\"\n        config = klass()\n        for path in klass.CONF_PATHS:\n            if os.path.exists(path):\n                with open(path, 'r') as conf:\n                    config.configure(yaml.safe_load(conf))\n        return config"
+  },
+  {
+    "id": "sample_4_vulnerable.py:setup_webdir_if_it_doesnt_exist:1",
+    "file": "sample_4_vulnerable.py",
+    "name": "setup_webdir_if_it_doesnt_exist",
+    "start_line": 1,
+    "end_line": 20,
+    "language": "python",
+    "text": "File: sample_4_vulnerable.py | Function: setup_webdir_if_it_doesnt_exist\ndef setup_webdir_if_it_doesnt_exist(ctx):\n    if is_web_app(ctx):\n        webdirPath = os.path.join(ctx['BUILD_DIR'], ctx['WEBDIR'])\n        if not os.path.exists(webdirPath):\n            fu = FileUtil(FakeBuilder(ctx), move=True)\n            fu.under('BUILD_DIR')\n            fu.into('WEBDIR')\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.extensions'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp-config'))\n            fu.where_name_does_not_match(\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], 'manifest.yml'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], ctx['LIBDIR']))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.profile.d'))\n            fu."
+  },
+  {
+    "id": "sample_5_patched.py:setup_webdir_if_it_doesnt_exist:1",
+    "file": "sample_5_patched.py",
+    "name": "setup_webdir_if_it_doesnt_exist",
+    "start_line": 1,
+    "end_line": 22,
+    "language": "python",
+    "text": "File: sample_5_patched.py | Function: setup_webdir_if_it_doesnt_exist\ndef setup_webdir_if_it_doesnt_exist(ctx):\n    if is_web_app(ctx):\n        webdirPath = os.path.join(ctx['BUILD_DIR'], ctx['WEBDIR'])\n        if not os.path.exists(webdirPath):\n            fu = FileUtil(FakeBuilder(ctx), move=True)\n            fu.under('BUILD_DIR')\n            fu.into('WEBDIR')\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.extensions'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.bp-config'))\n            fu.where_name_does_not_match(\n                '^%s$' % os.path.join(ctx['BUILD_DIR'], 'manifest.yml'))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], ctx['LIBDIR']))\n            fu.where_name_does_not_match(\n                '^%s/.*$' % os.path.join(ctx['BUILD_DIR'], '.profile.d'))\n            fu."
+  }
+]

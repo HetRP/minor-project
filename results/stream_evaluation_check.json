@@ -1,0 +1,9 @@
+{
+  "samples": 8,
+  "label_order_matches": true,
+  "cwe_predictions_match": true,
+  "max_probability_difference": 0.0,
+  "status": "passed",
+  "device": "cpu",
+  "purpose": "streaming implementation equivalence; not benchmark results"
+}

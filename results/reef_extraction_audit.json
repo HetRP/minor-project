@@ -1,0 +1,11 @@
+{
+  "reef_commits": 4466,
+  "reef_files": 15563,
+  "reef_verified_pairs": 8193,
+  "reef_ast_timeout": 109,
+  "reef_unverified_patch_files": 179,
+  "conflicting_rows_removed": 458,
+  "file_language_corrected_records": 148,
+  "additional_file_language_records": 1290,
+  "reef_final_clean_rows": 14989
+}

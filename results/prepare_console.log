@@ -1,0 +1,152 @@
+CVEfixes examined 20000, retained 11537
+CVEfixes examined 50000, retained 25429
+CVEfixes examined 60000, retained 34842
+CVEfixes examined 70000, retained 44820
+CVEfixes examined 180000, retained 57097
+CVEfixes examined 190000, retained 63937
+CVEfixes examined 200000, retained 73923
+CVEfixes examined 210000, retained 83550
+CVEfixes Parquet written 1024/22873
+CVEfixes Parquet written 2048/22873
+CVEfixes Parquet written 3072/22873
+CVEfixes Parquet written 4096/22873
+CVEfixes Parquet written 5120/22873
+CVEfixes Parquet written 6144/22873
+CVEfixes Parquet written 7168/22873
+CVEfixes Parquet written 8192/22873
+CVEfixes Parquet written 9216/22873
+CVEfixes Parquet written 10240/22873
+CVEfixes Parquet written 11008/22873
+CVEfixes Parquet written 12032/22873
+CVEfixes Parquet written 13056/22873
+CVEfixes Parquet written 14080/22873
+CVEfixes Parquet written 15104/22873
+CVEfixes Parquet written 16128/22873
+CVEfixes Parquet written 17152/22873
+CVEfixes Parquet written 18176/22873
+CVEfixes Parquet written 19200/22873
+CVEfixes Parquet written 20224/22873
+CVEfixes Parquet written 21248/22873
+CVEfixes Parquet written 22016/22873
+{
+  "reef_train": {
+    "rows": 12411,
+    "classes": {
+      "1": 6208,
+      "0": 6203
+    },
+    "projects": 988,
+    "languages": {
+      "c": 3187,
+      "java": 2319,
+      "python": 2193,
+      "go": 1878,
+      "cpp": 1648,
+      "javascript": 800,
+      "csharp": 386
+    }
+  },
+  "reef_val": {
+    "rows": 940,
+    "classes": {
+      "0": 471,
+      "1": 469
+    },
+    "projects": 123,
+    "languages": {
+      "c": 274,
+      "go": 194,
+      "java": 175,
+      "python": 108,
+      "javascript": 106,
+      "cpp": 59,
+      "csharp": 24
+    }
+  },
+  "reef_test": {
+    "rows": 1638,
+    "classes": {
+      "1": 819,
+      "0": 819
+    },
+    "projects": 124,
+    "languages": {
+      "python": 612,
+      "java": 384,
+      "c": 244,
+      "go": 206,
+      "cpp": 88,
+      "javascript": 82,
+      "csharp": 22
+    }
+  },
+  "cvefixes_functions": {
+    "rows": 22873,
+    "classes": {
+      "0": 15246,
+      "1": 7627
+    },
+    "projects": 1255,
+    "languages": {
+      "javascript": 8680,
+      "c": 3534,
+      "go": 3208,
+      "java": 2882,
+      "python": 2675,
+      "cpp": 1219,
+      "csharp": 675
+    }
+  },
+  "reef_train__reef_val": {
+    "project_overlap": 0,
+    "code_overlap": 0
+  },
+  "reef_train__reef_test": {
+    "project_overlap": 0,
+    "code_overlap": 0
+  },
+  "reef_train__cvefixes_functions": {
+    "project_overlap": 0,
+    "code_overlap": 0
+  },
+  "reef_val__reef_test": {
+    "project_overlap": 0,
+    "code_overlap": 0
+  },
+  "reef_val__cvefixes_functions": {
+    "project_overlap": 0,
+    "code_overlap": 0
+  },
+  "reef_test__cvefixes_functions": {
+    "project_overlap": 0,
+    "code_overlap": 0
+  },
+  "status": "completed",
+  "extraction": {
+    "reef_commits": 4466,
+    "reef_files": 15563,
+    "reef_verified_pairs": 8193,
+    "reef_ast_timeout": 109,
+    "reef_unverified_patch_files": 179,
+    "conflicting_rows_removed": 458,
+    "file_language_corrected_records": 148,
+    "additional_file_language_records": 1290,
+    "reef_final_clean_rows": 14989,
+    "cvefixes_methods_seen": 218420,
+    "cvefixes_overlap_rows_removed": 126412,
+    "cvefixes_missing_metadata": 40,
+    "cvefixes_short_code": 7,
+    "cvefixes_conflicting_rows_removed": 6485,
+    "cvefixes_duplicate_rows_removed": 62603
+  },
+  "duration_seconds": 478.7649999999994,
+  "cvefixes_cache_table_counts": {
+    "fixes": 12923,
+    "commits": 12107,
+    "file_change": 51342,
+    "method_change": 218420,
+    "cwe_classification": 12198
+  },
+  "label_limitations": "CVE-fix changed functions are weak labels, not independently audited vulnerabilities; patched is not guaranteed globally safe.",
+  "missing_commit_dates": "Missing REEF dates retained as empty strings, never fabricated."
+}

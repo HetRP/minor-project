@@ -1,0 +1,27 @@
+{
+  "status": "completed",
+  "started_at": "2026-10-24T00:19:08+0530",
+  "stages": [
+    {
+      "stage": "prepare",
+      "exit_code": 0,
+      "duration_seconds": 487.46800000000803
+    },
+    {
+      "stage": "smoke",
+      "exit_code": 0,
+      "duration_seconds": 27.0
+    },
+    {
+      "stage": "train",
+      "exit_code": 0,
+      "duration_seconds": 1407.6410000000033
+    },
+    {
+      "stage": "evaluate",
+      "exit_code": 0,
+      "duration_seconds": 282.1559999999881
+    }
+  ],
+  "current_stage": "evaluate"
+}

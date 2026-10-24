@@ -1,0 +1,2 @@
+duration_seconds,epoch,train_loss,val_f1,val_accuracy,val_precision,val_recall,val_roc_auc,val_pr_auc,optimal_threshold
+6.16,1,1.4963,0.7097,0.55,0.55,1.0,0.23232323232323232,0.39801200261726577,0.1

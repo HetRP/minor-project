@@ -1,0 +1,357 @@
+================================================================================
+VULNEXPLAIN DATASET INSPECTION REPORT
+================================================================================
+
+[1] REEF DIRECTORY (data/raw/reef/)
+Tree of C:\Users\Het Patel\Desktop\Minor_Project\minor-main\vulnexplain\data\raw\reef:
+    FILE: query_C#.jsonl (24.97 MB)
+    FILE: query_C++.jsonl (50.29 MB)
+    FILE: query_C_part0.jsonl (62.75 MB)
+    FILE: query_C_part1.jsonl (58.28 MB)
+    FILE: query_C_part2.jsonl (75.13 MB)
+    FILE: query_C_part3.jsonl (43.43 MB)
+    FILE: query_Go.jsonl (68.52 MB)
+    FILE: query_Java.jsonl (63.72 MB)
+    FILE: query_JS.jsonl (99.36 MB)
+    FILE: query_Python.jsonl (67.52 MB)
+
+--- Inspecting File: query_C#.jsonl (25572.4 KB) ---
+Exact JSONL row count: 85
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 38, 'cve_id': 'CVE-2023-0493', 'CWEs': ['CWE-76'], 'language': 'C#', 'cvss': '8.8', 'origin_message': 'Fix several HTML injections', 'LLM_message': 'The following is a summary of the changes made to the code to address potential vulnerabilities:\n\n  * Patches #1 and #2:...', 'url': 'https://api.github.com/repos/btcpayserver/btcpayserver/commits/02070d65836cd24627929b3403efbae8de56039a', 'html_url': 'https://github.com/btcpayserver/btcpayserver/commit/02070d65836cd24627929b3403efbae8de56039a', 'details': "[{'raw_url': 'https://github.com/btcpayserver/btcpayserver/raw/02070d65836cd24627929b3403efbae8de56039a/BTCPayServer%2FC..."}
+  Sample #2: {'index': 102, 'cve_id': 'CVE-2022-41417', 'CWEs': ['CWE-20'], 'language': 'C#', 'cvss': '9.8', 'origin_message': 'Merge pull request #247 from 0xLanks/fix-security-issues\n\nFixed security issues', 'LLM_message': 'The given patch provides a fix for a potential vulnerability in the BlogEngine application, specifically with the `Proce...', 'url': 'https://api.github.com/repos/BlogEngine/BlogEngine.NET/commits/7f927567db94462ffd37e128c0a53c11c1f81a8d', 'html_url': 'https://github.com/BlogEngine/BlogEngine.NET/commit/7f927567db94462ffd37e128c0a53c11c1f81a8d', 'details': "[{'raw_url': 'https://github.com/BlogEngine/BlogEngine.NET/raw/7f927567db94462ffd37e128c0a53c11c1f81a8d/BlogEngine%2FBlo..."}
+  Sample #3: {'index': 109, 'cve_id': 'CVE-2015-10067', 'CWEs': ['CWE-362', 'CWE-366'], 'language': 'C#', 'cvss': '8.1', 'origin_message': 'Fixed critical race vulnerability in Cancel', 'LLM_message': 'The provided patch for CVE-362 includes multiple changes to multiple files, with the primary fix being a critical race v...', 'url': 'https://api.github.com/repos/oznetmaster/SSharpSmartThreadPool/commits/0e58073c831093aad75e077962e9fb55cad0dc5f', 'html_url': 'https://github.com/oznetmaster/SSharpSmartThreadPool/commit/0e58073c831093aad75e077962e9fb55cad0dc5f', 'details': "[{'raw_url': 'https://github.com/oznetmaster/SSharpSmartThreadPool/raw/0e58073c831093aad75e077962e9fb55cad0dc5f/SSharpSm..."}
+
+--- Inspecting File: query_C++.jsonl (51500.9 KB) ---
+Exact JSONL row count: 411
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 84, 'cve_id': 'CVE-2022-47015', 'CWEs': ['CWE-476'], 'language': 'C++', 'cvss': '6.5', 'origin_message': 'MDEV-29644 a potential bug of null pointer dereference in spider_db_mbase::print_warnings()\n\nThe function spider_db_mbas...', 'LLM_message': 'The provided patch is a potential fix for a null pointer dereference vulnerability in the Spider DB `spider_db_mbase` cl...', 'url': 'https://api.github.com/repos/MariaDB/server/commits/be0a46b3d52b58956fd0d47d040b9f4514406954', 'html_url': 'https://github.com/MariaDB/server/commit/be0a46b3d52b58956fd0d47d040b9f4514406954', 'details': "[{'raw_url': 'https://github.com/MariaDB/server/raw/be0a46b3d52b58956fd0d47d040b9f4514406954/storage%2Fspider%2Fmysql-te..."}
+  Sample #2: {'index': 115, 'cve_id': 'CVE-2015-10065', 'CWEs': ['CWE-120'], 'language': 'C++', 'cvss': '9.8', 'origin_message': 'fixed overflow vulnerability', 'LLM_message': 'The given CVE has multiple patches, including one for an overflow vulnerability in the `init_result` function, which has...', 'url': 'https://api.github.com/repos/AenBleidd/FiND/commits/ee2eef34a83644f286c9adcaf30437f92e9c48f1', 'html_url': 'https://github.com/AenBleidd/FiND/commit/ee2eef34a83644f286c9adcaf30437f92e9c48f1', 'details': "[{'raw_url': 'https://github.com/AenBleidd/FiND/raw/ee2eef34a83644f286c9adcaf30437f92e9c48f1/validator%2Fmy_validator.cp..."}
+  Sample #3: {'index': 257, 'cve_id': 'CVE-2014-125060', 'CWEs': ['CWE-287'], 'language': 'C++', 'cvss': '9.8', 'origin_message': 'Fixed Login Exploit', 'LLM_message': 'The given explanation is an accurate description of a CVE with multiple patches for the "Login" vulnerability in a web a...', 'url': 'https://api.github.com/repos/holdennb/CollabCal/commits/b80f6d1893607c99e5113967592417d0fe310ce6', 'html_url': 'https://github.com/holdennb/CollabCal/commit/b80f6d1893607c99e5113967592417d0fe310ce6', 'details': "[{'raw_url': 'https://github.com/holdennb/CollabCal/raw/b80f6d1893607c99e5113967592417d0fe310ce6/calenderServer.cpp', 'r..."}
+
+--- Inspecting File: query_C_part0.jsonl (64252.6 KB) ---
+Exact JSONL row count: 400
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 3, 'cve_id': 'CVE-2023-0341', 'CWEs': ['CWE-787'], 'language': 'C', 'cvss': '7.8', 'origin_message': 'Fix potential buffer overflow in ec_glob (#87)\n\nCVE-2023-0341\r\n\r\nCo-authored-by: David Fernandez Gonzalez <david.fernand...', 'LLM_message': 'The given patch updates the EC_GLOB function to properly handle buffer overflows and includes additional checks to ensur...', 'url': 'https://api.github.com/repos/editorconfig/editorconfig-core-c/commits/41281ea82fbf24b060a9f69b9c5369350fb0529e', 'html_url': 'https://github.com/editorconfig/editorconfig-core-c/commit/41281ea82fbf24b060a9f69b9c5369350fb0529e', 'details': "[{'raw_url': 'https://github.com/editorconfig/editorconfig-core-c/raw/41281ea82fbf24b060a9f69b9c5369350fb0529e/src%2Flib..."}
+  Sample #2: {'index': 4, 'cve_id': 'CVE-2023-0341', 'CWEs': ['CWE-787'], 'language': 'C', 'cvss': '7.8', 'origin_message': 'Fix potential buffer overflow in ec_glob (#87)\n\nCVE-2023-0341\r\n\r\nCo-authored-by: David Fernandez Gonzalez <david.fernand...', 'LLM_message': 'The given patch updates the EC_GLOB function to properly handle buffer overflows and includes additional checks to ensur...', 'url': 'https://api.github.com/repos/editorconfig/editorconfig-core-c/commits/41281ea82fbf24b060a9f69b9c5369350fb0529e', 'html_url': 'https://github.com/editorconfig/editorconfig-core-c/commit/41281ea82fbf24b060a9f69b9c5369350fb0529e', 'details': "[{'raw_url': 'https://github.com/editorconfig/editorconfig-core-c/raw/41281ea82fbf24b060a9f69b9c5369350fb0529e/src%2Flib..."}
+  Sample #3: {'index': 12, 'cve_id': 'CVE-2023-0266', 'CWEs': ['CWE-416'], 'language': 'C', 'cvss': '7.8', 'origin_message': 'ALSA: control: code refactoring for ELEM_READ/ELEM_WRITE operations\n\nALSA control core handles ELEM_READ/ELEM_WRITE requ...', 'LLM_message': 'The given commit updates the code to move the lock acquisition to the middle of the call graph to simplify the helper fu...', 'url': 'https://api.github.com/repos/torvalds/linux/commits/becf9e5d553c2389d857a3c178ce80fdb34a02e1', 'html_url': 'https://github.com/torvalds/linux/commit/becf9e5d553c2389d857a3c178ce80fdb34a02e1', 'details': "[{'raw_url': 'https://github.com/torvalds/linux/raw/becf9e5d553c2389d857a3c178ce80fdb34a02e1/sound%2Fcore%2Fcontrol.c', ..."}
+
+--- Inspecting File: query_C_part1.jsonl (59683.7 KB) ---
+Exact JSONL row count: 400
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 3083, 'cve_id': 'CVE-2017-1000418', 'CWEs': ['CWE-119'], 'language': 'C', 'cvss': '7.8', 'origin_message': 'wildmidi_lib.c (WildMidi_Open, WildMidi_OpenBuffer): refuse to proceed if less then 18 bytes of input\n\nFixes bug #178.', 'LLM_message': 'The given patch for CVE-2017-11661, CVE-2017-11662, CVE-2017-11663, and CVE-2017-11664 fixes a buffer overflow vulnerabi...', 'url': 'https://api.github.com/repos/Mindwerks/wildmidi/commits/814f31d8eceda8401eb812fc2e94ed143fdad0ab', 'html_url': 'https://github.com/Mindwerks/wildmidi/commit/814f31d8eceda8401eb812fc2e94ed143fdad0ab', 'details': "[{'raw_url': 'https://github.com/Mindwerks/wildmidi/raw/814f31d8eceda8401eb812fc2e94ed143fdad0ab/README.md', 'raw_code':..."}
+  Sample #2: {'index': 3086, 'cve_id': 'CVE-2017-9201', 'CWEs': ['CWE-369'], 'language': 'C', 'cvss': '6.5', 'origin_message': "Double-check that the input image's density is valid\n\nFixes a bug that could result in division by zero, at least for a ...", 'LLM_message': 'The given CVE is CWE-369, and the patch addresses issues #19 and #20 by correcting a potential division by zero error in...', 'url': 'https://api.github.com/repos/jsummers/imageworsener/commits/dc49c807926b96e503bd7c0dec35119eecd6c6fe', 'html_url': 'https://github.com/jsummers/imageworsener/commit/dc49c807926b96e503bd7c0dec35119eecd6c6fe', 'details': "[{'raw_url': 'https://github.com/jsummers/imageworsener/raw/dc49c807926b96e503bd7c0dec35119eecd6c6fe/src%2Fimagew-api.c'..."}
+  Sample #3: {'index': 3087, 'cve_id': 'CVE-2017-9202', 'CWEs': ['CWE-369'], 'language': 'C', 'cvss': '6.5', 'origin_message': "Double-check that the input image's density is valid\n\nFixes a bug that could result in division by zero, at least for a ...", 'LLM_message': 'The given CVE is CWE-369, and the patch addresses issues #19 and #20 by correcting a potential division by zero error in...', 'url': 'https://api.github.com/repos/jsummers/imageworsener/commits/dc49c807926b96e503bd7c0dec35119eecd6c6fe', 'html_url': 'https://github.com/jsummers/imageworsener/commit/dc49c807926b96e503bd7c0dec35119eecd6c6fe', 'details': "[{'raw_url': 'https://github.com/jsummers/imageworsener/raw/dc49c807926b96e503bd7c0dec35119eecd6c6fe/src%2Fimagew-api.c'..."}
+
+--- Inspecting File: query_C_part2.jsonl (76934.1 KB) ---
+Exact JSONL row count: 400
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 5419, 'cve_id': 'CVE-2020-11940', 'CWEs': ['CWE-125'], 'language': 'C', 'cvss': '7.5', 'origin_message': 'ssh: adds systematic bounds checks in concat_hash_string\n\ncf GHSL-2020-052', 'LLM_message': 'The given patch fixes a potential vulnerability in the `concat_hash_string` function by adding systematic bounds checks ...', 'url': 'https://api.github.com/repos/ntop/nDPI/commits/3bbb0cd3296023f6f922c71d21a1c374d2b0a435', 'html_url': 'https://github.com/ntop/nDPI/commit/3bbb0cd3296023f6f922c71d21a1c374d2b0a435', 'details': "[{'raw_url': 'https://github.com/ntop/nDPI/raw/3bbb0cd3296023f6f922c71d21a1c374d2b0a435/src%2Flib%2Fprotocols%2Fssh.c', ..."}
+  Sample #2: {'index': 5423, 'cve_id': 'CVE-2020-12655', 'CWEs': ['CWE-400', 'CWE-835'], 'language': 'C', 'cvss': '5.5', 'origin_message': 'xfs: add agf freeblocks verify in xfs_agf_verify\n\nWe recently used fuzz(hydra) to test XFS and automatically generate\ntm...', 'LLM_message': 'The given patch is designed to address a vulnerability in XFS by adding the `agf_verify` function, which checks the inte...', 'url': 'https://api.github.com/repos/torvalds/linux/commits/d0c7feaf87678371c2c09b3709400be416b2dc62', 'html_url': 'https://github.com/torvalds/linux/commit/d0c7feaf87678371c2c09b3709400be416b2dc62', 'details': "[{'raw_url': 'https://github.com/torvalds/linux/raw/d0c7feaf87678371c2c09b3709400be416b2dc62/fs%2Fxfs%2Flibxfs%2Fxfs_all..."}
+  Sample #3: {'index': 5434, 'cve_id': 'CVE-2020-10797', 'CWEs': ['CWE-79'], 'language': 'C', 'cvss': '6.1', 'origin_message': 'Validation and encoding for Ping and Traceroute. Fixes #10355', 'LLM_message': 'The given patch updates the function `is_ipaddrv4()` to correctly validate IPv6 addresses and hostnames, and adds a chec...', 'url': 'https://api.github.com/repos/pfsense/pfsense/commits/cc3990a334059018b004c91eeb66c147d8afe83d', 'html_url': 'https://github.com/pfsense/pfsense/commit/cc3990a334059018b004c91eeb66c147d8afe83d', 'details': "[{'raw_url': 'https://github.com/pfsense/pfsense/raw/cc3990a334059018b004c91eeb66c147d8afe83d/src%2Fusr%2Flocal%2Fwww%2F..."}
+
+--- Inspecting File: query_C_part3.jsonl (44467.5 KB) ---
+Exact JSONL row count: 375
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 6842, 'cve_id': 'CVE-2018-20458', 'CWEs': ['CWE-125'], 'language': 'C', 'cvss': '5.5', 'origin_message': 'Fix #12374 - oobread crash in truncated dyldcache ##bin (#12381)', 'LLM_message': 'The given CVE has multiple patches, including one to fix a null pointer dereference in the `r_bin_dyldcache_apply_patch`...', 'url': 'https://api.github.com/repos/radareorg/radare2/commits/30f4c7b52a4e2dc0d0b1bae487d90f5437c69d19', 'html_url': 'https://github.com/radareorg/radare2/commit/30f4c7b52a4e2dc0d0b1bae487d90f5437c69d19', 'details': "[{'raw_url': 'https://github.com/radareorg/radare2/raw/30f4c7b52a4e2dc0d0b1bae487d90f5437c69d19/libr%2Fbin%2Fformat%2Fma..."}
+  Sample #2: {'index': 6843, 'cve_id': 'CVE-2018-20459', 'CWEs': ['CWE-125'], 'language': 'C', 'cvss': '5.5', 'origin_message': 'Fix #12417/#12418 (arm assembler heap overflows)', 'LLM_message': 'The given explanation for the CVE-125 vulnerability is accurate and detailed, but it can be simplified for clarity. The ...', 'url': 'https://api.github.com/repos/radareorg/radare2/commits/e5c14c167b0dcf0a53d76bd50bacbbcc0dfc1ae7', 'html_url': 'https://github.com/radareorg/radare2/commit/e5c14c167b0dcf0a53d76bd50bacbbcc0dfc1ae7', 'details': "[{'raw_url': 'https://github.com/radareorg/radare2/raw/e5c14c167b0dcf0a53d76bd50bacbbcc0dfc1ae7/libr%2Fasm%2Farch%2Farm%..."}
+  Sample #3: {'index': 6856, 'cve_id': 'CVE-2018-20145', 'CWEs': ['CWE-254', 'CWE-732'], 'language': 'C', 'cvss': '7.5', 'origin_message': 'Fix acl_file being ignore for default listener if with per_listener_settings\n\nClose #1073. Thanks to Jef Driesen.\n\nBug: ...', 'LLM_message': 'The given patch addresses the issue of the "acl_file" being ignored for the "default listener" only when `per_listener_s...', 'url': 'https://api.github.com/repos/eclipse/mosquitto/commits/9097577b49b7fdcf45d30975976dd93808ccc0c4', 'html_url': 'https://github.com/eclipse/mosquitto/commit/9097577b49b7fdcf45d30975976dd93808ccc0c4', 'details': "[{'raw_url': 'https://github.com/eclipse/mosquitto/raw/9097577b49b7fdcf45d30975976dd93808ccc0c4/ChangeLog.txt', 'raw_cod..."}
+
+--- Inspecting File: query_Go.jsonl (70162.6 KB) ---
+Exact JSONL row count: 355
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 15, 'cve_id': 'CVE-2023-24623', 'CWEs': ['CWE-918'], 'language': 'Go', 'cvss': '7.5', 'origin_message': 'fix ipv6 unspecified address', 'LLM_message': 'The given explanation accurately describes how the given patches fix potential vulnerabilities in the code, specifically...', 'url': 'https://api.github.com/repos/hakobe/paranoidhttp/commits/07f671da14ce63a80f4e52432b32e8d178d75fd3', 'html_url': 'https://github.com/hakobe/paranoidhttp/commit/07f671da14ce63a80f4e52432b32e8d178d75fd3', 'details': "[{'raw_url': 'https://github.com/hakobe/paranoidhttp/raw/07f671da14ce63a80f4e52432b32e8d178d75fd3/client.go', 'raw_code'..."}
+  Sample #2: {'index': 29, 'cve_id': 'CVE-2022-39324', 'CWEs': ['CWE-79'], 'language': 'Go', 'cvss': '3.5', 'origin_message': 'Snapshots: Build snapshot originalUrl on the backend  (#60232)\n\n* Snapshots: Fix originalUrl spoof security issue\r\n\r\n* S...', 'LLM_message': 'The patch adds a check for an external URL and sets the `originalUrl` property of the `DashboardSnapshot` object to the ...', 'url': 'https://api.github.com/repos/grafana/grafana/commits/239888f22983010576bb3a9135a7294e88c0c74a', 'html_url': 'https://github.com/grafana/grafana/commit/239888f22983010576bb3a9135a7294e88c0c74a', 'details': "[{'raw_url': 'https://github.com/grafana/grafana/raw/239888f22983010576bb3a9135a7294e88c0c74a/packages%2Fgrafana-ui%2Fsr..."}
+  Sample #3: {'index': 49, 'cve_id': 'CVE-2023-22736', 'CWEs': ['CWE-862'], 'language': 'Go', 'cvss': '8.5', 'origin_message': 'Merge pull request from GHSA-6p4m-hw2h-6gmw\n\nSigned-off-by: ChangZhuo Chen (陳昌倬) <czchen@czchen.org>\n\nadd test\n\nSigned-o...', 'LLM_message': 'The given patch addresses potential vulnerabilities in the `ApplicationController` class by implementing CWE-862, which ...', 'url': 'https://api.github.com/repos/argoproj/argo-cd/commits/1f82078e7463228477e6c2cd959c14e7426c99d7', 'html_url': 'https://github.com/argoproj/argo-cd/commit/1f82078e7463228477e6c2cd959c14e7426c99d7', 'details': "[{'raw_url': 'https://github.com/argoproj/argo-cd/raw/1f82078e7463228477e6c2cd959c14e7426c99d7/controller%2Fappcontrolle..."}
+
+--- Inspecting File: query_Java.jsonl (65253.7 KB) ---
+Exact JSONL row count: 541
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 6, 'cve_id': 'CVE-2023-24829', 'CWEs': ['CWE-863'], 'language': 'Java', 'cvss': '8.8', 'origin_message': 'Safe Token  (#34)', 'LLM_message': 'The code patches a vulnerability in the `org.apache.iotdb.admin.controller` package by adding a check to ensure that the...', 'url': 'https://api.github.com/repos/apache/iotdb-web-workbench/commits/23862b42341237973c5940b74bab9d5c9d9b396d', 'html_url': 'https://github.com/apache/iotdb-web-workbench/commit/23862b42341237973c5940b74bab9d5c9d9b396d', 'details': "[{'raw_url': 'https://github.com/apache/iotdb-web-workbench/raw/23862b42341237973c5940b74bab9d5c9d9b396d/backend%2Fbuild..."}
+  Sample #2: {'index': 7, 'cve_id': 'CVE-2022-44645', 'CWEs': ['CWE-502'], 'language': 'Java', 'cvss': '8.8', 'origin_message': 'Handle url contains # and unsafe parameters (#4105)', 'LLM_message': 'The patch fixed various vulnerabilities in the JDBCParamUtils class by adding new methods for handling sensitive databas...', 'url': 'https://api.github.com/repos/apache/linkis/commits/584ea70b2290bcf92afdc92f64ec9b2f6b0ab9d5', 'html_url': 'https://github.com/apache/linkis/commit/584ea70b2290bcf92afdc92f64ec9b2f6b0ab9d5', 'details': "[{'raw_url': 'https://github.com/apache/linkis/raw/584ea70b2290bcf92afdc92f64ec9b2f6b0ab9d5/.gitignore', 'raw_code': '.D..."}
+  Sample #3: {'index': 8, 'cve_id': 'CVE-2022-44644', 'CWEs': ['CWE-200', 'CWE-20', 'CWE-312'], 'language': 'Java', 'cvss': '6.5', 'origin_message': '[ISSUE-3795] Handle mysql connection parameters (#3826)', 'LLM_message': 'The given patch includes multiple functions that address potential vulnerabilities, including a check for missing parame...', 'url': 'https://api.github.com/repos/apache/linkis/commits/b9a13c52e1fc6f370727d6ab0e69f289dd603211', 'html_url': 'https://github.com/apache/linkis/commit/b9a13c52e1fc6f370727d6ab0e69f289dd603211', 'details': "[{'raw_url': 'https://github.com/apache/linkis/raw/b9a13c52e1fc6f370727d6ab0e69f289dd603211/linkis-public-enhancements%2..."}
+
+--- Inspecting File: query_JS.jsonl (101742.7 KB) ---
+Exact JSONL row count: 636
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 9, 'cve_id': 'CVE-2022-25979', 'CWEs': ['CWE-79'], 'language': 'JS', 'cvss': '6.1', 'origin_message': 'jSuites 5 editor - security fixes.', 'LLM_message': 'The code provided in the patch adds a new property to the JSuites object to store the current version, and sets a new fu...', 'url': 'https://api.github.com/repos/jsuites/jsuites/commits/b31770d5fe91684a00177f629aab933139c32d9f', 'html_url': 'https://github.com/jsuites/jsuites/commit/b31770d5fe91684a00177f629aab933139c32d9f', 'details': "[{'raw_url': 'https://github.com/jsuites/jsuites/raw/b31770d5fe91684a00177f629aab933139c32d9f/dist%2Fjsuites.js', 'raw_c..."}
+  Sample #2: {'index': 10, 'cve_id': 'CVE-2022-21129', 'CWEs': ['CWE-77'], 'language': 'JS', 'cvss': '9.8', 'origin_message': 'prevent OS commands from being injected', 'LLM_message': 'The provided explanation accurately describes how the given patch addresses a potential vulnerability and the steps invo...', 'url': 'https://api.github.com/repos/paypal/nemo-appium/commits/aa271d36dd5c81baae3c43aa2616c84f0ee4195f', 'html_url': 'https://github.com/paypal/nemo-appium/commit/aa271d36dd5c81baae3c43aa2616c84f0ee4195f', 'details': "[{'raw_url': 'https://github.com/paypal/nemo-appium/raw/aa271d36dd5c81baae3c43aa2616c84f0ee4195f/index.js', 'raw_code': ..."}
+  Sample #3: {'index': 13, 'cve_id': 'CVE-2022-25967', 'CWEs': ['NVD-CWE-noinfo'], 'language': 'JS', 'cvss': '8.8', 'origin_message': "Don't use data object for Eta configuration (#214)", 'LLM_message': 'The patch addresses potential vulnerabilities in the code by using a higher-order function to define the renderFile func...', 'url': 'https://api.github.com/repos/eta-dev/eta/commits/5651392462ee0ff19d77c8481081a99e5b9138dd', 'html_url': 'https://github.com/eta-dev/eta/commit/5651392462ee0ff19d77c8481081a99e5b9138dd', 'details': "[{'raw_url': 'https://github.com/eta-dev/eta/raw/5651392462ee0ff19d77c8481081a99e5b9138dd/deno_dist%2Ffile-handlers.ts',..."}
+
+--- Inspecting File: query_Python.jsonl (69139.9 KB) ---
+Exact JSONL row count: 863
+Type: JSON/JSONL | Sampled Records: 5
+Keys (10): ['index', 'cve_id', 'CWEs', 'language', 'cvss', 'origin_message', 'LLM_message', 'url', 'html_url', 'details']
+Identified Fields: {
+  "code": null,
+  "label": null,
+  "cwe": "CWEs",
+  "language": "language",
+  "project": null,
+  "commit_date": null
+}
+Nested file keys: ['raw_url', 'raw_code', 'patch']
+Labels require verified raw_code/unified patch reconstruction, not flat-column guessing.
+Sample Records (up to 3):
+  Sample #1: {'index': 23, 'cve_id': 'CVE-2021-4315', 'CWEs': ['CWE-1336'], 'language': 'Python', 'cvss': '8.8', 'origin_message': 'Fix SSTI vulnerability in ad and consent pages (#517)\n\n* Fix SSTI vulnerability in ad and consent pages\r\n\r\nFixed an issu...', 'LLM_message': 'The given explanation accurately describes the patch that was applied to fix the SSTI vulnerability in the ad and consen...', 'url': 'https://api.github.com/repos/NYUCCL/psiTurk/commits/47787e15cecd66f2aa87687bf852ae0194a4335f', 'html_url': 'https://github.com/NYUCCL/psiTurk/commit/47787e15cecd66f2aa87687bf852ae0194a4335f', 'details': "[{'raw_url': 'https://github.com/NYUCCL/psiTurk/raw/47787e15cecd66f2aa87687bf852ae0194a4335f/psiturk%2Fexperiment.py', '..."}
+  Sample #2: {'index': 37, 'cve_id': 'CVE-2023-0519', 'CWEs': ['CWE-79'], 'language': 'Python', 'cvss': '5.4', 'origin_message': 'Avoid XSS issues while deleting account and looking at logs.', 'LLM_message': 'This is a summary of the changes made in the given patches to address the CVE-79 vulnerability: The patches include chan...', 'url': 'https://api.github.com/repos/modoboa/modoboa/commits/eef9ab72b5305578a3ad7a7463bd284aa645e98b', 'html_url': 'https://github.com/modoboa/modoboa/commit/eef9ab72b5305578a3ad7a7463bd284aa645e98b', 'details': "[{'raw_url': 'https://github.com/modoboa/modoboa/raw/eef9ab72b5305578a3ad7a7463bd284aa645e98b/modoboa%2Fadmin%2Fstatic%2..."}
+  Sample #3: {'index': 39, 'cve_id': 'CVE-2023-0470', 'CWEs': ['CWE-79'], 'language': 'Python', 'cvss': '5.4', 'origin_message': 'Merge pull request #2757 from modoboa/fix/xss_issue_domain_form\n\nFixed XSS issue in domain creation form.', 'LLM_message': 'This is a patch for CVE-79, which fixed an XSS issue in the domain creation form. The patch includes several changes, in...', 'url': 'https://api.github.com/repos/modoboa/modoboa/commits/354ab6884019009249097a7f3a1881d81ecd2fd2', 'html_url': 'https://github.com/modoboa/modoboa/commit/354ab6884019009249097a7f3a1881d81ecd2fd2', 'details': "[{'raw_url': 'https://github.com/modoboa/modoboa/raw/354ab6884019009249097a7f3a1881d81ecd2fd2/modoboa%2Fadmin%2Fstatic%2..."}
+
+================================================================================
+
+[2] CVEFIXES DIRECTORY (data/raw/cvefixes/)
+Tree of C:\Users\Het Patel\Desktop\Minor_Project\minor-main\vulnexplain\data\raw\cvefixes:
+    FILE: CVEfixes_v1.0.8.log.gz (26.54 MB)
+    FILE: CVEfixes_v1.0.8.sql.gz (12074.13 MB)
+    FILE: cwec_v4.15.xml (14.08 MB)
+    FILE: nvdcve-1.1-2024-07-23.tgz (67.88 MB)
+
+--- Inspecting File: CVEfixes_v1.0.8.log.gz (27172.1 KB) ---
+Gzip collection log (not model examples): 2024-07-24 12:40:39.809222: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /cm/shared/apps/hwloc/gcc/2.1.0/lib:/cm/shared/apps/numactl/gcc/2.0.13/lib:/cm/shared/apps/slurm/current/lib64/slurm:/cm/shared/apps/slurm/current/lib64:/opt/nvidia/cudaq/lib:/opt/nvidia/cudaq/lib
+2024-07-24 12:40:39.809253: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+07/24/2024 12:42:02 git.cmd DEBUG Popen(['git', 'version'], cwd=/global/D1/homes/leon/research/secureIT/CVEfixes, stdin=None, shell=False, universal_newlines=False)
+07/24/2024 12:42:02 git.cmd DEBUG Popen(['git', 'version'], cwd=/global/D1/homes/leon/research/secureIT/CVEfixes, stdin=None, shell=False, universal_newlines=False)
+07/24/2024 12:42:02 CVEfixes INFO ---------------------------------
+
+--- Inspecting File: CVEfixes_v1.0.8.sql.gz (12363907.1 KB) ---
+SQLite SQL dump header: PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "fixes" (
+"cve_id" TEXT,
+  "hash" TEXT,
+  "repo_url" TEXT
+);
+INSERT INTO fixes VALUES('CVE-1999-0199','2864e7
+Complete extracted schemas: {
+  "fixes": [
+    "cve_id",
+    "hash",
+    "repo_url"
+  ],
+  "commits": [
+    "hash",
+    "repo_url",
+    "author",
+    "author_date",
+    "author_timezone",
+    "committer",
+    "committer_date",
+    "committer_timezone",
+    "msg",
+    "merge",
+    "parents",
+    "num_lines_added",
+    "num_lines_deleted",
+    "dmm_unit_complexity",
+    "dmm_unit_interfacing",
+    "dmm_unit_size"
+  ],
+  "file_change": [
+    "file_change_id",
+    "hash",
+    "filename",
+    "old_path",
+    "new_path",
+    "change_type",
+    "diff",
+    "diff_parsed",
+    "num_lines_added",
+    "num_lines_deleted",
+    "code_after",
+    "code_before",
+    "nloc",
+    "complexity",
+    "token_count",
+    "programming_language"
+  ],
+  "method_change": [
+    "method_change_id",
+    "file_change_id",
+    "name",
+    "signature",
+    "parameters",
+    "start_line",
+    "end_line",
+    "code",
+    "nloc",
+    "complexity",
+    "token_count",
+    "top_nesting_level",
+    "before_change"
+  ],
+  "cve": [
+    "cve_id",
+    "published_date",
+    "last_modified_date",
+    "description",
+    "nodes",
+    "severity",
+    "obtain_all_privilege",
+    "obtain_user_privilege",
+    "obtain_other_privilege",
+    "user_interaction_required",
+    "cvss2_vector_string",
+    "cvss2_access_vector",
+    "cvss2_access_complexity",
+    "cvss2_authentication",
+    "cvss2_confidentiality_impact",
+    "cvss2_integrity_impact",
+    "cvss2_availability_impact",
+    "cvss2_base_score",
+    "cvss3_vector_string",
+    "cvss3_attack_vector",
+    "cvss3_attack_complexity",
+    "cvss3_privileges_required",
+    "cvss3_user_interaction",
+    "cvss3_scope",
+    "cvss3_confidentiality_impact",
+    "cvss3_integrity_impact",
+    "cvss3_availability_impact",
+    "cvss3_base_score",
+    "cvss3_base_severity",
+    "exploitability_score",
+    "impact_score",
+    "ac_insuf_info",
+    "reference_json",
+    "problemtype_json"
+  ],
+  "cwe": [
+    "index",
+    "cwe_id",
+    "cwe_name",
+    "description",
+    "extended_description",
+    "url",
+    "is_category"
+  ],
+  "cwe_classification": [
+    "cve_id",
+    "cwe_id"
+  ],
+  "repository": [
+    "repo_url",
+    "repo_name",
+    "description",
+    "date_created",
+    "date_last_push",
+    "homepage",
+    "repo_language",
+    "owner",
+    "forks_count",
+    "stars_count"
+  ]
+}
+
+--- Inspecting File: cwec_v4.15.xml (14414.3 KB) ---
+CWE XML catalog: 964 Weakness records; auxiliary taxonomy, not function examples
+
+--- Inspecting File: nvdcve-1.1-2024-07-23.tgz (69513.9 KB) ---
+Archive members (not extracted): [('json', 0), ('json/nvdcve-1.1-2002.json', 21150920), ('json/nvdcve-1.1-2003.json', 5990777), ('json/nvdcve-1.1-2004.json', 12452916), ('json/nvdcve-1.1-2005.json', 19843421), ('json/nvdcve-1.1-2006.json', 30408964), ('json/nvdcve-1.1-2007.json', 28553113), ('json/nvdcve-1.1-2008.json', 33187181), ('json/nvdcve-1.1-2009.json', 31978125), ('json/nvdcve-1.1-2010.json', 34547756), ('json/nvdcve-1.1-2011.json', 34640974), ('json/nvdcve-1.1-2012.json', 39893434), ('json/nvdcve-1.1-2013.json', 44388724), ('json/nvdcve-1.1-2014.json', 40682117), ('json/nvdcve-1.1-2015.json', 40941380), ('json/nvdcve-1.1-2016.json', 51857691), ('json/nvdcve-1.1-2017.json', 74662955), ('json/nvdcve-1.1-2018.json', 78177739), ('json/nvdcve-1.1-2019.json', 89510122), ('json/nvdcve-1.1-2020.json', 116405985), ('json/nvdcve-1.1-2021.json', 135809018), ('json/nvdcve-1.1-2023.json', 132016429), ('json/nvdcve-1.1-2024.json', 39067892), ('json/nvdcve-1.1-2022.json', 128359627)]
