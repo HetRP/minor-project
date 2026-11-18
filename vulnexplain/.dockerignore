@@ -1,0 +1,16 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+data/raw/
+data/processed/
+model/checkpoints/
+frontend/node_modules/
+frontend/dist/
+.pytest_cache/
+results/
+docs/
+*.db
+*.sqlite3
+.env
+.git/
