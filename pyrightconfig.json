@@ -1,0 +1,10 @@
+{
+  "include": [
+    "vulnexplain"
+  ],
+  "extraPaths": [
+    "vulnexplain",
+    "vulnexplain/backend",
+    "vulnexplain/model"
+  ]
+}

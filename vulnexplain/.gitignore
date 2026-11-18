@@ -1,0 +1,31 @@
+# Virtual Environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Data
+data/raw/
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Checkpoints & Stores
+model/checkpoints/**/*.bin
+model/checkpoints/**/*.pt
+*.bin
+*.pt
+backend/store/
+vulnexplain.db
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Environment Secrets
+.env
+
+# System & IDE
+.DS_Store
+.idea/
+.vscode/

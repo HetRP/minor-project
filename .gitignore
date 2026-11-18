@@ -1,0 +1,47 @@
+# Python virtual environments & bytecode
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Large Datasets & Archives
+vulnexplain/data/raw/
+vulnexplain/data/processed/*
+!vulnexplain/data/raw/.gitkeep
+!vulnexplain/data/processed/.gitkeep
+*.sql.gz
+*.log.gz
+*.tgz
+*.tar.gz
+*.zip
+
+# Deep Learning Checkpoints (>100MB rejected by GitHub)
+vulnexplain/model/checkpoints/**/*.bin
+vulnexplain/model/checkpoints/**/*.pt
+*.bin
+*.pt
+
+# Databases & Vector Stores
+vulnexplain/vulnexplain.db
+vulnexplain/backend/store/
+*.db
+*.sqlite
+*.sqlite3
+
+# Frontend dependencies & build artifacts
+vulnexplain/frontend/node_modules/
+vulnexplain/frontend/dist/
+node_modules/
+dist/
+
+# Environment secrets & local logs
+.env
+*.log
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

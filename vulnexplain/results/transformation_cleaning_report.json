@@ -1,0 +1,251 @@
+{
+  "status": "COMPLETED",
+  "total_processing_time_seconds": 10.51,
+  "reef_summary": {
+    "total_clean_samples": 39700,
+    "vulnerable_samples": 19810,
+    "patched_samples": 19890,
+    "languages": {
+      "c": 9230,
+      "javascript": 7618,
+      "java": 6561,
+      "python": 6411,
+      "go": 3968,
+      "cpp": 3672,
+      "csharp": 2240
+    },
+    "top_cwes": {
+      "CWE-79": 4437,
+      "CWE-200": 2350,
+      "CWE-20": 1828,
+      "CWE-287": 1532,
+      "CWE-476": 1490,
+      "CWE-400": 1440,
+      "CWE-125": 1309,
+      "CWE-22": 1225,
+      "CWE-119": 1142,
+      "UNKNOWN": 1130
+    },
+    "projects_count": 1680,
+    "per_file_audits": {
+      "query_C#.jsonl": {
+        "file": "query_C#.jsonl",
+        "cached": true,
+        "clean_records": 2416,
+        "vulnerable_count": 1207,
+        "patched_count": 1209
+      },
+      "query_C++.jsonl": {
+        "file": "query_C++.jsonl",
+        "cached": true,
+        "clean_records": 3052,
+        "vulnerable_count": 1524,
+        "patched_count": 1528
+      },
+      "query_C_part0.jsonl": {
+        "file": "query_C_part0.jsonl",
+        "cached": true,
+        "clean_records": 2655,
+        "vulnerable_count": 1326,
+        "patched_count": 1329
+      },
+      "query_C_part1.jsonl": {
+        "file": "query_C_part1.jsonl",
+        "cached": true,
+        "clean_records": 2158,
+        "vulnerable_count": 1077,
+        "patched_count": 1081
+      },
+      "query_C_part2.jsonl": {
+        "file": "query_C_part2.jsonl",
+        "cached": true,
+        "clean_records": 2006,
+        "vulnerable_count": 1003,
+        "patched_count": 1003
+      },
+      "query_C_part3.jsonl": {
+        "file": "query_C_part3.jsonl",
+        "cached": true,
+        "clean_records": 1911,
+        "vulnerable_count": 952,
+        "patched_count": 959
+      },
+      "query_Go.jsonl": {
+        "file": "query_Go.jsonl",
+        "cached": true,
+        "clean_records": 4171,
+        "vulnerable_count": 2084,
+        "patched_count": 2087
+      },
+      "query_Java.jsonl": {
+        "file": "query_Java.jsonl",
+        "cached": true,
+        "clean_records": 7321,
+        "vulnerable_count": 3647,
+        "patched_count": 3674
+      },
+      "query_JS.jsonl": {
+        "file": "query_JS.jsonl",
+        "cached": true,
+        "clean_records": 6305,
+        "vulnerable_count": 3144,
+        "patched_count": 3161
+      },
+      "query_Python.jsonl": {
+        "file": "query_Python.jsonl",
+        "cached": true,
+        "clean_records": 7786,
+        "vulnerable_count": 3889,
+        "patched_count": 3897
+      }
+    },
+    "output_files": [
+      "C:\\Users\\Het Patel\\Desktop\\Minor_Project\\minor-main\\vulnexplain\\data\\processed\\reef_trainable_clean.csv",
+      "C:\\Users\\Het Patel\\Desktop\\Minor_Project\\minor-main\\vulnexplain\\data\\processed\\reef_trainable_clean.parquet"
+    ]
+  },
+  "cvefixes_summary": {
+    "total_clean_cves": 257815,
+    "severity_distribution": {
+      "MEDIUM": 102166,
+      "HIGH": 94085,
+      "UNKNOWN": 29786,
+      "CRITICAL": 23700,
+      "LOW": 8078
+    },
+    "top_cwes": {
+      "UNKNOWN": 84449,
+      "CWE-79": 27276,
+      "CWE-89": 11568,
+      "CWE-119": 11455,
+      "CWE-787": 9800,
+      "CWE-20": 9145,
+      "CWE-200": 6789,
+      "CWE-22": 5888,
+      "CWE-352": 5691,
+      "CWE-125": 5649
+    },
+    "cves_with_github_commits": 13218,
+    "per_file_audits": {
+      "nvdcve-1.1-2002.json": {
+        "file": "nvdcve-1.1-2002.json",
+        "cached": true,
+        "accepted": 6769
+      },
+      "nvdcve-1.1-2003.json": {
+        "file": "nvdcve-1.1-2003.json",
+        "cached": true,
+        "accepted": 1553
+      },
+      "nvdcve-1.1-2004.json": {
+        "file": "nvdcve-1.1-2004.json",
+        "cached": true,
+        "accepted": 2707
+      },
+      "nvdcve-1.1-2005.json": {
+        "file": "nvdcve-1.1-2005.json",
+        "cached": true,
+        "accepted": 4766
+      },
+      "nvdcve-1.1-2006.json": {
+        "file": "nvdcve-1.1-2006.json",
+        "cached": true,
+        "accepted": 7142
+      },
+      "nvdcve-1.1-2007.json": {
+        "file": "nvdcve-1.1-2007.json",
+        "cached": true,
+        "accepted": 6580
+      },
+      "nvdcve-1.1-2008.json": {
+        "file": "nvdcve-1.1-2008.json",
+        "cached": true,
+        "accepted": 7176
+      },
+      "nvdcve-1.1-2009.json": {
+        "file": "nvdcve-1.1-2009.json",
+        "cached": true,
+        "accepted": 5040
+      },
+      "nvdcve-1.1-2010.json": {
+        "file": "nvdcve-1.1-2010.json",
+        "cached": true,
+        "accepted": 5217
+      },
+      "nvdcve-1.1-2011.json": {
+        "file": "nvdcve-1.1-2011.json",
+        "cached": true,
+        "accepted": 4861
+      },
+      "nvdcve-1.1-2012.json": {
+        "file": "nvdcve-1.1-2012.json",
+        "cached": true,
+        "accepted": 5892
+      },
+      "nvdcve-1.1-2013.json": {
+        "file": "nvdcve-1.1-2013.json",
+        "cached": true,
+        "accepted": 6780
+      },
+      "nvdcve-1.1-2014.json": {
+        "file": "nvdcve-1.1-2014.json",
+        "cached": true,
+        "accepted": 8982
+      },
+      "nvdcve-1.1-2015.json": {
+        "file": "nvdcve-1.1-2015.json",
+        "cached": true,
+        "accepted": 8747
+      },
+      "nvdcve-1.1-2016.json": {
+        "file": "nvdcve-1.1-2016.json",
+        "cached": true,
+        "accepted": 10550
+      },
+      "nvdcve-1.1-2017.json": {
+        "file": "nvdcve-1.1-2017.json",
+        "cached": true,
+        "accepted": 16981
+      },
+      "nvdcve-1.1-2018.json": {
+        "file": "nvdcve-1.1-2018.json",
+        "cached": true,
+        "accepted": 17352
+      },
+      "nvdcve-1.1-2019.json": {
+        "file": "nvdcve-1.1-2019.json",
+        "cached": true,
+        "accepted": 16989
+      },
+      "nvdcve-1.1-2020.json": {
+        "file": "nvdcve-1.1-2020.json",
+        "cached": true,
+        "accepted": 20489
+      },
+      "nvdcve-1.1-2021.json": {
+        "file": "nvdcve-1.1-2021.json",
+        "cached": true,
+        "accepted": 22878
+      },
+      "nvdcve-1.1-2022.json": {
+        "file": "nvdcve-1.1-2022.json",
+        "cached": true,
+        "accepted": 24951
+      },
+      "nvdcve-1.1-2023.json": {
+        "file": "nvdcve-1.1-2023.json",
+        "cached": true,
+        "accepted": 28421
+      },
+      "nvdcve-1.1-2024.json": {
+        "file": "nvdcve-1.1-2024.json",
+        "cached": true,
+        "accepted": 16992
+      }
+    },
+    "output_files": [
+      "C:\\Users\\Het Patel\\Desktop\\Minor_Project\\minor-main\\vulnexplain\\data\\processed\\cvefixes_nvd_clean.csv",
+      "C:\\Users\\Het Patel\\Desktop\\Minor_Project\\minor-main\\vulnexplain\\data\\processed\\cvefixes_nvd_clean.parquet"
+    ]
+  }
+}

@@ -1,0 +1,347 @@
+id,language,cwe,prob,code_snippet
+reef_76733cd5e3ee6ce1,csharp,CWE-404,0.5469979047775269,"echo.
+echo Step 4 - Uploading as minefield...
+""C:\Program Files (x86)\Git\bin\scp.exe"" %INSTALLER% maxweller@oak.teamwiki.net:/var/www/hosts/downloads.max-weller.de/miniconf/miniconf-minefield-setup.exe"
+reef_7a5bcfa882a2b853,csharp,CWE-404,0.3130224943161011,"private void OnMucMessage(agsXMPP.protocol.client.Message msg) {
+            try {
+                Roomdata room = null;
+                if (!rooms.TryGetValue(msg.From.Bare, out room)) { //not in room
+                    //TODO send error stanza
+                    return;
+                }
+
+      "
+reef_c4530c0e7b0d277a,csharp,CWE-404,0.5763583183288574,"protected string prepareInnerHtml(string text) {
+            text = text.Replace(""&"", ""&amp;"");
+            text = text.Replace(""<"", ""&lt;"");
+            if (!String.IsNullOrEmpty(highlightString)) text = Regex.Replace(text, highlightString, ""<em>$0</em>"");
+            text = text.Replace(""\n"", ""\n<"
+reef_36e7e760cefca135,csharp,CWE-404,0.487099826335907,"// Sie können alle Werte angeben oder die standardmäßigen Build- und Revisionsnummern 
+// übernehmen, indem Sie ""*"" eingeben:
+// [assembly: AssemblyVersion(""1.0.*"")]
+[assembly: AssemblyVersion(""1.7.7.0"")]
+[assembly: AssemblyFileVersion(""1.7.7.0"")]"
+reef_748cb031b9ac4d2c,csharp,CWE-79,0.4217411279678345,"## 6.7.0 (2023-04-06)
+
+Features:
+
+  - **[WARNING!]** This release focuses on addressing potential security issues that were recently discovered by Fabian Densborn from SEC Consult. Serene/StartSharp users must either create a new project from the 6.7.0+ template or manually apply the relevant change"
+reef_6f3280c3f6b57322,csharp,CWE-79,0.5794485807418823,"<Project>
+  <PropertyGroup>
+    <Version>6.7.0</Version>
+  </PropertyGroup>
+</Project>
+\ No newline at end of file"
+reef_5947b609b2c0eaac,csharp,CWE-20,0.4597761332988739,"<PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;net452;net5.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.4.2</Version>
+    <Authors>Joel Christner</Authors>
+    <Description>Library for maintaining a match list of I"
+reef_4879c0199c381124,csharp,CWE-20,0.33960869908332825,"IP address matcher.
+            </summary>
+        </member>
+        <member name=""F:IpMatcher.Matcher.Logger"">
+            <summary>
+            Method to invoke to send log messages.
+            </summary>
+        </member>
+        <member name=""M:IpMatcher.Matcher.#ctor"">
+            <summary>
+  "
+reef_16ba9c2f0bea019d,csharp,CWE-20,0.3062024712562561,"<param name=""ip"">The IP address, i.e. 192.168.1.34.</param>
+            <returns>True if a match is found.</returns>
+        </member>
+        <member name=""M:IpMatcher.Matcher.All"">
+            <summary>
+            Retrieve all stored addresses.
+            </summary>
+            <returns></return"
+reef_5303afa4ba6c8a1c,csharp,CWE-20,0.5489346981048584,"public void Add(string ip, string netmask)
+        {
+            if (String.IsNullOrEmpty(ip)) throw new ArgumentNullException(nameof(ip));
+            if (String.IsNullOrEmpty(netmask)) throw new ArgumentNullException(nameof(netmask));
+
+            ip = IPAddress.Parse(ip).ToString();
+            n"
+reef_a3008ff2a36762d7,csharp,CWE-20,0.5181030631065369,"public bool Exists(string ip, string netmask)
+        {
+            if (String.IsNullOrEmpty(ip)) throw new ArgumentNullException(nameof(ip));
+            if (String.IsNullOrEmpty(netmask)) throw new ArgumentNullException(nameof(netmask));
+
+            ip = IPAddress.Parse(ip).ToString();
+          "
+reef_e6229f8632e5a43c,csharp,CWE-20,0.5040931105613708,"public void Remove(string ip)
+        {
+            if (String.IsNullOrEmpty(ip)) throw new ArgumentNullException(nameof(ip));
+
+            ip = IPAddress.Parse(ip).ToString();
+
+            lock (_CacheLock)
+            {
+                _Cache = _Cache.Where(d => !d.Key.Equals(ip)).ToDictionary(d ="
+reef_34241a1d6c961a0e,csharp,CWE-20,0.5183885097503662,"public bool MatchExists(string ip)
+        {
+            if (String.IsNullOrEmpty(ip)) throw new ArgumentNullException(nameof(ip));
+
+            ip = IPAddress.Parse(ip).ToString();
+
+            IPAddress parsed = IPAddress.Parse(ip);
+
+            lock (_CacheLock)
+            {
+                if ("
+reef_11155ece89b7aaaf,csharp,CWE-22,0.5554083585739136,"async Task<IActionResult> BackupAction(MaintenanceModel model)
+        {
+            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageMaintenance))
+                return AccessDeniedView();
+
+            var action = Request.Form[""action""];
+
+            var fileName = Re"
+reef_9e5e5a0cfd14fca2,csharp,CWE-22,0.4252229630947113,"public ActionResult GetHlsAudioSegmentLegacy([FromRoute, Required] string itemId, [FromRoute, Required] string segmentId)
+        {
+            // TODO: Deprecate with new iOS app
+            var file = segmentId + Path.GetExtension(Request.Path);
+            var transcodePath = _serverConfiguration"
+reef_efeeeabe4b0a438a,csharp,CWE-22,0.5069426894187927,"public ActionResult GetHlsPlaylistLegacy([FromRoute, Required] string itemId, [FromRoute, Required] string playlistId)
+        {
+            var file = playlistId + Path.GetExtension(Request.Path);
+            var transcodePath = _serverConfigurationManager.GetTranscodePath();
+            file = Pat"
+reef_ecee1b30662c0e46,csharp,CWE-22,0.43791717290878296,"public ActionResult GetHlsVideoSegmentLegacy(
+            [FromRoute, Required] string itemId,
+            [FromRoute, Required] string playlistId,
+            [FromRoute, Required] string segmentId,
+            [FromRoute, Required] string segmentContainer)
+        {
+            var file = segmentI"
+reef_fc79b4c30c557c54,csharp,CWE-22,0.39420202374458313,"public ActionResult GetGeneralImage([FromRoute, Required] string name, [FromRoute, Required] string type)
+        {
+            var filename = string.Equals(type, ""primary"", StringComparison.OrdinalIgnoreCase)
+                ? ""folder""
+                : type;
+
+            var path = BaseItem.Suppor"
+reef_fd11ad46797d1782,csharp,CWE-22,0.4480488896369934,"private ActionResult GetImageFile(string basePath, string theme, string? name)
+        {
+            var themeFolder = Path.GetFullPath(Path.Combine(basePath, theme));
+
+            if (Directory.Exists(themeFolder))
+            {
+                var path = BaseItem.SupportedImageExtensions.Select(i "
+reef_44e15aa79d3fac3d,csharp,CWE-22,0.5664591789245605,"private async Task TrySaveSubtitle(
+            Video video,
+            LibraryOptions libraryOptions,
+            SubtitleResponse response)
+        {
+            var saveInMediaFolder = libraryOptions.SaveSubtitlesWithMedia;
+
+            using (var stream = response.Stream)
+            using (var"
+reef_6718e798891bd6b8,csharp,CWE-502,0.6003671288490295,"private void codeActivity1_ExecuteCode(object sender, EventArgs e)
+        {
+            DataEntityToken dataEntityToken = (DataEntityToken)this.EntityToken;
+            IPage selectedPage = (IPage)dataEntityToken.Data;
+
+            bool hasChildren = PageServices.GetSubChildren(selectedPage).Any();"
+reef_abec9348b363a3f8,csharp,CWE-502,0.5003600716590881,"public static IQueryable<IPage> GetChildren(Guid parentId)
+        {
+            var structure = DataFacade.GetData<IPageStructure>();
+            var pages = DataFacade.GetData<IPage>();
+
+            if (structure.IsEnumerableQuery() && pages.IsEnumerableQuery())
+            {
+                retur"
+reef_1f31c543d07b8146,csharp,CWE-502,0.4965413808822632,"public static IEnumerable<IPage> GetSubChildren(this IPage parentPage)
+        {
+            Verify.ArgumentNotNull(parentPage, nameof(parentPage));
+
+            lock (_lock)
+            {
+                foreach (IPage childPage in parentPage.GetChildren())
+                {
+                    yie"
+reef_cdc32aee0f33f188,c,CWE-863,0.4338695704936981,"MOCK_CONST_METHOD0(GetPopupType, PopupType());
+
+  void set_suggestions(const std::vector<int>& ids) {
+    for (const auto& id : ids) {
+      // Accessibility requires all focusable AutofillPopupItemView to have
+      // ui::AXNodeData with non-empty names. We specify dummy values and labels
+      //"
+reef_7a319bdf582c07f3,cpp,CWE-863,0.48083969950675964,"// views::View:
+  void GetAccessibleNodeData(ui::AXNodeData* node_data) override;
+  void OnPaint(gfx::Canvas* canvas) override;
+  void OnMouseEntered(const ui::MouseEvent& event) override;
+  void OnMouseExited(const ui::MouseEvent& event) override;
+  void OnMouseReleased(const ui::MouseEvent& event)"
+reef_45d8bef56e759429,cpp,CWE-863,0.3348526358604431,"node_data->AddIntAttribute(ax::mojom::IntAttribute::kPosInSet, pos_in_set);
+}
+
+void AutofillPopupItemView::OnPaint(gfx::Canvas* canvas) {
+  AutofillPopupRowView::OnPaint(canvas);
+  mouse_observed_outside_of_item_ |= !IsMouseHovered();
+}
+
+void AutofillPopupItemView::OnMouseEntered(const ui::MouseEven"
+reef_9296b0f1e1c8657d,cpp,CWE-863,0.5587466955184937,"void CreateAndShowView(const std::vector<int>& ids) {
+    autofill_popup_controller_.set_suggestions(ids);
+    view_ = std::make_unique<autofill::AutofillPopupViewNativeViews>(
+        &autofill_popup_controller_, widget_.get());
+    widget_->SetContentsView(view_.get());
+
+    widget_->Show();
+    v"
+reef_011c44ff8319593a,cpp,CWE-416,0.4781229496002197,"#include <algorithm>
+#include <utility>
+
+#include ""base/bind.h""
+#include ""base/callback.h""
+#include ""base/callback_helpers.h"""
+reef_1cd58645bb1e1649,cpp,CWE-416,0.5847137570381165,"Window* child = children.Pop();
+    state_modified |= child->CleanupGestureState();
+  }
+  cleaning_up_gesture_state_ = false;
+  return state_modified;
+}"
+reef_826e8c1dc88ec513,cpp,UNKNOWN,0.23050671815872192,"void AutofillPopupItemView::OnPaint(gfx::Canvas* canvas) {
+  AutofillPopupRowView::OnPaint(canvas);
+  mouse_observed_outside_item_bounds_ |= !IsMouseInsideItemBounds();
+}
+
+void AutofillPopupItemView::OnMouseEntered(const ui::MouseEvent& event) {
+  // OnMouseEntered() does not imply that the mouse ha"
+reef_6933680c345258a7,cpp,CWE-668,0.9058794975280762,"has_presented_since_last_set_image_ = true;
+
+  const bool gpu_compositing = SharedGpuContext::IsGpuCompositingEnabled();
+
+  const ImageOrientation origin = image_->IsOriginTopLeft()
+                                      ? ImageOrientationEnum::kOriginTopLeft"
+reef_d15fd5e4dc5687fb,cpp,CWE-668,0.49256300926208496,"return false;
+
+    const gfx::Size size(image_->width(), image_->height());
+
+    // Always convert to N32 format.  This is a constraint of the software
+    // compositor.
+    constexpr SkColorType dst_color_type = kN32_SkColorType;
+    viz::ResourceFormat resource_format =
+        viz::SkColorTypeTo"
+reef_1fd5bd33880fc4cf,cpp,CWE-668,0.7916481494903564,"recycled_bitmaps_.begin(), recycled_bitmaps_.end(),
+      [&size, &format](const RegisteredBitmap& registered) {
+        unsigned src_bytes_per_pixel =
+            viz::BitsPerPixel(registered.bitmap->format()) / 8;
+        unsigned target_bytes_per_pixel = viz::BitsPerPixel(format) / 8;
+        ret"
+reef_4752110903697eba,cpp,CWE-416,0.6851505637168884,"GotoNewTabPage(web_ui()->GetWebContents());
+  } else {
+    base::ThreadTaskRunnerHandle::Get()->PostTask(
+        FROM_HERE, base::BindOnce(&content::WebContents::ClosePage,
+                                  web_ui()->GetWebContents()->GetWeakPtr()));
+  }
+}"
+reef_f7fd0b3e0973a3ef,cpp,CWE-732,0.4798300564289093,"std::u16string CreateExtensionAwareChooserTitle(
+    content::RenderFrameHost* render_frame_host,
+    int title_string_id_origin,
+    int title_string_id_extension) {
+  if (!render_frame_host)
+    return u"""";
+  // Ensure the permission request is attributed to the main frame.
+  render_frame_host = r"
+reef_3277208d58179e43,c,CWE-732,0.7176292538642883,"}
+
+// Creates a title for a chooser. For extensions the extension name is used if
+// possible. In all other cases the origin of the main frame for
+// `render_frame_host` is used.
+std::u16string CreateExtensionAwareChooserTitle(
+    content::RenderFrameHost* render_frame_host,
+    int title_string_id"
+reef_e156e5195dced32f,cpp,CWE-732,0.44359102845191956,"""../browser/browsing_data/counters/site_data_counting_helper_unittest.cc"",
+    ""../browser/browsing_data/counters/site_settings_counter_unittest.cc"",
+    ""../browser/browsing_data/site_data_size_collector_unittest.cc"",
+    ""../browser/chooser_controller/title_util_unittest.cc"",
+    ""../browser/chrom"
+reef_f227c528e4125dc9,cpp,CWE-732,0.47170397639274597,"source_set(""unit_tests"") {
+  testonly = true
+  sources = [
+    ""chooser_title_util_unittest.cc"",
+    ""contexts/camera_pan_tilt_zoom_permission_context_unittest.cc"",
+    ""contexts/geolocation_permission_context_unittest.cc"",
+    ""contexts/midi_permission_context_unittest.cc"","
+reef_b399d331dd9ade62,cpp,CWE-732,0.34304583072662354,"""//components/content_settings/core/browser"",
+    ""//components/keyed_service/content"",
+    ""//components/prefs:test_support"",
+    ""//components/strings:components_strings_grit"",
+    ""//components/ukm:test_support"",
+    ""//components/ukm/content"",
+    ""//components/variations"","
+reef_38997d92ca042ee5,cpp,CWE-732,0.3367058336734772,"std::u16string CreateChooserTitle(content::RenderFrameHost* render_frame_host,
+                                  int title_string_id_origin) {
+  if (!render_frame_host)
+    return u"""";
+  return l10n_util::GetStringFUTF16(
+      title_string_id_origin,
+      url_formatter::FormatOriginForSecurityDisp"
+reef_f9fe335087167e39,c,CWE-732,0.4924052655696869,"namespace permissions {
+
+// Creates a title for a chooser using the origin of the main frame
+// containing `render_frame_host`. Returns the empty string if
+// `render_frame_host` is null.
+std::u16string CreateChooserTitle(content::RenderFrameHost* render_frame_host,
+                                 "
+reef_0a959640a983e6fe,cpp,UNKNOWN,0.4787708818912506,"""java/res/drawable/material_tooltip_background.xml"",
+  ""java/res/drawable/mir_card.xml"",
+  ""java/res/drawable/outline_chevron_right_24dp.xml"",
+  ""java/res/drawable/pill_background.xml"",
+  ""java/res/drawable/price_tracking_disabled.xml"",
+  ""java/res/drawable/price_tracking_enabled_filled.xml"",
+  ""jav"
+reef_eb126fb3767883e1,cpp,UNKNOWN,0.41210782527923584,"""java/res/layout/fre_data_reduction_proxy_lite_mode.xml"",
+  ""java/res/layout/fre_tos_privacy_disclaimer.xml"",
+  ""java/res/layout/fre_tosanduma.xml"",
+  ""java/res/layout/fullscreen_notification.xml"",
+  ""java/res/layout/history_clear_browsing_data_header.xml"",
+  ""java/res/layout/history_item_view.xml"","
+reef_7ad4792a83c9c05d,cpp,UNKNOWN,0.44511690735816956,"<!-- Should match toolbar_height_no_shadow -->
+    <dimen name=""control_container_height"">56dp</dimen>
+    <dimen name=""custom_tabs_control_container_height"">56dp</dimen>
+    <dimen name=""fullscreen_notification_max_width"">320dp</dimen>
+
+    <!-- The combined height of the tab strip and toolbar. -->"
+reef_31f2691c7c56e2a4,java,UNKNOWN,0.49999189376831055,"private void exitFullscreen(WebContents webContents, View contentView, Tab tab) {
+        hideNotificationToast();
+        mHandler.removeMessages(MSG_ID_SET_FULLSCREEN_SYSTEM_UI_FLAGS);
+        mHandler.removeMessages(MSG_ID_CLEAR_LAYOUT_FULLSCREEN_FLAG);
+
+        int systemUiVisibility = contentVi"
+reef_85492166369b3727,java,UNKNOWN,0.47750046849250793,"private void hideNotificationToast() {
+        if (mNotificationToast == null) return;
+        mNotificationToast.animate().alpha(0).setDuration(TOAST_FADE_MS).withEndAction(() -> {
+            // The Tab might have been destroyed while the toast is on.
+            if (mTab != null && mTab.getConten"
+reef_cd8e2948be4caf0d,cpp,UNKNOWN,0.4284886419773102,"<item name=""android:textColor"">@color/chip_text_color_secondary</item>
+    </style>
+
+    <!-- Toast UI -->
+    <style name=""TextAppearance.Toast"" parent=""TextAppearance.TextSmall"">
+        <item name=""android:textColor"">@color/default_text_color_light</item>
+    </style>
+
+    <!-- Dividers -->
+    <"
+reef_4534cc25f0fffd4c,java,UNKNOWN,0.5112117528915405,"public FullscreenHtmlApiHandler(Activity activity,
+            ObservableSupplier<Boolean> areControlsHidden, boolean exitFullscreenOnStop) {
+        mActivity = activity;
+        mAreControlsHidden = areControlsHidden;
+        mAreControlsHidden.addObserver(this::maybeEnterFullscreenFromPendingStat"
+reef_fe6a1df704da9b75,java,UNKNOWN,0.49999189376831055,"private void exitFullscreen(WebContents webContents, View contentView, Tab tab) {
+        hideNotificationToast();
+        mHandler.removeMessages(MSG_ID_SET_FULLSCREEN_SYSTEM_UI_FLAGS);
+        mHandler.removeMessages(MSG_ID_CLEAR_LAYOUT_FULLSCREEN_FLAG);
+
+        int systemUiVisibility = contentVi"
+reef_bf084853712ac3fa,java,UNKNOWN,0.5015820860862732,"private void showNotificationToast() {
+        assert mTab != null && mTab.getContentView() != null;
+        ViewGroup parent = mTab.getContentView();
+        if (mNotificationToast != null) parent.removeView(mNotificationToast);
+        mNotificationToast =
+                LayoutInflater.from(mActi"

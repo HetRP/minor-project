@@ -1,0 +1,359 @@
+id,language,cwe,prob,code_snippet
+reef_7a4ec665c4c18857,cpp,UNKNOWN,0.12403979897499084,"}
+
+void AutofillPopupItemView::OnMouseExited(const ui::MouseEvent& event) {
+  mouse_observed_outside_of_item_ = true;
+  base::WeakPtr<AutofillPopupController> controller =
+      popup_view()->controller();
+  if (controller)
+    controller->SelectionCleared();
+}
+
+void AutofillPopupItemView::OnMouseRe"
+reef_a3d7370955d31cb3,cpp,CWE-416,0.10940557718276978,"}
+  nearby_sharing_service->SetArcTransferCleanupCallback(std::move(callback));
+}
+
+bool NearbyShareAction::HandleKeyboardEvent(
+    content::WebContents* source,
+    const content::NativeWebKeyboardEvent& event) {
+  return unhandled_keyboard_event_handler_.HandleKeyboardEvent(
+      event, web_view_"
+reef_19ede29f05212279,cpp,CWE-416,0.12850284576416016,": task_runner_(std::move(task_runner)),
+      event_handlers_(std::move(event_handlers)),
+      tick_clock_(base::DefaultTickClock::GetInstance()),
+      last_ipc_send_time_(tick_clock_->NowTicks()),
+      ipc_send_pending_(false),
+      logged_rate_limit_warning_(false) {
+  // Pre-bind the WeakPtr "
+reef_bc0d6eb2938038b6,c,CWE-416,0.04071624577045441,"scoped_refptr<base::SingleThreadTaskRunner> task_runner_;
+
+  // impl for sending queued events.
+  std::vector<std::unique_ptr<EventHandler>> event_handlers_;
+
+  // |lock_| protects access to all of the following member variables.  It
+  // allows any render process thread to AddEvent(), while preserv"
+reef_74e01ae84d612408,cpp,CWE-416,0.09386011958122253,"// found in the LICENSE file.
+
+#include ""components/search_engines/search_terms_data.h""
+
+#include ""base/check.h""
+#include ""build/build_config.h""
+#include ""components/google/core/common/google_util.h""
+#include ""components/lens/lens_features.h""
+#include ""url/gurl.h""
+
+SearchTermsData::SearchTermsData()"
+reef_8f99a88ec2c8a58c,cpp,CWE-416,0.02245083637535572,"SinkPressedAtIndex(0);
+}
+
+TEST_F(CastDialogViewTest, CastLocalFile) {
+  const std::string file_name = ""example.mp4"";
+  const std::string file_path = ""path/to/"" + file_name;
+  std::vector<UIMediaSink> media_sinks = {CreateAvailableSink()};
+  media_sinks[0].cast_modes = {TAB_MIRROR, LOCAL_FILE};
+  Cas"
+reef_d28f99509609f8fa,cpp,CWE-190,0.020441679283976555,"const std::vector<Dispatcher::DispatcherInTransit>& dispatchers,
+    MojoHandle* handles) {
+  // Oops, we're out of handles.
+  if (next_available_handle_ == MOJO_HANDLE_INVALID)
+    return false;
+
+  DCHECK_LE(dispatchers.size(), std::numeric_limits<uint32_t>::max());
+  // If this insertion would cau"
+reef_988e1b1448a8d9dd,cpp,CWE-416,0.005169746465981007,"#include ""chrome/browser/extensions/install_tracker.h""
+#include ""chrome/browser/extensions/scoped_active_install.h""
+#include ""chrome/browser/profiles/profile.h""
+#include ""chrome/browser/safe_browsing/safe_browsing_metrics_collector_factory.h""
+#include ""chrome/browser/safe_browsing/safe_browsing_navi"
+reef_1873cc69fa50a674,cpp,CWE-415,0.0928865373134613,"// found in the LICENSE file.
+
+#include ""content/browser/dom_storage/dom_storage_context_impl.h""
+#include ""base/bind.h""
+#include ""base/files/file_util.h""
+#include ""base/files/scoped_temp_dir.h"""
+reef_e1503b52000fbfed,cpp,CWE-415,0.08405004441738129,"{base::MayBlock(), base::TaskPriority::BEST_EFFORT,
+           base::TaskShutdownBehavior::BLOCK_SHUTDOWN});
+
+  legacy_localstorage_path_ =
+      data_path.empty() ? data_path
+                        : data_path.AppendASCII(kLocalStorageDirectory);
+
+  context_ = new DOMStorageContextImpl(
+      data"
+reef_81bf017a22ea2f97,cpp,CWE-415,0.014510034583508968,"}
+
+void DOMStorageContextWrapper::Shutdown() {
+  DCHECK(context_.get());
+  mojo_task_runner_->PostTask(
+      FROM_HERE, base::BindOnce(&LocalStorageContextMojo::ShutdownAndDelete,
+                                base::Unretained(mojo_state_)));
+  mojo_state_ = nullptr;
+  if (mojo_session_state_) {
+"
+reef_5803fa7407dcc3e6,python,CWE-125,0.015583222731947899,"# Miscellaneous TIFF-related tests
+
+outputs = [ ]
+
+# Regression test -- we once had a bug where 'separate' planarconfig
+# tiled float files would have data corrupted by a buffer overwrite.
+command += oiiotool(""--pattern checker 128x128 4 --tile 64 64 --planarconfig separate -d float -o check1.tif"")
+"
+reef_25c4dc6c705f5504,cpp,CWE-668,0.020822301506996155,"buffers =
+          primitives::AllocateUntrustedBuffers(kPoolIncrement, kPoolEntrySize);
+      for (int i = 0; i < kPoolIncrement; i++) {
+        if (!buffers[i] ||
+            !TrustedPrimitives::IsOutsideEnclave(buffers[i], kPoolEntrySize)) {
+          abort();
+        }
+        buffer_pool_.push"
+reef_7a90cc0f0d325471,cpp,CWE-668,0.005849536508321762,"if (sgx_params->input_size > 0) {
+      // Allocate and copy data to |input_buffer|.
+      sgx_params->input = untrusted_cache->Malloc(sgx_params->input_size);
+      if (!TrustedPrimitives::IsOutsideEnclave(sgx_params->input,
+                                               sgx_params->input_size)) {
+"
+reef_b448d504029eb136,cpp,CWE-787,0.05919473618268967,"#include ""extensions/browser/extension_registry.h""
+#include ""extensions/browser/extension_system.h""
+#include ""extensions/browser/extension_util.h""
+#include ""extensions/browser/guest_view/extensions_guest_view_message_filter.h""
+#include ""extensions/browser/guest_view/web_view/web_view_guest.h""
+#inclu"
+reef_c1b92471724f1ae0,c,CWE-787,0.04205719754099846,"namespace content {
+class BrowserContext;
+class NavigationHandle;
+class NavigationThrottle;
+class RenderFrameHost;
+class WebContents;
+}"
+reef_a135e3013ef50d50,cpp,CWE-20,0.12259507179260254,"const char* input;
+    const char* expected;
+  } path_cases[] = {
+    {""javascript:"", ""javascript:""},
+    {""JavaScript:Foo"", ""javascript:Foo""},
+    {""Foo:\"":This /is interesting;?#"", ""foo:\"":This /is interesting;?#""},
+  };
+
+  for (size_t i = 0; i < base::size(path_cases); i++) {"
+reef_599de7c73cc676ed,cpp,CWE-19,0.07707557082176208,"crbug.com/626703 virtual/outofblink-cors/external/wpt/fetch/http-cache/status.html [ Pass Timeout ]
+crbug.com/736308 virtual/outofblink-cors/external/wpt/service-workers/service-worker/foreign-fetch-basics.https.html [ Timeout ]
+crbug.com/736308 virtual/outofblink-cors/external/wpt/service-workers/s"
+reef_3ee656a07f0f519e,c,CWE-190,0.1258952021598816,"default: vectorlen = 0; serverPanic(""Bad SORT type""); /* Avoid GCC warning */
+    }
+
+    /* Perform LIMIT start,count sanity checking. */
+    start = (limit_start < 0) ? 0 : limit_start;
+    end = (limit_count < 0) ? vectorlen-1 : start+limit_count-1;
+    if (start >= vectorlen) {
+        start = ve"
+reef_49ae5731967b648c,c,CWE-79,0.13879679143428802,"while (strlen($attributes) != 0) {
+      // Was the last operation successful?
+      $working = 0;
+
+      switch ($mode) {
+        case 0:
+          // Attribute name, href for instance.
+          if (preg_match('/^([-a-zA-Z][-a-zA-Z0-9]*)/', $attributes, $match)) {
+            $attribute_name = str"
+reef_c796a21560fb612d,c,CWE-79,0.031210748478770256,"switch ($mode) {
+        case 0:
+          // Attribute name, href for instance.
+          if (preg_match('/^([-a-zA-Z][-a-zA-Z0-9]*)/', $attributes, $match)) {
+            $attribute_name = strtolower($match[1]);
+            $skip = ($attribute_name == 'style' || substr($attribute_name, 0, 2) == 'o"
+reef_9229d0ae56064bb8,c,CWE-200,0.14658084511756897,"static int wc_ecc_gen_k(WC_RNG* rng, int size, mp_int* k, mp_int* order)
+{
+    int err;
+#ifdef WOLFSSL_SMALL_STACK
+    byte* buf;
+#else
+    byte  buf[ECC_MAXSIZE_GEN];
+#endif
+
+#ifdef WOLFSSL_SMALL_STACK
+    buf = (byte*)XMALLOC(ECC_MAXSIZE_GEN, NULL, DYNAMIC_TYPE_ECC_BUFFER);
+    if (buf == NULL)
+  "
+reef_423237cf85449a1f,c,CWE-190,0.02783072553575039,"size_t jsuGetFreeStack() {
+#ifdef ARM
+  void *frame = __builtin_frame_address(0);
+  size_t stackPos = (size_t)((char*)frame);
+  size_t stackEnd = (size_t)((char*)&LINKER_END_VAR);
+  if (stackPos < stackEnd) return 0; // should never happen, but just in case of overflow!
+  return  stackPos - stackEnd"
+reef_0d931cd93e056533,c,CWE-125,0.08069682866334915,"Fix parsing of try..catch when not executing (fix #1439)
+            Add extra ReferenceError checks, even if variable is not used
+            Allow Ctrl-C out of while...continue loop (fix #1441)
+
+     1v99 : Increase jslMatch error buffer size to handle ""UNFINISHED TEMPLATE LITERAL"" string (#1426)"
+reef_953b4a98772d7070,c,CWE-125,0.0876193419098854,"bool jspeiAddScope(JsVar *scope) {
+  if (execInfo.scopeCount >= JSPARSE_MAX_SCOPES) {
+    jsExceptionHere(JSET_ERROR, ""Maximum number of scopes exceeded"");
+
+    return false;
+  }
+  execInfo.scopes[execInfo.scopeCount++] = jsvLockAgain(scope);
+  return true;
+}"
+reef_cb87b98eb98a848d,c,CWE-120,0.12522974610328674,"int ossl_a2ucompare(const char *a, const char *u)
+{
+    char a_ulabel[LABEL_BUF_SIZE];
+    size_t a_size = sizeof(a_ulabel);
+
+    if (ossl_a2ulabel(a, a_ulabel, &a_size) <= 0) {
+        return -1;
+    }
+
+    return (strcmp(a_ulabel, u) == 0) ? 0 : 1;
+}"
+reef_97fa1d11b18da45b,c,CWE-787,0.11576367169618607,"/* Should be getData and commit? */
+    void publish(Topic *iterator, size_t start, size_t stop, std::string_view topic, std::pair<std::string_view, std::string_view> message) {
+        /* If we already have 64 triggered topics make sure to drain it here */
+        if (numTriggeredTopics == 64) {
+  "
+reef_1f58302b60f42a07,c,CWE-89,0.056591346859931946,"<code>db_es(htmlspecialchars($_srch))</code>
+      <code>db_ei($offset)</code>
+      <code>db_ei($chunksz)</code>
+    </DeprecatedFunction>
+    <MissingParamType occurrences=""51"">
+      <code>$params</code>"
+reef_bd0eda616e5214dc,c,CWE-190,0.023830341175198555,"REDIS_STATIC int _quicklistNodeAllowInsert(const quicklistNode *node,
+                                           const int fill, const size_t sz) {
+    if (unlikely(!node))
+        return 0;
+
+    int ziplist_overhead;
+    /* size of previous offset */
+    if (sz < 254)
+        ziplist_overhead = 1;
+"
+reef_b7aa5e5d5f09efb0,c,CWE-190,0.030193105340003967,"REDIS_STATIC int _quicklistNodeAllowMerge(const quicklistNode *a,
+                                          const quicklistNode *b,
+                                          const int fill) {
+    if (!a || !b)
+        return 0;
+
+    /* approximate merged ziplist size (- 11 to remove one ziplist
+    "
+reef_bd3ad507274d1372,c,CWE-190,0.10838863253593445,"unsigned char *zzlLastInRange(unsigned char *zl, zrangespec *range);
+unsigned long zsetLength(const robj *zobj);
+void zsetConvert(robj *zobj, int encoding);
+void zsetConvertToZiplistIfNeeded(robj *zobj, size_t maxelelen);
+int zsetScore(robj *zobj, sds member, double *score);
+unsigned long zslGetRank"
+reef_05734384ff9cf08b,c,CWE-476,0.01738767698407173,"* core: fix memory leak in completion
+  * core: flush stdout/stderr before forking in hook_process function (issue #1441)
+  * core: fix evaluation of condition with nested ""if"" (issue #1434)
+  * irc: fix crash when a new message 005 is received with longer nick prefixes
+  * irc: fix crash when recei"
+reef_71233f80c4e09000,cpp,CWE-119,0.012654376216232777,"int ecall_restore(const char *input, uint64_t input_len, char **output,
+                  uint64_t *output_len) {
+  if (!asylo::primitives::TrustedPrimitives::IsOutsideEnclave(input,
+                                                              input_len)) {
+    asylo::primitives::TrustedPrimitives:"
+reef_f84a2f7fd1dd7456,c,CWE-476,0.14203280210494995,"g_object_set_qdata( G_OBJECT( load->real ), 
+			vips__foreign_load_operation, load ); 
+
+		if( class->load( load ) ||
+			vips_image_pio_input( load->real ) ) 
+			return( NULL );
+
+		/* ->header() read the header into @out, load has read the
+		 * image into @real. They must match exactly in size, bands"
+reef_79dd115240ed4f16,c,CWE-125,0.04292948916554451,"while(i<data_size) {
+                i+=block_length;
+                if((i + 1) >= data_size)
+                    return -1;
+                if(data[i] != 0xFF)
+                    return -1;
+                if(data[i+1] == 0xC0) {
+                    *height = data[i+5]*256 + data[i+6];
+          "
+reef_36c983e5a46474a7,c,CWE-399,0.0392884835600853,"char *cookies;                       ///< holds HTTP cookie values set in either the initial response or as an AVOption to the HTTP protocol context
+    char *headers;                       ///< holds HTTP headers set as an AVOption to the HTTP protocol context
+    char *allowed_extensions;
+} HLSCon"
+reef_7326a1d5d1e65036,go,CWE-770,0.018166281282901764,"return writeManifest(ctx, store, idx, ocispec.MediaTypeImageIndex)
+}
+
+func onUntarJSON(r io.Reader, j interface{}) error {
+	b, err := io.ReadAll(r)
+	if err != nil {
+		return err
+	}
+	return json.Unmarshal(b, j)
+}
+
+func onUntarBlob(ctx context.Context, r io.Reader, store content.Ingester, size int64, "
+reef_ebe731638e76ce86,go,CWE-682,0.04658222571015358,"func p256PointAddAffineAsm(res, in1 *P256Point, in2 *p256AffinePoint, sign, sel, zero int)
+
+// Point addition. Sets res = in1 + in2. Returns one if the two input points
+// were equal and zero otherwise. If in1 or in2 are the point at infinity, res
+// and the return value are undefined.
+//
+//go:noesc"
+reef_c15cb98f1ac63fe2,go,CWE-682,0.00451560877263546,"func p256PointAddAsm(res, in1, in2 *P256Point) int
+
+// Point doubling. Sets res = in + in. in can be the point at infinity.
+//
+//go:noescape
+func p256PointDoubleAsm(res, in *P256Point)
+
+// p256OrdElement is a P-256 scalar field element in [0, ord(G)-1] in the
+// Montgomery domain (with R 2²⁵⁶) as fo"
+reef_0bcd3a5fafd412df,javascript,CWE-346,0.04747781530022621,"describe(""isAllowedWebsocketDomain for dev-staging"", function () {
+        const HOSTURL_HOSTNAME = ""gpl-2732-ws-csrf.staging.gitpod.io"";
+        it(""should return false for workspace-port locations"", function () {
+            const result = isAllowedWebsocketDomain(
+                ""http://3000-moc"
+reef_5e637c822cfb4abc,javascript,CWE-346,0.06590376794338226,"it(""should return true for workspace locations"", function () {
+            const result = isAllowedWebsocketDomain(""https://bronze-bird-p2q226d8.ws-eu08.gitpod.io"", HOSTURL_HOSTNAME);
+            expect(result).to.be.true;
+        }"
+reef_eaf49bea8b9b921b,javascript,CWE-346,0.04370459169149399,"* Verify the web socket handshake request.
+             */
+            const verifyClient: ws.VerifyClientCallbackAsync = async (info, callback) => {
+                if (!verifyCSRF(info.origin)) {
+                    log.warn(""Websocket connection attempt with non-matching Origin header: "" + info.o"
+reef_50e042a20d1480bc,go,CWE-22,0.010183658450841904,"func UnZip(zipFile string, destPath string) error {
+	destPath = filepath.Clean(destPath) + string(os.PathSeparator)
+
+	zipReader, err := zip.OpenReader(zipFile)
+	if err != nil {
+
+	}
+	defer zipReader.Close()
+
+	for _, f := range zipReader.File {
+		path := filepath.Join(destPath, f.Name)
+
+		//issue#62: "
+reef_9e6781a22e728fb3,go,CWE-863,0.09351065009832382,"func ValidateStatefulSetName(name string, prefix bool) []string {
+	// TODO: Validate that there's name for the suffix inserted by the pods.
+	// Currently this is just ""-index"". In the future we may allow a user
+	// specified list of suffixes and we need  to validate the longest one.
+	return apimachi"
+reef_5d7f3c3a0656f7e1,go,CWE-863,0.044227614998817444,"func ValidatePodUpdate(newPod, oldPod *core.Pod, opts PodValidationOptions) field.ErrorList {
+	fldPath := field.NewPath(""metadata"")
+	allErrs := ValidateObjectMetaUpdate(&newPod.ObjectMeta, &oldPod.ObjectMeta, fldPath)
+	allErrs = append(allErrs, validatePodMetadataAndSpec(newPod, opts)...)
+	allErrs ="
+reef_adb36ee44bd82abc,javascript,CWE-79,0.025807972997426987,"function sendTestEmail(){var o=[];$.each($(""#headersTable"").DataTable().rows().data(),function(e,a){o.push({key:unescapeHtml(a[0]),value:unescapeHtml(a[1])})});var e={template:{},first_name:$(""input[name=to_first_name]"").val(),last_name:$(""input[name=to_last_name]"").val(),email:$(""input[name=to_emai"
+reef_bc596708373e4473,javascript,CWE-79,0.03591282665729523,"function save(e){var o={headers:[]};$.each($(""#headersTable"").DataTable().rows().data(),function(e,a){o.headers.push({key:unescapeHtml(a[0]),value:unescapeHtml(a[1])})}),o.name=$(""#name"").val(),o.interface_type=$(""#interface_type"").val(),o.from_address=$(""#from"").val(),o.host=$(""#host"").val(),o.user"
+reef_eabeeb16cd912952,javascript,CWE-79,0.001479892060160637,"function addCustomHeader(e,a){var o=[escapeHtml(e),escapeHtml(a),'<span style=""cursor:pointer;""><i class=""fa fa-trash-o""></i></span>'],s=headers.DataTable(),t=s.column(0).data().indexOf(escapeHtml(e));0<=t?s.row(t,{order:""index""}).data(o):s.row.add(o),s.draw()}"
+reef_67efa3a0f4a42342,javascript,CWE-79,0.035222526639699936,"function sendTestEmail() {
+    var headers = [];
+    $.each($(""#headersTable"").DataTable().rows().data(), function (i, header) {
+        headers.push({
+            key: unescapeHtml(header[0]),
+            value: unescapeHtml(header[1]),
+        })
+    })
+    var test_email_request = {
+        templ"
+reef_13842aa16a07e497,java,UNKNOWN,0.006303862202912569,"import edu.umd.cs.findbugs.annotations.NonNull;
+import hudson.ExtensionList;
+import hudson.model.AdministrativeMonitor;
+import hudson.triggers.SafeTimerTask;
+import hudson.util.AdministrativeError;
+import io.fabric8.kubernetes.api.model.LabelSelector;"

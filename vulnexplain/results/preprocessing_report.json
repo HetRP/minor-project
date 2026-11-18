@@ -1,0 +1,131 @@
+{
+  "training_source": "cvefixes",
+  "validation_source": "cvefixes",
+  "test_source": "reef",
+  "status": "ready",
+  "blockers": [],
+  "dataset_total_samples": 39700,
+  "splits": [
+    {
+      "split": "train",
+      "samples": 31486,
+      "vulnerable": 15712,
+      "patched": 15774,
+      "projects": 1344
+    },
+    {
+      "split": "validation",
+      "samples": 4000,
+      "vulnerable": 1998,
+      "patched": 2002,
+      "projects": 168
+    },
+    {
+      "split": "test",
+      "samples": 4214,
+      "vulnerable": 2100,
+      "patched": 2114,
+      "projects": 168
+    }
+  ],
+  "training_class_weights": {
+    "0": 1.0,
+    "1": 1.0039
+  },
+  "cwe_classes_count": 21,
+  "top_cwes": [
+    "CWE-79",
+    "CWE-200",
+    "CWE-20",
+    "CWE-287",
+    "CWE-400",
+    "CWE-918",
+    "CWE-119",
+    "CWE-125",
+    "CWE-787",
+    "CWE-476",
+    "CWE-22",
+    "CWE-89",
+    "CWE-190",
+    "CWE-74",
+    "CWE-863",
+    "CWE-352",
+    "CWE-264",
+    "CWE-416",
+    "CWE-94",
+    "CWE-601",
+    "OTHER"
+  ],
+  "features": {
+    "model_input_features": [
+      {
+        "name": "input_ids",
+        "shape": "[batch_size, 512]",
+        "dtype": "int64 / torch.LongTensor",
+        "description": "Subword Byte-Pair Encoded (BPE) token IDs from source code using GraphCodeBERT tokenizer"
+      },
+      {
+        "name": "attention_mask",
+        "shape": "[batch_size, 512]",
+        "dtype": "int64 / torch.LongTensor",
+        "description": "Binary attention mask (1 for active code tokens, 0 for padded positions)"
+      }
+    ],
+    "model_target_features": [
+      {
+        "name": "label",
+        "shape": "[batch_size]",
+        "dtype": "float32 / torch.FloatTensor",
+        "description": "Binary vulnerability status (1 = Vulnerable, 0 = Patched/Benign) for BCEWithLogitsLoss"
+      },
+      {
+        "name": "cwe",
+        "shape": "[batch_size]",
+        "dtype": "int64 / torch.LongTensor",
+        "description": "Multi-class CWE vulnerability category index (top 20 + OTHER = 21 classes) for CrossEntropyLoss"
+      }
+    ],
+    "tabular_metadata_features": [
+      {
+        "name": "code",
+        "type": "string",
+        "role": "Raw function source code before tokenization"
+      },
+      {
+        "name": "language",
+        "type": "string",
+        "role": "Programming language (c, cpp, csharp, go, java, javascript, python)"
+      },
+      {
+        "name": "project",
+        "type": "string",
+        "role": "Repository identifier used for zero-leakage GroupShuffleSplit"
+      },
+      {
+        "name": "cwe",
+        "type": "string",
+        "role": "Canonical CWE taxonomy identifier (e.g. CWE-78, CWE-89)"
+      },
+      {
+        "name": "commit_date",
+        "type": "string",
+        "role": "Commit timestamp string"
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "role": "Unique hash identifier for sample provenance tracking"
+      },
+      {
+        "name": "cve_id",
+        "type": "string",
+        "role": "Corresponding CVE advisory ID"
+      },
+      {
+        "name": "granularity",
+        "type": "string",
+        "role": "Granularity level (function vs. hunk snippet)"
+      }
+    ]
+  }
+}
